@@ -75,8 +75,8 @@ const Kontakt = () => {
               <CardContent className="p-6 text-center">
                 <Phone className="h-10 w-10 text-primary mx-auto mb-4" />
                 <h3 className="font-semibold mb-2">Telefon</h3>
-                <a href="tel:01743764995" className="text-muted-foreground hover:text-primary">
-                  0174 3764995
+                <a href="tel:016093354106" className="text-muted-foreground hover:text-primary">
+                  0160 93354106
                 </a>
               </CardContent>
             </Card>

@@ -97,7 +97,7 @@ const Datenschutz = () => {
                 <br />
                 E-Mail: info@hochtaunus-automobile.de
                 <br />
-                Telefon: 0174 3764995
+                Telefon: 0160 93354106
               </p>
             </div>
           </div>
