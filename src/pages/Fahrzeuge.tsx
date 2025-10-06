@@ -114,6 +114,27 @@ const Fahrzeuge = () => {
       features: ["Matrix LED", "Rückfahrkamera", "Navi", "Sitzheizung"],
       condition: "Sehr gut",
       firstRegistration: "04/2018",
+       },
+    {
+      id: "6",
+      image: opelInsigniaImage,
+      brand: "Opel",
+      model: "Insignia OPC Line",
+      year: 2018,
+      price: 19900,
+      mileage: 64500,
+      fuel: "Benzin",
+      transmission: "Automatik",
+      color: "Weiß",
+      doors: 5,
+      seats: 5,
+      power: "191 kW (260 PS)",
+      co2Emissions: "159 g/km",
+      features: ["Matrix LED", "Rückfahrkamera", "Navi", "Sitzheizung"],
+      condition: "Sehr gut",
+      firstRegistration: "04/2018",
+
+      
     },
   ];
 
