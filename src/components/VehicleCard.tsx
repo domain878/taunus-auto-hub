@@ -2,7 +2,6 @@ import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Calendar, Gauge, Fuel, Settings } from "lucide-react";
-
 interface VehicleCardProps {
   id: string;
   image: string;
@@ -14,7 +13,6 @@ interface VehicleCardProps {
   fuel: string;
   transmission: string;
 }
-
 const VehicleCard = ({
   image,
   brand,
@@ -23,16 +21,11 @@ const VehicleCard = ({
   price,
   mileage,
   fuel,
-  transmission,
+  transmission
 }: VehicleCardProps) => {
-  return (
-    <Card className="overflow-hidden hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+  return <Card className="overflow-hidden hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
       <div className="aspect-video overflow-hidden">
-        <img
-          src={image}
-          alt={`${brand} ${model}`}
-          className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
-        />
+        
       </div>
       <CardContent className="p-4">
         <div className="mb-3">
@@ -73,8 +66,6 @@ const VehicleCard = ({
         </div>
         <Button variant="outline">Details</Button>
       </CardFooter>
-    </Card>
-  );
+    </Card>;
 };
-
 export default VehicleCard;
