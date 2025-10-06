@@ -98,7 +98,7 @@ const Kontakt = () => {
               <CardContent className="p-6 text-center">
                 <MapPin className="h-10 w-10 text-primary mx-auto mb-4" />
                 <h3 className="font-semibold mb-2">Standort</h3>
-                <p className="text-muted-foreground">Hochtaunuskreis</p>
+                <p className="text-muted-foreground">Zimmersmühlenweg 83 61440</p>
               </CardContent>
             </Card>
           </div>
@@ -228,7 +228,7 @@ const Kontakt = () => {
                     </div>
                     <div className="flex justify-between">
                       <span className="text-muted-foreground">Samstag:</span>
-                      <span className="font-medium">10:00 - 16:00 Uhr</span>
+                      <span className="font-medium">10:00 - 14:30 Uhr</span>
                     </div>
                     <div className="flex justify-between">
                       <span className="text-muted-foreground">Sonntag:</span>
