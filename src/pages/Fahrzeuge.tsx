@@ -6,78 +6,72 @@ import VehicleCard from "@/components/VehicleCard";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import audiA4Image from "@/assets/audi-a4.jpg";
+import miniCooperImage from "@/assets/mini-cooper.jpg";
+import audiA8Image from "@/assets/audi-a8.jpg";
+import fordFocusImage from "@/assets/ford-focus.jpg";
+import opelInsigniaImage from "@/assets/opel-insignia.jpg";
 
 const Fahrzeuge = () => {
   const [priceRange, setPriceRange] = useState("all");
   const [fuelType, setFuelType] = useState("all");
   const [brand, setBrand] = useState("all");
 
-  // Mock vehicle data
+  // Vehicle data with your images
   const vehicles = [
     {
       id: "1",
-      image: "https://images.unsplash.com/photo-1617814076367-b759c7d7e738?w=800",
-      brand: "BMW",
-      model: "3er 320d",
-      year: 2020,
-      price: 32990,
-      mileage: 45000,
+      image: audiA4Image,
+      brand: "Audi",
+      model: "A4 Quattro",
+      year: 2017,
+      price: 24900,
+      mileage: 85000,
       fuel: "Diesel",
       transmission: "Automatik",
     },
     {
       id: "2",
-      image: "https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?w=800",
-      brand: "Mercedes-Benz",
-      model: "C 200",
-      year: 2019,
-      price: 28900,
-      mileage: 52000,
+      image: miniCooperImage,
+      brand: "Mini",
+      model: "Cooper S JCW",
+      year: 2021,
+      price: 35900,
+      mileage: 28000,
       fuel: "Benzin",
       transmission: "Automatik",
     },
     {
       id: "3",
-      image: "https://images.unsplash.com/photo-1609521263047-f8f205293f24?w=800",
+      image: audiA8Image,
       brand: "Audi",
-      model: "A4 2.0 TFSI",
-      year: 2021,
-      price: 35500,
-      mileage: 38000,
-      fuel: "Benzin",
-      transmission: "Automatik",
-    },
-    {
-      id: "4",
-      image: "https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?w=800",
-      brand: "VW",
-      model: "Golf 8 GTI",
-      year: 2021,
-      price: 33900,
-      mileage: 25000,
-      fuel: "Benzin",
-      transmission: "Automatik",
-    },
-    {
-      id: "5",
-      image: "https://images.unsplash.com/photo-1612825173281-9a193378527e?w=800",
-      brand: "Porsche",
-      model: "Cayenne",
-      year: 2018,
-      price: 54900,
-      mileage: 68000,
+      model: "A8 4.2 TDI",
+      year: 2012,
+      price: 22900,
+      mileage: 145000,
       fuel: "Diesel",
       transmission: "Automatik",
     },
     {
-      id: "6",
-      image: "https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?w=800",
-      brand: "Audi",
-      model: "Q5 45 TFSI",
-      year: 2020,
-      price: 42500,
-      mileage: 41000,
+      id: "4",
+      image: fordFocusImage,
+      brand: "Ford",
+      model: "Focus Titanium",
+      year: 2014,
+      price: 9900,
+      mileage: 98000,
       fuel: "Benzin",
+      transmission: "Schaltgetriebe",
+    },
+    {
+      id: "5",
+      image: opelInsigniaImage,
+      brand: "Opel",
+      model: "Insignia OPC Line",
+      year: 2018,
+      price: 18900,
+      mileage: 72000,
+      fuel: "Diesel",
       transmission: "Automatik",
     },
   ];
