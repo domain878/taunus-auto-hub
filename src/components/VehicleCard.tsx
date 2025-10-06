@@ -25,7 +25,11 @@ const VehicleCard = ({
 }: VehicleCardProps) => {
   return <Card className="overflow-hidden hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
       <div className="aspect-video overflow-hidden">
-        
+        <img 
+          src={image} 
+          alt={`${brand} ${model}`}
+          className="w-full h-full object-cover"
+        />
       </div>
       <CardContent className="p-4">
         <div className="mb-3">
