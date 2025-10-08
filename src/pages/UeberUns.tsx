@@ -9,7 +9,7 @@ const UeberUns = () => {
     {
       icon: Award,
       title: "Erfahrung",
-      description: "Über 15 Jahre Erfahrung im Automobilhandel und hunderte zufriedene Kunden",
+      description: "Über 10 Jahre Erfahrung im Automobilhandel und hunderte zufriedene Kunden",
     },
     {
       icon: Shield,
@@ -66,7 +66,7 @@ const UeberUns = () => {
           <div className="prose prose-lg max-w-none">
             <h2 className="text-3xl font-bold mb-6">Unsere Geschichte</h2>
             <p className="text-muted-foreground leading-relaxed mb-4">
-              Seit über 15 Jahren sind wir Ihr kompetenter Ansprechpartner für hochwertige
+              Seit über 10 Jahren sind wir Ihr kompetenter Ansprechpartner für hochwertige
               Gebrauchtwagen im Hochtaunuskreis. Was als kleine Werkstatt begann, hat sich zu
               einem der vertrauenswürdigsten Autohäuser der Region entwickelt.
             </p>
@@ -136,12 +136,10 @@ const UeberUns = () => {
               <div className="text-sm md:text-base text-primary-foreground/90">Jahre Erfahrung</div>
             </div>
             <div>
-              <div className="text-4xl md:text-5xl font-bold mb-2">500+</div>
+              <div className="text-4xl md:text-5xl font-bold mb-2">400+</div>
               <div className="text-sm md:text-base text-primary-foreground/90">Zufriedene Kunden</div>
             </div>
             <div>
-              <div className="text-4xl md:text-5xl font-bold mb-2">1000+</div>
-              <div className="text-sm md:text-base text-primary-foreground/90">Verkaufte Fahrzeuge</div>
             </div>
             <div>
               <div className="text-4xl md:text-5xl font-bold mb-2">100%</div>
