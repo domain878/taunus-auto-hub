@@ -25,9 +25,9 @@ const Navigation = () => {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-3">
-            <img src={logo} alt="Hochtaunusautomobile Logo" className="h-10 w-10" />
+            <img src={logo} alt="Hochtaunus-Automobile Logo" className="h-10 w-10" />
             <span className="font-bold text-lg text-foreground hidden sm:block">
-              Hochtaunusautomobile
+              Hochtaunus-Automobile
             </span>
           </Link>
 
