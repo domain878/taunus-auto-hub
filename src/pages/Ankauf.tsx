@@ -53,9 +53,9 @@ const Ankauf = () => {
       <Navigation />
 
       {/* Header */}
-      <section className="bg-gradient-to-r from-primary to-primary/80 text-primary-foreground py-16">
+      <section className="bg-gradient-to-r from-primary to-primary/80 text-primary-foreground py-16 animate-fade-in">
         <div className="container mx-auto px-4">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">Fahrzeugankauf</h1>
+          <h1 className="text-4xl md:text-5xl font-bold mb-4 animate-scale-in">Fahrzeugankauf</h1>
           <p className="text-xl text-primary-foreground/90">
             Wir kaufen Ihr Auto zu fairen Preisen – schnell, transparent und unkompliziert
           </p>
@@ -63,12 +63,12 @@ const Ankauf = () => {
       </section>
 
       {/* Benefits */}
-      <section className="py-12 bg-muted">
+      <section className="py-12 bg-muted animate-fade-in">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl font-bold text-center mb-8">Ihre Vorteile</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 max-w-4xl mx-auto">
             {benefits.map((benefit, index) => (
-              <div key={index} className="flex items-start gap-3">
+              <div key={index} className="flex items-start gap-3 animate-fade-in" style={{ animationDelay: `${index * 0.1}s` }}>
                 <CheckCircle className="h-5 w-5 text-primary flex-shrink-0 mt-1" />
                 <span className="text-foreground">{benefit}</span>
               </div>

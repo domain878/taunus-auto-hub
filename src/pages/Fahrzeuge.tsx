@@ -146,9 +146,9 @@ const Fahrzeuge = () => {
       <Navigation />
 
       {/* Header */}
-      <section className="bg-gradient-to-r from-primary to-primary/80 text-primary-foreground py-16">
+      <section className="bg-gradient-to-r from-primary to-primary/80 text-primary-foreground py-16 animate-fade-in">
         <div className="container mx-auto px-4">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">Unsere Fahrzeuge</h1>
+          <h1 className="text-4xl md:text-5xl font-bold mb-4 animate-scale-in">Unsere Fahrzeuge</h1>
           <p className="text-xl text-primary-foreground/90">
             Entdecken Sie unsere große Auswahl an geprüften Gebrauchtwagen
           </p>
@@ -225,8 +225,10 @@ const Fahrzeuge = () => {
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {vehicles.map((vehicle) => (
-              <VehicleCard key={vehicle.id} {...vehicle} />
+            {vehicles.map((vehicle, index) => (
+              <div key={vehicle.id} className="animate-fade-in" style={{ animationDelay: `${index * 0.1}s` }}>
+                <VehicleCard {...vehicle} />
+              </div>
             ))}
           </div>
         </div>

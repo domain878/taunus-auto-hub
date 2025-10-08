@@ -121,8 +121,8 @@ const Index = () => {
         >
           <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/30" />
         </div>
-        <div className="relative z-10 container mx-auto px-4 text-center text-white">
-          <h1 className="text-4xl md:text-6xl font-bold mb-6">
+        <div className="relative z-10 container mx-auto px-4 text-center text-white animate-fade-in">
+          <h1 className="text-4xl md:text-6xl font-bold mb-6 animate-scale-in">
             Ihr zuverlässiger Partner für
             <span className="block text-primary mt-2">Gebrauchtwagen im Hochtaunus</span>
           </h1>
@@ -147,12 +147,12 @@ const Index = () => {
       {/* Benefits Section */}
       <section className="py-16 bg-muted">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-12">
+          <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 animate-fade-in">
             Warum Hochtaunusautomobile?
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {benefits.map((benefit, index) => (
-              <Card key={index} className="hover:shadow-lg transition-shadow">
+              <Card key={index} className="hover:shadow-lg transition-all duration-300 hover:-translate-y-1 animate-fade-in" style={{ animationDelay: `${index * 0.1}s` }}>
                 <CardContent className="p-6">
                   <benefit.icon className="h-12 w-12 text-primary mb-4" />
                   <h3 className="font-bold text-lg mb-2">{benefit.title}</h3>
@@ -167,7 +167,7 @@ const Index = () => {
       {/* Featured Vehicles */}
       <section className="py-16">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
+          <div className="text-center mb-12 animate-fade-in">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">Aktuelle Fahrzeuge</h2>
             <p className="text-muted-foreground text-lg">
               Entdecken Sie unsere ausgewählten Gebrauchtwagen
@@ -187,9 +187,9 @@ const Index = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 bg-gradient-to-r from-primary to-primary/80 text-primary-foreground">
+      <section className="py-16 bg-gradient-to-r from-primary to-primary/80 text-primary-foreground animate-fade-in">
         <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-6">
+          <h2 className="text-3xl md:text-4xl font-bold mb-6 animate-scale-in">
             Verkaufen Sie Ihr Fahrzeug?
           </h2>
           <p className="text-xl mb-8 text-primary-foreground/90 max-w-2xl mx-auto">

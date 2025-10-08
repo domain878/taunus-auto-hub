@@ -58,9 +58,9 @@ const Kontakt = () => {
       <Navigation />
 
       {/* Header */}
-      <section className="bg-gradient-to-r from-primary to-primary/80 text-primary-foreground py-16">
+      <section className="bg-gradient-to-r from-primary to-primary/80 text-primary-foreground py-16 animate-fade-in">
         <div className="container mx-auto px-4">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">Kontakt</h1>
+          <h1 className="text-4xl md:text-5xl font-bold mb-4 animate-scale-in">Kontakt</h1>
           <p className="text-xl text-primary-foreground/90">
             Wir sind für Sie da – kontaktieren Sie uns oder buchen Sie direkt einen Termin
           </p>
@@ -68,10 +68,10 @@ const Kontakt = () => {
       </section>
 
       {/* Contact Info */}
-      <section className="py-12 bg-muted">
+      <section className="py-12 bg-muted animate-fade-in">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-            <Card>
+            <Card className="hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
               <CardContent className="p-6 text-center">
                 <Phone className="h-10 w-10 text-primary mx-auto mb-4" />
                 <h3 className="font-semibold mb-2">Telefon</h3>

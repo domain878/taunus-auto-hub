@@ -42,7 +42,7 @@ const VehicleCard = ({
   firstRegistration,
   previousOwners
 }: VehicleCardProps) => {
-  return <Card className="overflow-hidden hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+  return <Card className="overflow-hidden hover:shadow-lg transition-all duration-300 hover:-translate-y-2 hover:scale-[1.02] animate-fade-in">
       <div className="aspect-video overflow-hidden">
         <img 
           src={image} 
@@ -128,7 +128,7 @@ const VehicleCard = ({
             {price.toLocaleString("de-DE")} €
           </p>
         </div>
-        <Button variant="outline">Details</Button>
+        <Button variant="outline" className="hover:scale-105 transition-transform duration-200">Details</Button>
       </CardFooter>
     </Card>;
 };
