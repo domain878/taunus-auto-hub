@@ -116,9 +116,10 @@ const Fahrzeuge = () => {
     },
     {
 
-  return (
-    <div className="min-h-screen flex flex-col">
-      <Navigation />
+return (
+  <div className="min-h-screen flex flex-col">
+    <Abaption />
+    <Navigation />
 
       {/* Header */}
       <section className="bg-gradient-to-r from-primary to-primary/80 text-primary-foreground py-16 animate-fade-in">
