@@ -132,7 +132,7 @@ const UeberUns = () => {
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto text-center">
             <div>
-              <div className="text-4xl md:text-5xl font-bold mb-2">15+</div>
+              <div className="text-4xl md:text-5xl font-bold mb-2">10+</div>
               <div className="text-sm md:text-base text-primary-foreground/90">Jahre Erfahrung</div>
             </div>
             <div>
