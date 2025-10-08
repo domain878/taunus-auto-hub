@@ -14,18 +14,18 @@ const Impressum = () => {
             <div>
               <h2 className="text-2xl font-semibold mb-4">Angaben gemäß § 5 TMG</h2>
               <p>
-                Hochtaunusautomobile
+                Hochtaunus-Automobile
                 <br />
-                [Straße und Hausnummer]
+                [Zimmersmühlenweg 83]
                 <br />
-                [PLZ und Ort]
+                [61440 Oberursel]
               </p>
             </div>
 
             <div>
               <h2 className="text-2xl font-semibold mb-4">Kontakt</h2>
               <p>
-                Telefon: 0174 3764995
+                Telefon: 06171/9781111
                 <br />
                 E-Mail: info@hochtaunus-automobile.de
               </p>
@@ -36,7 +36,7 @@ const Impressum = () => {
               <p>
                 Umsatzsteuer-Identifikationsnummer gemäß §27 a Umsatzsteuergesetz:
                 <br />
-                [USt-IdNr.]
+                [USt-IdNr.DE346033147]
               </p>
             </div>
 
