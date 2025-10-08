@@ -124,7 +124,7 @@ const Index = () => {
         <div className="relative z-10 container mx-auto px-4 text-center text-white animate-fade-in">
           <h1 className="text-4xl md:text-6xl font-bold mb-6 animate-scale-in">
             Ihr zuverlässiger Partner für
-            <span className="block text-primary mt-2">Gebrauchtwagen im Hochtaunus</span>
+            <span className="block text-primary mt-2">Gebrauchtwagen im Hochtaunuskreis</span>
           </h1>
           <p className="text-xl md:text-2xl mb-8 text-white/90 max-w-2xl mx-auto">
             Hochwertige Fahrzeuge, faire Preise und persönliche Beratung
@@ -148,7 +148,7 @@ const Index = () => {
       <section className="py-16 bg-muted">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 animate-fade-in">
-            Warum Hochtaunusautomobile?
+            Warum Hochtaunus-Automobile?
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {benefits.map((benefit, index) => (
