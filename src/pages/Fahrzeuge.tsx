@@ -115,25 +115,6 @@ const Fahrzeuge = () => {
       firstRegistration: "04/2018",
     },
     {
-      id: "6",
-      image: ,
-      brand: "BMW",
-      model: "BMW 225xe Active Tourer",
-      year: 2017,
-      price: 14990,
-      mileage: 96000,
-      fuel: "Benzin",
-      transmission: "Automatik",
-      color: "Schwarz",
-      doors: 5,
-      seats: 5,
-      power: "100 kW (136 PS)",
-      co2Emissions: "46 g/km",
-      features: ["LED", "Plug in Hybrid", "Navi", "Sitzheizung"],
-      condition: "Sehr gut",
-      firstRegistration: "06/2017",
-    },
-  ];
 
   return (
     <div className="min-h-screen flex flex-col">
