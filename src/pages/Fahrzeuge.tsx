@@ -115,7 +115,7 @@ const Fahrzeuge = () => {
       condition: "Sehr gut",
       firstRegistration: "04/2018",
     },
-    {
+    ];
 
 return (
   <div className="min-h-screen flex flex-col">
@@ -137,6 +137,7 @@ return (
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
             <div>
+         );     
               <Label htmlFor="brand">Marke</Label>
               <Select value={brand} onValueChange={setBrand}>
                 <SelectTrigger id="brand">
