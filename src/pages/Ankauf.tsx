@@ -22,6 +22,7 @@ const Ankauf = () => {
     condition: "",
     message: "",
   });
+  const [photos, setPhotos] = useState<File[]>([]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -191,17 +192,38 @@ const Ankauf = () => {
                 </div>
 
                 <div>
-                  <Label htmlFor="photos">Fotos hochladen</Label>
-                  <div className="mt-2 border-2 border-dashed border-border rounded-lg p-8 text-center hover:border-primary transition-colors cursor-pointer">
-                    <Upload className="h-12 w-12 mx-auto text-muted-foreground mb-2" />
-                    <p className="text-sm text-muted-foreground">
-                      Klicken Sie hier oder ziehen Sie Fotos hierher
-                    </p>
-                    <p className="text-xs text-muted-foreground mt-1">
-                      Fahrzeugschein und Fotos vom Fahrzeug (max. 10 MB pro Datei)
-                    </p>
-                  </div>
-                </div>
+<Label htmlFor="photos">Fotos hochladen</Label>
+
+<label
+  htmlFor="photos"
+  className="mt-2 border-2 border-dashed border-border rounded p-8 text-center hover:border-primary transition-colors cursor-pointer block"
+>
+ <input
+    type="file"
+    id="photos"
+    accept="image/*"
+    multiple
+    capture="environment"
+    className="hidden"
+    onChange={(e) => setPhotos(Array.from(e.target.files || []))}
+  />
+
+  <Upload className="h-12 w-12 mx-auto text-muted-foreground mb-2" />
+  <p className="text-sm text-muted-foreground">
+    📸 Klicken Sie hier oder ziehen Sie Fotos hierher
+  </p>
+  <p className="text-xs text-muted-foreground mt-1">
+    Fahrzeugschein und Fotos vom Fahrzeug (max. 10 MB pro Datei)
+  </p>
+</label>
+
+{photos.length > 0 && (
+  <ul className="mt-4 text-sm text-muted-foreground text-left">
+    {photos.map((file, index) => (
+      <li key={index}>{file.name}</li>
+    ))}
+  </ul>
+)}
 
                 <Button type="submit" size="lg" className="w-full">
                   Anfrage senden
