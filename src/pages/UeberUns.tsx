@@ -140,8 +140,6 @@ const UeberUns = () => {
               <div className="text-sm md:text-base text-primary-foreground/90">Zufriedene Kunden</div>
             </div>
             <div>
-            </div>
-            <div>
               <div className="text-4xl md:text-5xl font-bold mb-2">100%</div>
               <div className="text-sm md:text-base text-primary-foreground/90">Qualitätsgeprüft</div>
             </div>
