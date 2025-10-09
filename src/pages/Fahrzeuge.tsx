@@ -314,14 +314,14 @@ return (
             loop
             muted
             playsInline
-            className="w-full h-full object-cover opacity-40"
+            className="w-full h-full object-cover opacity-70"
           >
             <source
               src="https://cdn.pixabay.com/video/2023/07/25/173195-849838825_large.mp4"
               type="video/mp4"
             />
           </video>
-          <div className="absolute inset-0 bg-gradient-to-r from-primary/90 to-primary/70" />
+          <div className="absolute inset-0 bg-gradient-to-r from-primary/60 to-primary/40" />
         </div>
         <div className="container mx-auto px-4 relative z-10">
           <h1 className="text-4xl md:text-5xl font-bold mb-4 text-primary-foreground animate-scale-in">
