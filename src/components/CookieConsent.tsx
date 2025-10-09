@@ -37,7 +37,7 @@ const CookieConsent = () => {
             <Cookie className="h-6 w-6 text-primary flex-shrink-0 mt-1" />
             <div className="flex-1">
               <h3 className="font-semibold text-lg mb-2">Verwendung von Cookies</h3>
-              <p className="text-sm text-muted-foreground leading-relaxed">
+              <div className="text-sm text-muted-foreground leading-relaxed">
                 Wir verwenden Cookies, um Ihnen die bestmögliche Erfahrung auf unserer Website zu bieten. 
                 Durch die Nutzung unserer Website stimmen Sie der Verwendung von Cookies zu.{" "}
                 <Link 
@@ -47,7 +47,7 @@ const CookieConsent = () => {
                 >
                   Mehr erfahren
                 </Link>
-              </p>
+              </div>
             </div>
           </div>
           <div className="flex flex-col sm:flex-row gap-3 w-full md:w-auto">
