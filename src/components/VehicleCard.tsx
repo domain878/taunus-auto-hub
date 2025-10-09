@@ -1,8 +1,9 @@
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Calendar, Gauge, Fuel, Settings, Palette, DoorOpen, Users, Zap, Leaf, ChevronLeft, ChevronRight } from "lucide-react";
+import { Calendar, Gauge, Fuel, Settings, Palette, DoorOpen, Users, Zap, Leaf, ChevronLeft, ChevronRight, Phone } from "lucide-react";
 import { useState } from "react";
+import { toast } from "sonner";
 
 interface VehicleCardProps {
   id: string;
@@ -156,13 +157,23 @@ const VehicleCard = ({
           </div>
         )}
       </CardContent>
-      <CardFooter className="p-4 pt-0 flex items-center justify-between">
+      <CardFooter className="p-4 pt-0 flex items-center justify-between gap-2">
         <div>
           <p className="text-2xl font-bold text-primary">
             {price.toLocaleString("de-DE")} €
           </p>
         </div>
-        <Button variant="outline" className="hover:scale-105 transition-transform duration-200">Details</Button>
+        <Button 
+          variant="outline" 
+          className="hover:scale-105 transition-transform duration-200"
+          onClick={() => {
+            toast.success("Wir freuen uns auf Ihre Anfrage!");
+            window.location.href = "/kontakt";
+          }}
+        >
+          <Phone className="h-4 w-4 mr-2" />
+          Kontakt
+        </Button>
       </CardFooter>
     </Card>;
 };
