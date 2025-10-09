@@ -114,7 +114,7 @@ const Index = () => {
 
   const { ref: heroRef, offsetY } = useParallax(0.3);
   const videoRef = useRef<HTMLVideoElement>(null);
-  const [showPlay, setShowPlay] = useState(false);
+  const [showPlay, setShowPlay] = useState(true);
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -182,7 +182,7 @@ const Index = () => {
             <p className="text-center text-muted-foreground mb-8">Kurzer Eindruck in 20 Sekunden</p>
           </ScrollReveal>
           <ScrollReveal animation="scale-in" delay={150}>
-            <div className="relative rounded-xl overflow-hidden shadow-xl border bg-card">
+            <div className="relative rounded-xl overflow-hidden shadow-xl border bg-card cursor-pointer" onClick={() => { const v = videoRef.current; if (!v) return; v.muted = true; const p = v.play(); if (p && typeof p.then === 'function') { p.catch(() => setShowPlay(true)); } }}>
               <video
                 ref={videoRef}
                 autoPlay
