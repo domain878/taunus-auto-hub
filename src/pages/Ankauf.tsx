@@ -91,7 +91,7 @@ const Ankauf = () => {
               </p>
             </CardHeader>
             <CardContent>
-              <form onSubmit={handleSubmit} className="space-y-6">
+              <form onSubmit={handleSubmit} className="space-y-4">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
                     <Label htmlFor="name">Name *</Label>
@@ -226,27 +226,21 @@ const Ankauf = () => {
     ))}
   </ul>
 )}
-{photos.length > 0 && (
-  <ul className="mt-4 text-sm text-muted-foreground text-left">
-    {photos.map((file, index) => (
-      <li key={index}>{file.name}</li>
-    ))}
-  </ul>
-)}
+
 
                 <Button type="submit" size="lg" className="w-full">
                   Anfrage senden
-                </Button>
-              </form>
-            </CardContent>
-          </Card>
-        </div>
-      </section>
-
-      <Footer />
-      <WhatsAppButton />
+               </Button>
+            </form>
+        </CardContent>
+    </Card>
     </div>
-  );
-};
+    </section>
+
+    <Footer />
+    <WhatsAppButton />
+    </div>
+    );
+    };
 
 export default Ankauf;
