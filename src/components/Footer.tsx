@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { Phone, Mail, MapPin } from "lucide-react";
-import logo from "@/assets/logo.png";
+import logo from "@/assets/logo.jpg";
 
 const Footer = () => {
   return (
@@ -10,7 +10,7 @@ const Footer = () => {
           {/* Company Info */}
           <div className="col-span-1 md:col-span-2">
             <div className="flex items-center gap-3 mb-4">
-              <img src={logo} alt="Hochtaunusautomobile" className="h-10 w-10" />
+              <img src={logo} alt="Hochtaunusautomobile" className="h-12 w-auto" />
               <h3 className="font-bold text-lg">Hochtaunusautomobile</h3>
             </div>
             <p className="text-sm text-secondary-foreground/80 mb-4">
