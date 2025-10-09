@@ -6,8 +6,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Calculator, CheckCircle } from "lucide-react";
-import { useState } from "react";
+import { Calculator, CheckCircle, Upload } from "lucide-react";
+import { useState, useRef } from "react";
 import { toast } from "sonner";
 
 const Bewertung = () => {
@@ -22,6 +22,9 @@ const Bewertung = () => {
     email: "",
     phone: "",
   });
+  const [photos, setPhotos] = useState<File[]>([]);
+  const [isDragging, setIsDragging] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -37,6 +40,24 @@ const Bewertung = () => {
       email: "",
       phone: "",
     });
+    setPhotos([]);
+  };
+
+  const handleDragOver = (e: React.DragEvent) => {
+    e.preventDefault();
+    setIsDragging(true);
+  };
+
+  const handleDragLeave = (e: React.DragEvent) => {
+    e.preventDefault();
+    setIsDragging(false);
+  };
+
+  const handleDrop = (e: React.DragEvent) => {
+    e.preventDefault();
+    setIsDragging(false);
+    const files = Array.from(e.dataTransfer.files).filter(file => file.type.startsWith('image/'));
+    setPhotos(prev => [...prev, ...files]);
   };
 
   const benefits = [
@@ -208,6 +229,54 @@ const Bewertung = () => {
                         onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                       />
                     </div>
+                  </div>
+                </div>
+
+                <div className="space-y-4 pt-4 border-t">
+                  <h3 className="font-semibold text-lg">Fahrzeugfotos</h3>
+                  <div>
+                    <Label htmlFor="photos">Fotos hochladen (optional)</Label>
+
+                    <div
+                      onClick={() => fileInputRef.current?.click()}
+                      onDragOver={handleDragOver}
+                      onDragLeave={handleDragLeave}
+                      onDrop={handleDrop}
+                      className={`mt-2 border-2 border-dashed rounded p-8 text-center transition-all cursor-pointer ${
+                        isDragging 
+                          ? 'border-primary bg-primary/5 scale-105' 
+                          : 'border-border hover:border-primary'
+                      }`}
+                    >
+                      <Upload className={`h-12 w-12 mx-auto mb-2 transition-colors ${
+                        isDragging ? 'text-primary' : 'text-muted-foreground'
+                      }`} />
+                      <p className="text-sm text-muted-foreground">
+                        📸 Klicken Sie hier oder ziehen Sie Fotos hierher
+                      </p>
+                      <p className="text-xs text-muted-foreground mt-1">
+                        Fahrzeugfotos helfen uns bei einer genaueren Bewertung
+                      </p>
+                    </div>
+
+                    <input
+                      ref={fileInputRef}
+                      id="photos"
+                      type="file"
+                      accept="image/*"
+                      multiple
+                      capture="environment"
+                      className="hidden"
+                      onChange={(e) => setPhotos(prev => [...prev, ...Array.from(e.target.files || [])])}
+                    />
+
+                    {photos.length > 0 && (
+                      <ul className="mt-4 text-sm text-muted-foreground text-left">
+                        {photos.map((file, index) => (
+                          <li key={index}>{file.name}</li>
+                        ))}
+                      </ul>
+                    )}
                   </div>
                 </div>
 
