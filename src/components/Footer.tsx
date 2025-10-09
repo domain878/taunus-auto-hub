@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Phone, Mail, MapPin } from "lucide-react";
+import { Phone, Mail, MapPin, Instagram } from "lucide-react";
 import logo from "@/assets/logo.jpg";
 
 const Footer = () => {
@@ -36,6 +36,15 @@ const Footer = () => {
                 <MapPin className="h-4 w-4" />
                 Zimmersmühlenweg 83, 61440 Oberursel (Taunus)
               </div>
+              <a
+                href="https://www.instagram.com/hochtaunusautomobile"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 text-sm hover:text-primary transition-colors"
+              >
+                <Instagram className="h-4 w-4" />
+                @hochtaunusautomobile
+              </a>
             </div>
           </div>
 
