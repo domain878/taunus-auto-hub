@@ -7,7 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { CheckCircle, Upload } from "lucide-react";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { toast } from "sonner";
 
 const Ankauf = () => {
@@ -23,6 +23,7 @@ const Ankauf = () => {
     message: "",
   });
   const [photos, setPhotos] = useState<File[]>([]);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -194,20 +195,10 @@ const Ankauf = () => {
                 <div>
 <Label htmlFor="photos">Fotos hochladen</Label>
 
-<label
-  htmlFor="photos"
-  className="mt-2 border-2 border-dashed border-border rounded p-8 text-center hover:border-primary transition-colors cursor-pointer block"
+<div
+  onClick={() => fileInputRef.current?.click()}
+  className="mt-2 border-2 border-dashed border-border rounded p-8 text-center hover:border-primary transition-colors cursor-pointer"
 >
- <input
-    type="file"
-    id="photos"
-    accept="image/*"
-    multiple
-    capture="environment"
-    className="hidden"
-    onChange={(e) => setPhotos(Array.from(e.target.files || []))}
-  />
-
   <Upload className="h-12 w-12 mx-auto text-muted-foreground mb-2" />
   <p className="text-sm text-muted-foreground">
     📸 Klicken Sie hier oder ziehen Sie Fotos hierher
@@ -215,8 +206,26 @@ const Ankauf = () => {
   <p className="text-xs text-muted-foreground mt-1">
     Fahrzeugschein und Fotos vom Fahrzeug (max. 10 MB pro Datei)
   </p>
-</label>
+</div>
 
+<input
+  ref={fileInputRef}
+  id="photos"
+  type="file"
+  accept="image/*"
+  multiple
+  capture="environment"
+  className="hidden"
+  onChange={(e) => setPhotos(Array.from(e.target.files || []))}
+/>
+
+{photos.length > 0 && (
+  <ul className="mt-4 text-sm text-muted-foreground text-left">
+    {photos.map((file, index) => (
+      <li key={index}>{file.name}</li>
+    ))}
+  </ul>
+)}
 {photos.length > 0 && (
   <ul className="mt-4 text-sm text-muted-foreground text-left">
     {photos.map((file, index) => (
