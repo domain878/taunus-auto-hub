@@ -4,6 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { Calendar, Gauge, Fuel, Settings, Palette, DoorOpen, Users, Zap, Leaf, ChevronLeft, ChevronRight, Phone } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
+import { Link } from "react-router-dom";
 
 interface VehicleCardProps {
   id: string;
@@ -168,11 +169,13 @@ const VehicleCard = ({
           className="hover:scale-105 transition-transform duration-200"
           onClick={() => {
             toast.success("Wir freuen uns auf Ihre Anfrage!");
-            window.location.href = "/kontakt";
           }}
+          asChild
         >
-          <Phone className="h-4 w-4 mr-2" />
-          Kontakt
+          <Link to="/kontakt">
+            <Phone className="h-4 w-4 mr-2" />
+            Kontakt
+          </Link>
         </Button>
       </CardFooter>
     </Card>;
