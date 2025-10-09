@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
@@ -6,6 +6,11 @@ import VehicleCard from "@/components/VehicleCard";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Textarea } from "@/components/ui/textarea";
+import { Upload, Plus, X } from "lucide-react";
+import { toast } from "sonner";
 import audiA4Image from "@/assets/audi-a4.jpg";
 import miniCooperImage from "@/assets/mini-cooper.jpg";
 import audiA8Image from "@/assets/audi-a8.jpg";
@@ -16,12 +21,35 @@ const Fahrzeuge = () => {
   const [priceRange, setPriceRange] = useState("all");
   const [fuelType, setFuelType] = useState("all");
   const [brand, setBrand] = useState("all");
+  const [showAddForm, setShowAddForm] = useState(false);
+  const [vehicleImages, setVehicleImages] = useState<File[]>([]);
+  const [isDragging, setIsDragging] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  
+  const [newVehicle, setNewVehicle] = useState({
+    brand: "",
+    model: "",
+    year: "",
+    price: "",
+    mileage: "",
+    fuel: "",
+    transmission: "",
+    color: "",
+    doors: "",
+    seats: "",
+    power: "",
+    co2Emissions: "",
+    features: "",
+    condition: "",
+    firstRegistration: "",
+    previousOwners: "",
+  });
 
   // Vehicle data with your images
-  const vehicles = [
+  const [vehicles, setVehicles] = useState([
     {
       id: "1",
-      image: audiA4Image,
+      images: [audiA4Image],
       brand: "Audi",
       model: "A4 Quattro",
       year: 2017,
@@ -41,7 +69,7 @@ const Fahrzeuge = () => {
     },
     {
       id: "2",
-      image: miniCooperImage,
+      images: [miniCooperImage],
       brand: "Mini",
       model: "Cooper S JCW",
       year: 2022,
@@ -61,7 +89,7 @@ const Fahrzeuge = () => {
     },
     {
       id: "3",
-      image: audiA8Image,
+      images: [audiA8Image],
       brand: "Audi",
       model: "A8 4.2 TDI",
       year: 2011,
@@ -81,7 +109,7 @@ const Fahrzeuge = () => {
     },
     {
       id: "4",
-      image: fordFocusImage,
+      images: [fordFocusImage],
       brand: "Ford",
       model: "Focus Titanium",
       year: 2011,
@@ -101,7 +129,7 @@ const Fahrzeuge = () => {
     },
     {
       id: "5",
-      image: opelInsigniaImage,
+      images: [opelInsigniaImage],
       brand: "Opel",
       model: "Insignia OPC Line",
       year: 2018,
@@ -119,7 +147,88 @@ const Fahrzeuge = () => {
       firstRegistration: "04/2018",
       previousOwners: 1,
     },
-    ];
+  ]);
+
+  const handleDragOver = (e: React.DragEvent) => {
+    e.preventDefault();
+    setIsDragging(true);
+  };
+
+  const handleDragLeave = (e: React.DragEvent) => {
+    e.preventDefault();
+    setIsDragging(false);
+  };
+
+  const handleDrop = (e: React.DragEvent) => {
+    e.preventDefault();
+    setIsDragging(false);
+    const files = Array.from(e.dataTransfer.files).filter(file => file.type.startsWith('image/'));
+    if (vehicleImages.length + files.length <= 15) {
+      setVehicleImages(prev => [...prev, ...files]);
+    } else {
+      toast.error("Maximal 15 Bilder erlaubt");
+    }
+  };
+
+  const removeImage = (index: number) => {
+    setVehicleImages(prev => prev.filter((_, i) => i !== index));
+  };
+
+  const handleAddVehicle = (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    if (vehicleImages.length === 0) {
+      toast.error("Bitte laden Sie mindestens ein Bild hoch");
+      return;
+    }
+
+    const imageUrls = vehicleImages.map(file => URL.createObjectURL(file));
+    
+    const vehicle = {
+      id: Date.now().toString(),
+      images: imageUrls,
+      brand: newVehicle.brand,
+      model: newVehicle.model,
+      year: parseInt(newVehicle.year),
+      price: parseInt(newVehicle.price),
+      mileage: parseInt(newVehicle.mileage),
+      fuel: newVehicle.fuel,
+      transmission: newVehicle.transmission,
+      color: newVehicle.color,
+      doors: parseInt(newVehicle.doors),
+      seats: parseInt(newVehicle.seats),
+      power: newVehicle.power,
+      co2Emissions: newVehicle.co2Emissions,
+      features: newVehicle.features.split(',').map(f => f.trim()),
+      condition: newVehicle.condition,
+      firstRegistration: newVehicle.firstRegistration,
+      previousOwners: parseInt(newVehicle.previousOwners),
+    };
+
+    setVehicles(prev => [vehicle, ...prev]);
+    
+    setNewVehicle({
+      brand: "",
+      model: "",
+      year: "",
+      price: "",
+      mileage: "",
+      fuel: "",
+      transmission: "",
+      color: "",
+      doors: "",
+      seats: "",
+      power: "",
+      co2Emissions: "",
+      features: "",
+      condition: "",
+      firstRegistration: "",
+      previousOwners: "",
+    });
+    setVehicleImages([]);
+    setShowAddForm(false);
+    toast.success("Fahrzeug erfolgreich hinzugefügt!");
+  };
 
 return (
   <div className="min-h-screen flex flex-col">
@@ -194,6 +303,274 @@ return (
               <Input id="search" type="text" placeholder="Fahrzeug suchen..." />
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* Add Vehicle Form */}
+      <section className="py-8 bg-muted">
+        <div className="container mx-auto px-4 max-w-4xl">
+          <div className="flex justify-between items-center mb-6">
+            <h2 className="text-2xl font-bold">Fahrzeug hinzufügen</h2>
+            <Button onClick={() => setShowAddForm(!showAddForm)} variant="outline">
+              <Plus className="h-4 w-4 mr-2" />
+              {showAddForm ? 'Formular schließen' : 'Neues Fahrzeug'}
+            </Button>
+          </div>
+
+          {showAddForm && (
+            <Card className="animate-fade-in">
+              <CardHeader>
+                <CardTitle>Neues Fahrzeug erstellen</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <form onSubmit={handleAddVehicle} className="space-y-6">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <Label htmlFor="new-brand">Marke *</Label>
+                      <Input
+                        id="new-brand"
+                        required
+                        value={newVehicle.brand}
+                        onChange={(e) => setNewVehicle({ ...newVehicle, brand: e.target.value })}
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor="new-model">Modell *</Label>
+                      <Input
+                        id="new-model"
+                        required
+                        value={newVehicle.model}
+                        onChange={(e) => setNewVehicle({ ...newVehicle, model: e.target.value })}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <Label htmlFor="new-year">Baujahr *</Label>
+                      <Input
+                        id="new-year"
+                        type="number"
+                        required
+                        value={newVehicle.year}
+                        onChange={(e) => setNewVehicle({ ...newVehicle, year: e.target.value })}
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor="new-price">Preis (€) *</Label>
+                      <Input
+                        id="new-price"
+                        type="number"
+                        required
+                        value={newVehicle.price}
+                        onChange={(e) => setNewVehicle({ ...newVehicle, price: e.target.value })}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <Label htmlFor="new-mileage">Kilometerstand *</Label>
+                      <Input
+                        id="new-mileage"
+                        type="number"
+                        required
+                        value={newVehicle.mileage}
+                        onChange={(e) => setNewVehicle({ ...newVehicle, mileage: e.target.value })}
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor="new-fuel">Kraftstoff *</Label>
+                      <Input
+                        id="new-fuel"
+                        required
+                        value={newVehicle.fuel}
+                        onChange={(e) => setNewVehicle({ ...newVehicle, fuel: e.target.value })}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <Label htmlFor="new-transmission">Getriebe *</Label>
+                      <Input
+                        id="new-transmission"
+                        required
+                        value={newVehicle.transmission}
+                        onChange={(e) => setNewVehicle({ ...newVehicle, transmission: e.target.value })}
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor="new-color">Farbe *</Label>
+                      <Input
+                        id="new-color"
+                        required
+                        value={newVehicle.color}
+                        onChange={(e) => setNewVehicle({ ...newVehicle, color: e.target.value })}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <Label htmlFor="new-doors">Türen *</Label>
+                      <Input
+                        id="new-doors"
+                        type="number"
+                        required
+                        value={newVehicle.doors}
+                        onChange={(e) => setNewVehicle({ ...newVehicle, doors: e.target.value })}
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor="new-seats">Sitze *</Label>
+                      <Input
+                        id="new-seats"
+                        type="number"
+                        required
+                        value={newVehicle.seats}
+                        onChange={(e) => setNewVehicle({ ...newVehicle, seats: e.target.value })}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <Label htmlFor="new-power">Leistung *</Label>
+                      <Input
+                        id="new-power"
+                        required
+                        placeholder="z.B. 150 PS"
+                        value={newVehicle.power}
+                        onChange={(e) => setNewVehicle({ ...newVehicle, power: e.target.value })}
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor="new-co2">CO2-Emissionen *</Label>
+                      <Input
+                        id="new-co2"
+                        required
+                        placeholder="z.B. 120 g/km"
+                        value={newVehicle.co2Emissions}
+                        onChange={(e) => setNewVehicle({ ...newVehicle, co2Emissions: e.target.value })}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <Label htmlFor="new-condition">Zustand *</Label>
+                      <Input
+                        id="new-condition"
+                        required
+                        placeholder="z.B. Neuwertig, Gebraucht"
+                        value={newVehicle.condition}
+                        onChange={(e) => setNewVehicle({ ...newVehicle, condition: e.target.value })}
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor="new-firstRegistration">Erstzulassung *</Label>
+                      <Input
+                        id="new-firstRegistration"
+                        required
+                        placeholder="z.B. 05/2020"
+                        value={newVehicle.firstRegistration}
+                        onChange={(e) => setNewVehicle({ ...newVehicle, firstRegistration: e.target.value })}
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <Label htmlFor="new-previousOwners">Vorbesitzer *</Label>
+                    <Input
+                      id="new-previousOwners"
+                      type="number"
+                      required
+                      value={newVehicle.previousOwners}
+                      onChange={(e) => setNewVehicle({ ...newVehicle, previousOwners: e.target.value })}
+                    />
+                  </div>
+
+                  <div>
+                    <Label htmlFor="new-features">Ausstattung (mit Komma getrennt) *</Label>
+                    <Textarea
+                      id="new-features"
+                      required
+                      placeholder="z.B. Navigationssystem, Ledersitze, Klimaautomatik"
+                      value={newVehicle.features}
+                      onChange={(e) => setNewVehicle({ ...newVehicle, features: e.target.value })}
+                    />
+                  </div>
+
+                  <div>
+                    <Label>Fahrzeugbilder (max. 15) *</Label>
+                    <div
+                      onClick={() => fileInputRef.current?.click()}
+                      onDragOver={handleDragOver}
+                      onDragLeave={handleDragLeave}
+                      onDrop={handleDrop}
+                      className={`mt-2 border-2 border-dashed rounded p-8 text-center transition-all cursor-pointer ${
+                        isDragging 
+                          ? 'border-primary bg-primary/5 scale-105' 
+                          : 'border-border hover:border-primary'
+                      }`}
+                    >
+                      <Upload className={`h-12 w-12 mx-auto mb-2 transition-colors ${
+                        isDragging ? 'text-primary' : 'text-muted-foreground'
+                      }`} />
+                      <p className="text-sm text-muted-foreground">
+                        📸 Klicken Sie hier oder ziehen Sie bis zu 15 Bilder hierher
+                      </p>
+                      <p className="text-xs text-muted-foreground mt-1">
+                        {vehicleImages.length}/15 Bilder hochgeladen
+                      </p>
+                    </div>
+
+                    <input
+                      ref={fileInputRef}
+                      type="file"
+                      accept="image/*"
+                      multiple
+                      className="hidden"
+                      onChange={(e) => {
+                        const files = Array.from(e.target.files || []);
+                        if (vehicleImages.length + files.length <= 15) {
+                          setVehicleImages(prev => [...prev, ...files]);
+                        } else {
+                          toast.error("Maximal 15 Bilder erlaubt");
+                        }
+                      }}
+                    />
+
+                    {vehicleImages.length > 0 && (
+                      <div className="mt-4 grid grid-cols-3 md:grid-cols-5 gap-2">
+                        {vehicleImages.map((file, index) => (
+                          <div key={index} className="relative group">
+                            <img
+                              src={URL.createObjectURL(file)}
+                              alt={`Vorschau ${index + 1}`}
+                              className="w-full h-24 object-cover rounded"
+                            />
+                            <button
+                              type="button"
+                              onClick={() => removeImage(index)}
+                              className="absolute -top-2 -right-2 bg-destructive text-destructive-foreground rounded-full p-1 opacity-0 group-hover:opacity-100 transition-opacity"
+                            >
+                              <X className="h-4 w-4" />
+                            </button>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+
+                  <Button type="submit" size="lg" className="w-full">
+                    Fahrzeug hinzufügen
+                  </Button>
+                </form>
+              </CardContent>
+            </Card>
+          )}
         </div>
       </section>
 

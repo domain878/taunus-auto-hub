@@ -1,11 +1,12 @@
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Calendar, Gauge, Fuel, Settings, Palette, DoorOpen, Users, Zap, Leaf, Award, UserCheck } from "lucide-react";
+import { Calendar, Gauge, Fuel, Settings, Palette, DoorOpen, Users, Zap, Leaf, ChevronLeft, ChevronRight } from "lucide-react";
+import { useState } from "react";
 
 interface VehicleCardProps {
   id: string;
-  image: string;
+  images: string[];
   brand: string;
   model: string;
   year: number;
@@ -24,7 +25,7 @@ interface VehicleCardProps {
   previousOwners: number;
 }
 const VehicleCard = ({
-  image,
+  images,
   brand,
   model,
   year,
@@ -42,13 +43,51 @@ const VehicleCard = ({
   firstRegistration,
   previousOwners
 }: VehicleCardProps) => {
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  const nextImage = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setCurrentImageIndex((prev) => (prev + 1) % images.length);
+  };
+
+  const previousImage = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setCurrentImageIndex((prev) => (prev - 1 + images.length) % images.length);
+  };
+
   return <Card className="overflow-hidden hover:shadow-lg transition-all duration-300 hover:-translate-y-2 hover:scale-[1.02] animate-fade-in">
-      <div className="aspect-video overflow-hidden">
+      <div className="aspect-video overflow-hidden relative group">
         <img 
-          src={image} 
+          src={images[currentImageIndex]} 
           alt={`${brand} ${model}`}
           className="w-full h-full object-cover"
         />
+        {images.length > 1 && (
+          <>
+            <button
+              onClick={previousImage}
+              className="absolute left-2 top-1/2 -translate-y-1/2 bg-background/80 hover:bg-background p-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
+            >
+              <ChevronLeft className="h-5 w-5" />
+            </button>
+            <button
+              onClick={nextImage}
+              className="absolute right-2 top-1/2 -translate-y-1/2 bg-background/80 hover:bg-background p-2 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
+            >
+              <ChevronRight className="h-5 w-5" />
+            </button>
+            <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1">
+              {images.map((_, index) => (
+                <div
+                  key={index}
+                  className={`h-1.5 rounded-full transition-all ${
+                    index === currentImageIndex ? 'w-6 bg-primary' : 'w-1.5 bg-background/60'
+                  }`}
+                />
+              ))}
+            </div>
+          </>
+        )}
       </div>
       <CardContent className="p-4">
         <div className="mb-3">

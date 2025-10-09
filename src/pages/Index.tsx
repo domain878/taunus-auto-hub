@@ -16,7 +16,7 @@ const Index = () => {
   const featuredVehicles = [
     {
       id: "1",
-      image: audiA4Image,
+      images: [audiA4Image],
       brand: "Audi",
       model: "A4 Quattro",
       year: 2017,
@@ -36,7 +36,7 @@ const Index = () => {
     },
     {
       id: "2",
-      image: miniCooperImage,
+      images: [miniCooperImage],
       brand: "Mini",
       model: "Cooper S JCW",
       year: 2022,
@@ -56,7 +56,7 @@ const Index = () => {
     },
     {
       id: "3",
-      image: audiA8Image,
+      images: [audiA8Image],
       brand: "Audi",
       model: "A8 4.2 TDI",
       year: 2011,
