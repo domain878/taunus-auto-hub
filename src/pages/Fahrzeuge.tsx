@@ -306,39 +306,24 @@ return (
   <div className="min-h-screen flex flex-col">
     <Navigation />
 
-      {/* Header with Video Background */}
-      <section className="relative py-24 overflow-hidden">
-        <div className="absolute inset-0 z-0">
-          <video
-            autoPlay
-            loop
-            muted
-            playsInline
-            className="w-full h-full object-cover"
-          >
-            <source
-              src="https://cdn.pixabay.com/video/2023/07/25/173195-849838825_large.mp4"
-              type="video/mp4"
-            />
-          </video>
-          <div className="absolute inset-0 bg-foreground/30" />
-        </div>
-        <div className="container mx-auto px-4 relative z-10">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4 text-primary-foreground animate-scale-in">
+      {/* Header ohne Video */}
+      <section className="py-16 bg-gradient-to-b from-muted to-background">
+        <div className="container mx-auto px-4">
+          <h1 className="text-4xl md:text-5xl font-bold mb-4 animate-scale-in">
             Unsere Fahrzeuge
           </h1>
-          <p className="text-xl text-primary-foreground/90 max-w-2xl">
+          <p className="text-xl text-muted-foreground max-w-2xl">
             Entdecken Sie unsere große Auswahl an geprüften Gebrauchtwagen. Jedes Fahrzeug wird sorgfältig ausgewählt und geprüft.
           </p>
           <div className="mt-8 flex gap-4 flex-wrap">
-            <div className="bg-background/10 backdrop-blur-sm rounded-lg px-6 py-3 border border-primary-foreground/20">
-              <p className="text-primary-foreground font-semibold">✓ Geprüfte Qualität</p>
+            <div className="bg-card/80 backdrop-blur-sm rounded-lg px-6 py-3 border">
+              <p className="font-semibold">✓ Geprüfte Qualität</p>
             </div>
-            <div className="bg-background/10 backdrop-blur-sm rounded-lg px-6 py-3 border border-primary-foreground/20">
-              <p className="text-primary-foreground font-semibold">✓ Faire Preise</p>
+            <div className="bg-card/80 backdrop-blur-sm rounded-lg px-6 py-3 border">
+              <p className="font-semibold">✓ Faire Preise</p>
             </div>
-            <div className="bg-background/10 backdrop-blur-sm rounded-lg px-6 py-3 border border-primary-foreground/20">
-              <p className="text-primary-foreground font-semibold">✓ Persönliche Beratung</p>
+            <div className="bg-card/80 backdrop-blur-sm rounded-lg px-6 py-3 border">
+              <p className="font-semibold">✓ Persönliche Beratung</p>
             </div>
           </div>
         </div>

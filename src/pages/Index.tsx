@@ -171,6 +171,33 @@ const Index = () => {
         </div>
       </section>
 
+      {/* Showreel Video Section */}
+      <section className="py-16 bg-background">
+        <div className="container mx-auto px-4">
+          <ScrollReveal animation="fade-in-up">
+            <h2 className="text-3xl md:text-4xl font-bold text-center mb-4">Einblicke in unseren Showroom</h2>
+            <p className="text-center text-muted-foreground mb-8">Kurzer Eindruck in 20 Sekunden</p>
+          </ScrollReveal>
+          <ScrollReveal animation="scale-in" delay={150}>
+            <div className="relative rounded-xl overflow-hidden shadow-xl border bg-card">
+              <video
+                autoPlay
+                muted
+                loop
+                playsInline
+                controls
+                preload="metadata"
+                poster={heroImage}
+                className="w-full h-auto aspect-video object-cover saturate-125 contrast-110"
+              >
+                <source src="https://cdn.pixabay.com/video/2023/07/25/173195-849838825_large.mp4" type="video/mp4" />
+                Ihr Browser unterstützt das Video-Tag nicht.
+              </video>
+            </div>
+          </ScrollReveal>
+        </div>
+      </section>
+
 
       {/* Benefits Section */}
       <section className="py-20 bg-muted">
