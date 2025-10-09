@@ -121,7 +121,7 @@ const Index = () => {
       {/* Hero Section with Parallax */}
       <section 
         ref={heroRef}
-        className="relative h-[90vh] flex items-center justify-center overflow-hidden"
+        className="relative min-h-[100svh] md:h-[90vh] flex items-center justify-center overflow-hidden pt-20 md:pt-0"
       >
         <div
           className="absolute inset-0 bg-cover bg-center transition-transform duration-75"
@@ -132,17 +132,17 @@ const Index = () => {
         >
           <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70" />
         </div>
-        <div className="relative z-10 container mx-auto px-4 text-center text-white">
+        <div className="relative z-10 container mx-auto px-6 md:px-4 text-center text-white py-12">
           <div className="animate-fade-in-up">
-            <h1 className="text-5xl md:text-7xl font-bold mb-6 text-balance leading-tight">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold mb-4 md:mb-6 text-balance leading-tight px-2">
               Ihr zuverlässiger Partner für
-              <span className="block bg-gradient-to-r from-primary via-orange-500 to-primary bg-clip-text text-transparent mt-3">
+              <span className="block bg-gradient-to-r from-primary via-orange-500 to-primary bg-clip-text text-transparent mt-2 md:mt-3">
                 Gebrauchtwagen im Hochtaunuskreis
               </span>
             </h1>
           </div>
           <ScrollReveal animation="fade-in-up" delay={200}>
-            <p className="text-xl md:text-2xl mb-10 text-white/90 max-w-3xl mx-auto font-light">
+            <p className="text-base sm:text-lg md:text-xl lg:text-2xl mb-8 md:mb-10 text-white/90 max-w-3xl mx-auto font-light px-2">
               Hochwertige Fahrzeuge, faire Preise und persönliche Beratung
             </p>
           </ScrollReveal>
