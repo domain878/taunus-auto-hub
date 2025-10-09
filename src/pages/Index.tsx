@@ -1,3 +1,4 @@
+import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -112,6 +113,8 @@ const Index = () => {
   ];
 
   const { ref: heroRef, offsetY } = useParallax(0.3);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [showPlay, setShowPlay] = useState(false);
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -181,6 +184,7 @@ const Index = () => {
           <ScrollReveal animation="scale-in" delay={150}>
             <div className="relative rounded-xl overflow-hidden shadow-xl border bg-card">
               <video
+                ref={videoRef}
                 autoPlay
                 muted
                 loop
@@ -188,11 +192,28 @@ const Index = () => {
                 controls
                 preload="metadata"
                 poster={heroImage}
+                onLoadedData={() => {
+                  const v = videoRef.current;
+                  if (!v) return;
+                  const p = v.play();
+                  if (p !== undefined) {
+                    p.catch(() => setShowPlay(true));
+                  }
+                }}
+                onPlay={() => setShowPlay(false)}
+                onPause={() => setShowPlay(true)}
                 className="w-full h-auto aspect-video object-cover saturate-125 contrast-110"
               >
                 <source src="https://cdn.pixabay.com/video/2023/07/25/173195-849838825_large.mp4" type="video/mp4" />
                 Ihr Browser unterstützt das Video-Tag nicht.
               </video>
+              {showPlay && (
+                <div className="absolute inset-0 flex items-center justify-center bg-background/40 backdrop-blur-sm">
+                  <Button size="lg" onClick={() => videoRef.current?.play()}>
+                    Video abspielen
+                  </Button>
+                </div>
+              )}
             </div>
           </ScrollReveal>
         </div>
