@@ -6,6 +6,8 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
 import VehicleCard from "@/components/VehicleCard";
+import { ScrollReveal } from "@/components/ScrollReveal";
+import { useParallax } from "@/hooks/useScrollAnimation";
 import heroImage from "@/assets/hero-car.jpg";
 import audiA4Image from "@/assets/audi-a4.jpg";
 import miniCooperImage from "@/assets/mini-cooper.jpg";
@@ -109,108 +111,183 @@ const Index = () => {
     },
   ];
 
+  const { ref: heroRef, offsetY } = useParallax(0.3);
+
   return (
     <div className="min-h-screen flex flex-col">
       <Navigation />
 
-      {/* Hero Section */}
-      <section className="relative h-[600px] flex items-center justify-center overflow-hidden">
+      {/* Hero Section with Parallax */}
+      <section 
+        ref={heroRef}
+        className="relative h-[90vh] flex items-center justify-center overflow-hidden"
+      >
         <div
-          className="absolute inset-0 bg-cover bg-center"
-          style={{ backgroundImage: `url(${heroImage})` }}
+          className="absolute inset-0 bg-cover bg-center transition-transform duration-75"
+          style={{ 
+            backgroundImage: `url(${heroImage})`,
+            transform: `translateY(${offsetY * 0.5}px)`,
+          }}
         >
-          <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/30" />
+          <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70" />
         </div>
-        <div className="relative z-10 container mx-auto px-4 text-center text-white animate-fade-in">
-          <h1 className="text-4xl md:text-6xl font-bold mb-6 animate-scale-in">
-            Ihr zuverlässiger Partner für
-            <span className="block text-primary mt-2">Gebrauchtwagen im Hochtaunuskreis</span>
-          </h1>
-          <p className="text-xl md:text-2xl mb-8 text-white/90 max-w-2xl mx-auto">
-            Hochwertige Fahrzeuge, faire Preise und persönliche Beratung
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link to="/fahrzeuge">
-              <Button variant="hero" size="xl">
-                Fahrzeuge ansehen
-              </Button>
-            </Link>
-            <Link to="/kontakt">
-              <Button variant="outline" size="xl" className="border-white text-white hover:bg-white hover:text-secondary">
-                Termin buchen
-              </Button>
-            </Link>
+        <div className="relative z-10 container mx-auto px-4 text-center text-white">
+          <div className="animate-fade-in-up">
+            <h1 className="text-5xl md:text-7xl font-bold mb-6 text-balance leading-tight">
+              Ihr zuverlässiger Partner für
+              <span className="block bg-gradient-to-r from-primary via-orange-500 to-primary bg-clip-text text-transparent mt-3">
+                Gebrauchtwagen im Hochtaunuskreis
+              </span>
+            </h1>
           </div>
+          <ScrollReveal animation="fade-in-up" delay={200}>
+            <p className="text-xl md:text-2xl mb-10 text-white/90 max-w-3xl mx-auto font-light">
+              Hochwertige Fahrzeuge, faire Preise und persönliche Beratung
+            </p>
+          </ScrollReveal>
+          <ScrollReveal animation="scale-in" delay={400}>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link to="/fahrzeuge">
+                <Button 
+                  variant="hero" 
+                  size="xl"
+                  className="group hover:scale-105 transition-all duration-300 hover:shadow-2xl"
+                >
+                  Fahrzeuge ansehen
+                  <span className="inline-block ml-2 group-hover:translate-x-1 transition-transform">→</span>
+                </Button>
+              </Link>
+              <Link to="/kontakt">
+                <Button 
+                  variant="outline" 
+                  size="xl" 
+                  className="border-white/30 text-white hover:bg-white hover:text-secondary glass hover:scale-105 transition-all duration-300"
+                >
+                  Termin buchen
+                </Button>
+              </Link>
+            </div>
+          </ScrollReveal>
         </div>
       </section>
+
 
       {/* Benefits Section */}
-      <section className="py-16 bg-muted">
+      <section className="py-20 bg-muted">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 animate-fade-in">
-            Warum Hochtaunus-Automobile?
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <ScrollReveal animation="fade-in-up">
+            <h2 className="text-4xl md:text-5xl font-bold text-center mb-4">
+              Warum Hochtaunus-Automobile?
+            </h2>
+            <p className="text-center text-muted-foreground text-lg mb-16 max-w-2xl mx-auto">
+              Ihr vertrauensvoller Partner für Qualität und Service
+            </p>
+          </ScrollReveal>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {benefits.map((benefit, index) => (
-              <Card key={index} className="hover:shadow-lg transition-all duration-300 hover:-translate-y-1 animate-fade-in" style={{ animationDelay: `${index * 0.1}s` }}>
-                <CardContent className="p-6">
-                  <benefit.icon className="h-12 w-12 text-primary mb-4" />
-                  <h3 className="font-bold text-lg mb-2">{benefit.title}</h3>
-                  <p className="text-muted-foreground text-sm">{benefit.description}</p>
-                </CardContent>
-              </Card>
+              <ScrollReveal 
+                key={index} 
+                animation="fade-in-up" 
+                delay={index * 100}
+              >
+                <Card className="hover-lift border-none shadow-lg h-full group cursor-pointer">
+                  <CardContent className="p-8">
+                    <div className="mb-6 relative">
+                      <div className="absolute inset-0 bg-primary/10 rounded-full blur-xl group-hover:blur-2xl transition-all duration-300 opacity-0 group-hover:opacity-100" />
+                      <benefit.icon className="h-14 w-14 text-primary relative z-10 group-hover:scale-110 transition-transform duration-300" />
+                    </div>
+                    <h3 className="font-bold text-xl mb-3 group-hover:text-primary transition-colors duration-300">
+                      {benefit.title}
+                    </h3>
+                    <p className="text-muted-foreground leading-relaxed">
+                      {benefit.description}
+                    </p>
+                  </CardContent>
+                </Card>
+              </ScrollReveal>
             ))}
           </div>
         </div>
       </section>
+
 
       {/* Featured Vehicles */}
-      <section className="py-16">
+      <section className="py-20 bg-gradient-to-b from-background to-muted/30">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-12 animate-fade-in">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Aktuelle Fahrzeuge</h2>
-            <p className="text-muted-foreground text-lg">
-              Entdecken Sie unsere ausgewählten Gebrauchtwagen
-            </p>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-            {featuredVehicles.map((vehicle) => (
-              <VehicleCard key={vehicle.id} {...vehicle} />
+          <ScrollReveal animation="fade-in-up">
+            <div className="text-center mb-16">
+              <h2 className="text-4xl md:text-5xl font-bold mb-4">Aktuelle Fahrzeuge</h2>
+              <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+                Entdecken Sie unsere handverlesenen Premium-Gebrauchtwagen
+              </p>
+            </div>
+          </ScrollReveal>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+            {featuredVehicles.map((vehicle, index) => (
+              <ScrollReveal 
+                key={vehicle.id}
+                animation="zoom-in"
+                delay={index * 150}
+              >
+                <VehicleCard {...vehicle} />
+              </ScrollReveal>
             ))}
           </div>
-          <div className="text-center">
-            <Link to="/fahrzeuge">
-              <Button size="lg">Alle Fahrzeuge anzeigen</Button>
-            </Link>
-          </div>
+          <ScrollReveal animation="scale-in" delay={450}>
+            <div className="text-center">
+              <Link to="/fahrzeuge">
+                <Button 
+                  size="lg"
+                  className="group hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl"
+                >
+                  Alle Fahrzeuge anzeigen
+                  <span className="inline-block ml-2 group-hover:translate-x-1 transition-transform">→</span>
+                </Button>
+              </Link>
+            </div>
+          </ScrollReveal>
         </div>
       </section>
 
+
       {/* CTA Section */}
-      <section className="py-16 bg-gradient-to-r from-primary to-primary/80 text-primary-foreground animate-fade-in">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-6 animate-scale-in">
-            Verkaufen Sie Ihr Fahrzeug?
-          </h2>
-          <p className="text-xl mb-8 text-primary-foreground/90 max-w-2xl mx-auto">
-            Wir kaufen Ihr Auto zu fairen Preisen – schnell, transparent und unkompliziert
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link to="/ankauf">
-              <Button variant="secondary" size="lg">
-                Jetzt Fahrzeug anbieten
-              </Button>
-            </Link>
-            <Link to="/bewertung">
-              <Button
-                variant="outline"
-                size="lg"
-                className="border-white text-white hover:bg-white hover:text-primary"
-              >
-                Kostenlose Bewertung
-              </Button>
-            </Link>
-          </div>
+      <section className="relative py-24 overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-r from-primary via-orange-500 to-primary opacity-95" />
+        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0zNiAxOGMzLjMxNCAwIDYgMi42ODYgNiA2cy0yLjY4NiA2LTYgNi02LTIuNjg2LTYtNiAyLjY4Ni02IDYtNiIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utb3BhY2l0eT0iLjEiLz48L2c+PC9zdmc+')] opacity-10" />
+        <div className="container mx-auto px-4 text-center relative z-10">
+          <ScrollReveal animation="fade-in-up">
+            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white">
+              Verkaufen Sie Ihr Fahrzeug?
+            </h2>
+          </ScrollReveal>
+          <ScrollReveal animation="fade-in-up" delay={150}>
+            <p className="text-xl md:text-2xl mb-10 text-white/95 max-w-3xl mx-auto font-light leading-relaxed">
+              Wir kaufen Ihr Auto zu fairen Preisen – schnell, transparent und unkompliziert
+            </p>
+          </ScrollReveal>
+          <ScrollReveal animation="scale-in" delay={300}>
+            <div className="flex flex-col sm:flex-row gap-6 justify-center">
+              <Link to="/ankauf">
+                <Button 
+                  variant="secondary" 
+                  size="lg"
+                  className="hover:scale-105 transition-all duration-300 shadow-xl hover:shadow-2xl group"
+                >
+                  Jetzt Fahrzeug anbieten
+                  <span className="inline-block ml-2 group-hover:translate-x-1 transition-transform">→</span>
+                </Button>
+              </Link>
+              <Link to="/bewertung">
+                <Button
+                  variant="outline"
+                  size="lg"
+                  className="border-2 border-white text-white hover:bg-white hover:text-primary glass hover:scale-105 transition-all duration-300 shadow-xl"
+                >
+                  Kostenlose Bewertung
+                </Button>
+              </Link>
+            </div>
+          </ScrollReveal>
         </div>
       </section>
 
