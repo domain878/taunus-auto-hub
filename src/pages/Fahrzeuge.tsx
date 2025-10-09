@@ -16,6 +16,10 @@ import miniCooperImage from "@/assets/mini-cooper.jpg";
 import audiA8Image from "@/assets/audi-a8.jpg";
 import fordFocusImage from "@/assets/ford-focus.jpg";
 import opelInsigniaImage from "@/assets/opel-insignia.jpg";
+import hondaHrvImage from "@/assets/honda-hrv.jpg";
+import fiat500cImage from "@/assets/fiat-500c.jpg";
+import vwTouranImage from "@/assets/vw-touran.jpg";
+import mazda3Image from "@/assets/mazda-3.jpg";
 
 const Fahrzeuge = () => {
   const [priceRange, setPriceRange] = useState("all");
@@ -42,7 +46,6 @@ const Fahrzeuge = () => {
     features: "",
     condition: "",
     firstRegistration: "",
-    previousOwners: "",
   });
 
   // Vehicle data with your images
@@ -65,7 +68,6 @@ const Fahrzeuge = () => {
       features: ["Navigationssystem", "Ledersitze", "Klimaautomatik", "Xenon"],
       condition: "Gebraucht",
       firstRegistration: "03/2017",
-      previousOwners: 2,
     },
     {
       id: "2",
@@ -85,7 +87,6 @@ const Fahrzeuge = () => {
       features: ["Panoramadach", "JCW Sportpaket", "Harman Kardon", "LED"],
       condition: "Neuwertig",
       firstRegistration: "06/2022",
-      previousOwners: 1,
     },
     {
       id: "3",
@@ -105,7 +106,6 @@ const Fahrzeuge = () => {
       features: ["Luftfederung", "Standheizung", "Massage", "B&O Sound"],
       condition: "Gebraucht",
       firstRegistration: "11/2011",
-      previousOwners: 3,
     },
     {
       id: "4",
@@ -125,7 +125,6 @@ const Fahrzeuge = () => {
       features: ["Klimaanlage", "Einparkhilfe", "Tempomat"],
       condition: "Gebraucht",
       firstRegistration: "08/2011",
-      previousOwners: 2,
     },
     {
       id: "5",
@@ -145,7 +144,82 @@ const Fahrzeuge = () => {
       features: ["Matrix LED", "Rückfahrkamera", "Navi", "Sitzheizung"],
       condition: "Sehr gut",
       firstRegistration: "04/2018",
-      previousOwners: 1,
+    },
+    {
+      id: "6",
+      images: [hondaHrvImage],
+      brand: "Honda",
+      model: "HR-V Executive",
+      year: 2017,
+      price: 16990,
+      mileage: 89000,
+      fuel: "Benzin",
+      transmission: "Schaltgetriebe",
+      color: "Weiß",
+      doors: 5,
+      seats: 5,
+      power: "96 kW (130 PS)",
+      co2Emissions: "132 g/km",
+      features: ["Einparksensoren", "Klimaautomatik", "Multifunktionslenkrad", "Bluetooth"],
+      condition: "Gebraucht",
+      firstRegistration: "09/2017",
+    },
+    {
+      id: "7",
+      images: [fiat500cImage],
+      brand: "Fiat",
+      model: "500 C Lounge",
+      year: 2019,
+      price: 12900,
+      mileage: 45000,
+      fuel: "Benzin",
+      transmission: "Schaltgetriebe",
+      color: "Weiß",
+      doors: 3,
+      seats: 4,
+      power: "51 kW (69 PS)",
+      co2Emissions: "115 g/km",
+      features: ["Panorama-Stoffdach", "Klimaanlage", "Radio", "Zentralverriegelung"],
+      condition: "Sehr gut",
+      firstRegistration: "03/2019",
+    },
+    {
+      id: "8",
+      images: [vwTouranImage],
+      brand: "VW",
+      model: "Touran Comfortline",
+      year: 2019,
+      price: 22990,
+      mileage: 78000,
+      fuel: "Diesel",
+      transmission: "Schaltgetriebe",
+      color: "Schwarz",
+      doors: 5,
+      seats: 7,
+      power: "85 kW (115 PS)",
+      co2Emissions: "119 g/km",
+      features: ["7-Sitzer", "Navigationssystem", "Klimaautomatik", "Tempomat"],
+      condition: "Gebraucht",
+      firstRegistration: "05/2019",
+    },
+    {
+      id: "9",
+      images: [mazda3Image],
+      brand: "Mazda",
+      model: "3 Sport",
+      year: 2014,
+      price: 9890,
+      mileage: 125000,
+      fuel: "Benzin",
+      transmission: "Schaltgetriebe",
+      color: "Schwarz Metallic",
+      doors: 5,
+      seats: 5,
+      power: "88 kW (120 PS)",
+      co2Emissions: "139 g/km",
+      features: ["Klimaanlage", "Multifunktionslenkrad", "Bluetooth", "Alufelgen"],
+      condition: "Gebraucht",
+      firstRegistration: "07/2014",
     },
   ]);
 
@@ -202,7 +276,6 @@ const Fahrzeuge = () => {
       features: newVehicle.features.split(',').map(f => f.trim()),
       condition: newVehicle.condition,
       firstRegistration: newVehicle.firstRegistration,
-      previousOwners: parseInt(newVehicle.previousOwners),
     };
 
     setVehicles(prev => [vehicle, ...prev]);
@@ -223,7 +296,6 @@ const Fahrzeuge = () => {
       features: "",
       condition: "",
       firstRegistration: "",
-      previousOwners: "",
     });
     setVehicleImages([]);
     setShowAddForm(false);
@@ -478,17 +550,6 @@ return (
                         onChange={(e) => setNewVehicle({ ...newVehicle, firstRegistration: e.target.value })}
                       />
                     </div>
-                  </div>
-
-                  <div>
-                    <Label htmlFor="new-previousOwners">Vorbesitzer *</Label>
-                    <Input
-                      id="new-previousOwners"
-                      type="number"
-                      required
-                      value={newVehicle.previousOwners}
-                      onChange={(e) => setNewVehicle({ ...newVehicle, previousOwners: e.target.value })}
-                    />
                   </div>
 
                   <div>

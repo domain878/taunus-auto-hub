@@ -22,7 +22,6 @@ interface VehicleCardProps {
   features: string[];
   condition: string;
   firstRegistration: string;
-  previousOwners: number;
 }
 const VehicleCard = ({
   images,
@@ -40,8 +39,7 @@ const VehicleCard = ({
   co2Emissions,
   features,
   condition,
-  firstRegistration,
-  previousOwners
+  firstRegistration
 }: VehicleCardProps) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
@@ -100,9 +98,6 @@ const VehicleCard = ({
             </Badge>
             <Badge variant="outline" className="text-xs">
               {condition}
-            </Badge>
-            <Badge variant="outline" className="text-xs">
-              {previousOwners} Vorbesitzer
             </Badge>
           </div>
         </div>
