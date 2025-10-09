@@ -320,8 +320,7 @@ return (
       <section className="py-8 bg-muted">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-            <div>
-         );     
+          <div>
               <Label htmlFor="brand">Marke</Label>
               <Select value={brand} onValueChange={setBrand}>
                 <SelectTrigger id="brand">
