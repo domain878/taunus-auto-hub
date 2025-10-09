@@ -146,8 +146,8 @@ const Fahrzeuge = () => {
       condition: "Sehr gut",
       firstRegistration: "04/2018",
       previousOwners: 1,
-      },
-      {
+    },
+    {
 
     },
   ]);
