@@ -147,9 +147,6 @@ const Fahrzeuge = () => {
       firstRegistration: "04/2018",
       previousOwners: 1,
     },
-    {
-
-    },
   ]);
 
   const handleDragOver = (e: React.DragEvent) => {
