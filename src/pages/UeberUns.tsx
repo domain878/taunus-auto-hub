@@ -66,20 +66,13 @@ const UeberUns = () => {
           <div className="prose prose-lg max-w-none">
             <h2 className="text-3xl font-bold mb-6">Unsere Geschichte</h2>
             <p className="text-muted-foreground leading-relaxed mb-4">
-              Seit über 10 Jahren sind wir Ihr kompetenter Ansprechpartner für hochwertige
-              Gebrauchtwagen im Hochtaunuskreis. Was als kleine Werkstatt begann, hat sich zu
-              einem der vertrauenswürdigsten Autohäuser der Region entwickelt.
+              Seit über 10 Jahren sind wir Ihre erste Adresse für hochwertige Gebrauchtwagen im Hochtaunuskreis. Vertrauen, Qualität und ehrliche Beratung stehen bei Hochtaunusautomobile im Mittelpunkt.
             </p>
             <p className="text-muted-foreground leading-relaxed mb-4">
-              Bei Hochtaunusautomobile steht der Kunde im Mittelpunkt. Wir wissen, dass der
-              Autokauf eine wichtige Entscheidung ist – deshalb nehmen wir uns Zeit für Sie,
-              beraten ehrlich und bieten nur Fahrzeuge an, hinter denen wir auch selbst stehen
-              können.
+              Unser erfahrenes Team lebt seine Leidenschaft für Autos – und das spüren Sie bei jedem Besuch. Jedes Fahrzeug in unserem Bestand wird mit größter Sorgfalt ausgewählt, geprüft und aufbereitet.
             </p>
             <p className="text-muted-foreground leading-relaxed">
-              Unser Team besteht aus erfahrenen Automobilexperten, die ihre Leidenschaft zum
-              Beruf gemacht haben. Jedes Fahrzeug wird von uns sorgfältig ausgewählt, geprüft
-              und aufbereitet, bevor es in den Verkauf geht.
+              Wir nehmen uns Zeit für Ihre Wünsche und finden gemeinsam das Auto, das wirklich zu Ihnen passt.
             </p>
           </div>
         </div>
