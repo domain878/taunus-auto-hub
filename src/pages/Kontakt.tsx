@@ -98,7 +98,10 @@ const Kontakt = () => {
               <CardContent className="p-6 text-center">
                 <MapPin className="h-10 w-10 text-primary mx-auto mb-4" />
                 <h3 className="font-semibold mb-2">Standort</h3>
-                <p className="text-muted-foreground">Zimmersmühlenweg 83 61440</p>
+                <p className="text-muted-foreground">
+                  Zimmersmühlenweg 83<br />
+                  61440 Oberursel
+                </p>
               </CardContent>
             </Card>
           </div>
@@ -316,7 +319,7 @@ const Kontakt = () => {
           <h2 className="text-2xl font-bold mb-6 text-center">Unser Standort</h2>
           <div className="aspect-video w-full max-w-4xl mx-auto rounded-lg overflow-hidden shadow-lg">
             <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d162771.0876328276!2d8.472193!3d50.2715!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47bd096f477096c5%3A0x422435029b0c600!2sHochtaunuskreis!5e0!3m2!1sde!2sde!4v1234567890"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2561.5678!2d8.5852!3d50.2040!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47bd0f1c2c6f8d7b%3A0x5c3e4c5c6c7c8c9c!2sZimmersm%C3%BChlenweg%2083%2C%2061440%20Oberursel!5e0!3m2!1sde!2sde!4v1234567890"
               width="100%"
               height="100%"
               style={{ border: 0 }}
