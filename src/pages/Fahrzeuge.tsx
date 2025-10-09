@@ -306,19 +306,48 @@ return (
   <div className="min-h-screen flex flex-col">
     <Navigation />
 
-      {/* Header */}
-      <section className="bg-gradient-to-r from-primary to-primary/80 text-primary-foreground py-16 animate-fade-in">
-        <div className="container mx-auto px-4">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4 animate-scale-in">Unsere Fahrzeuge</h1>
-          <p className="text-xl text-primary-foreground/90">
-            Entdecken Sie unsere große Auswahl an geprüften Gebrauchtwagen
+      {/* Header with Video Background */}
+      <section className="relative py-24 overflow-hidden">
+        <div className="absolute inset-0 z-0">
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="w-full h-full object-cover opacity-40"
+          >
+            <source
+              src="https://cdn.pixabay.com/video/2023/07/25/173195-849838825_large.mp4"
+              type="video/mp4"
+            />
+          </video>
+          <div className="absolute inset-0 bg-gradient-to-r from-primary/90 to-primary/70" />
+        </div>
+        <div className="container mx-auto px-4 relative z-10">
+          <h1 className="text-4xl md:text-5xl font-bold mb-4 text-primary-foreground animate-scale-in">
+            Unsere Fahrzeuge
+          </h1>
+          <p className="text-xl text-primary-foreground/90 max-w-2xl">
+            Entdecken Sie unsere große Auswahl an geprüften Gebrauchtwagen. Jedes Fahrzeug wird sorgfältig ausgewählt und geprüft.
           </p>
+          <div className="mt-8 flex gap-4 flex-wrap">
+            <div className="bg-background/10 backdrop-blur-sm rounded-lg px-6 py-3 border border-primary-foreground/20">
+              <p className="text-primary-foreground font-semibold">✓ Geprüfte Qualität</p>
+            </div>
+            <div className="bg-background/10 backdrop-blur-sm rounded-lg px-6 py-3 border border-primary-foreground/20">
+              <p className="text-primary-foreground font-semibold">✓ Faire Preise</p>
+            </div>
+            <div className="bg-background/10 backdrop-blur-sm rounded-lg px-6 py-3 border border-primary-foreground/20">
+              <p className="text-primary-foreground font-semibold">✓ Persönliche Beratung</p>
+            </div>
+          </div>
         </div>
       </section>
 
       {/* Filters */}
-      <section className="py-8 bg-muted">
+      <section className="py-8 bg-gradient-to-b from-muted to-background">
         <div className="container mx-auto px-4">
+          <h2 className="text-2xl font-semibold mb-6">Finden Sie Ihr Traumauto</h2>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
           <div>
               <Label htmlFor="brand">Marke</Label>
@@ -379,16 +408,25 @@ return (
 
 
       {/* Vehicle Grid */}
-      <section className="py-12">
+      <section className="py-12 bg-gradient-to-b from-background to-muted/30">
         <div className="container mx-auto px-4">
-          <div className="mb-6">
-            <p className="text-muted-foreground">
-              {vehicles.length} Fahrzeuge gefunden
-            </p>
+          <div className="mb-8 flex items-center justify-between">
+            <div>
+              <p className="text-lg font-semibold text-foreground">
+                {vehicles.length} Fahrzeuge gefunden
+              </p>
+              <p className="text-sm text-muted-foreground">
+                Alle Fahrzeuge wurden technisch geprüft
+              </p>
+            </div>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {vehicles.map((vehicle, index) => (
-              <div key={vehicle.id} className="animate-fade-in" style={{ animationDelay: `${index * 0.1}s` }}>
+              <div 
+                key={vehicle.id} 
+                className="animate-fade-in hover-scale" 
+                style={{ animationDelay: `${index * 0.1}s` }}
+              >
                 <VehicleCard {...vehicle} />
               </div>
             ))}
