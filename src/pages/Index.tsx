@@ -148,25 +148,27 @@ const Index = () => {
           </ScrollReveal>
           <ScrollReveal animation="scale-in" delay={400}>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link to="/fahrzeuge">
-                <Button 
-                  variant="hero" 
-                  size="xl"
-                  className="group hover:scale-105 transition-all duration-300 hover:shadow-2xl"
-                >
+              <Button 
+                variant="hero" 
+                size="xl"
+                className="group hover:scale-105 transition-all duration-300 hover:shadow-2xl"
+                asChild
+              >
+                <Link to="/fahrzeuge">
                   Fahrzeuge ansehen
                   <span className="inline-block ml-2 group-hover:translate-x-1 transition-transform">→</span>
-                </Button>
-              </Link>
-              <Link to="/kontakt">
-                <Button 
-                  variant="outline" 
-                  size="xl" 
-                  className="border-white/30 text-white hover:bg-white hover:text-secondary glass hover:scale-105 transition-all duration-300"
-                >
+                </Link>
+              </Button>
+              <Button 
+                variant="outline" 
+                size="xl" 
+                className="border-white/30 text-white hover:bg-white hover:text-secondary glass hover:scale-105 transition-all duration-300"
+                asChild
+              >
+                <Link to="/kontakt">
                   Termin buchen
-                </Button>
-              </Link>
+                </Link>
+              </Button>
             </div>
           </ScrollReveal>
         </div>
@@ -237,15 +239,16 @@ const Index = () => {
           </div>
           <ScrollReveal animation="scale-in" delay={450}>
             <div className="text-center">
-              <Link to="/fahrzeuge">
-                <Button 
-                  size="lg"
-                  className="group hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl"
-                >
+              <Button 
+                size="lg"
+                className="group hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl"
+                asChild
+              >
+                <Link to="/fahrzeuge">
                   Alle Fahrzeuge anzeigen
                   <span className="inline-block ml-2 group-hover:translate-x-1 transition-transform">→</span>
-                </Button>
-              </Link>
+                </Link>
+              </Button>
             </div>
           </ScrollReveal>
         </div>
@@ -269,25 +272,27 @@ const Index = () => {
           </ScrollReveal>
           <ScrollReveal animation="scale-in" delay={300}>
             <div className="flex flex-col sm:flex-row gap-6 justify-center">
-              <Link to="/ankauf">
-                <Button 
-                  variant="secondary" 
-                  size="lg"
-                  className="hover:scale-105 transition-all duration-300 shadow-xl hover:shadow-2xl group"
-                >
+              <Button 
+                variant="secondary" 
+                size="lg"
+                className="hover:scale-105 transition-all duration-300 shadow-xl hover:shadow-2xl group"
+                asChild
+              >
+                <Link to="/ankauf">
                   Jetzt Fahrzeug anbieten
                   <span className="inline-block ml-2 group-hover:translate-x-1 transition-transform">→</span>
-                </Button>
-              </Link>
-              <Link to="/bewertung">
-                <Button
-                  variant="outline"
-                  size="lg"
-                  className="border-2 border-white text-white hover:bg-white hover:text-primary glass hover:scale-105 transition-all duration-300 shadow-xl"
-                >
+                </Link>
+              </Button>
+              <Button
+                variant="outline"
+                size="lg"
+                className="border-2 border-white text-white hover:bg-white hover:text-primary glass hover:scale-105 transition-all duration-300 shadow-xl"
+                asChild
+              >
+                <Link to="/bewertung">
                   Kostenlose Bewertung
-                </Button>
-              </Link>
+                </Link>
+              </Button>
             </div>
           </ScrollReveal>
         </div>
