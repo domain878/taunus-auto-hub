@@ -37,6 +37,7 @@ const Fahrzeuge = () => {
       features: ["Navigationssystem", "Ledersitze", "Klimaautomatik", "Xenon"],
       condition: "Gebraucht",
       firstRegistration: "03/2017",
+      previousOwners: 2,
     },
     {
       id: "2",
@@ -56,6 +57,7 @@ const Fahrzeuge = () => {
       features: ["Panoramadach", "JCW Sportpaket", "Harman Kardon", "LED"],
       condition: "Neuwertig",
       firstRegistration: "06/2022",
+      previousOwners: 1,
     },
     {
       id: "3",
@@ -75,6 +77,7 @@ const Fahrzeuge = () => {
       features: ["Luftfederung", "Standheizung", "Massage", "B&O Sound"],
       condition: "Gebraucht",
       firstRegistration: "11/2011",
+      previousOwners: 3,
     },
     {
       id: "4",
@@ -94,6 +97,7 @@ const Fahrzeuge = () => {
       features: ["Klimaanlage", "Einparkhilfe", "Tempomat"],
       condition: "Gebraucht",
       firstRegistration: "08/2011",
+      previousOwners: 2,
     },
     {
       id: "5",
@@ -113,6 +117,7 @@ const Fahrzeuge = () => {
       features: ["Matrix LED", "Rückfahrkamera", "Navi", "Sitzheizung"],
       condition: "Sehr gut",
       firstRegistration: "04/2018",
+      previousOwners: 1,
     },
     ];
 

@@ -23,6 +23,7 @@ const Ankauf = () => {
     message: "",
   });
   const [photos, setPhotos] = useState<File[]>([]);
+  const [isDragging, setIsDragging] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -39,6 +40,24 @@ const Ankauf = () => {
       condition: "",
       message: "",
     });
+    setPhotos([]);
+  };
+
+  const handleDragOver = (e: React.DragEvent) => {
+    e.preventDefault();
+    setIsDragging(true);
+  };
+
+  const handleDragLeave = (e: React.DragEvent) => {
+    e.preventDefault();
+    setIsDragging(false);
+  };
+
+  const handleDrop = (e: React.DragEvent) => {
+    e.preventDefault();
+    setIsDragging(false);
+    const files = Array.from(e.dataTransfer.files).filter(file => file.type.startsWith('image/'));
+    setPhotos(prev => [...prev, ...files]);
   };
 
   const benefits = [
@@ -193,44 +212,53 @@ const Ankauf = () => {
                 </div>
 
                 <div>
-<Label htmlFor="photos">Fotos hochladen</Label>
+                  <Label htmlFor="photos">Fotos hochladen</Label>
 
-<div
-  onClick={() => fileInputRef.current?.click()}
-  className="mt-2 border-2 border-dashed border-border rounded p-8 text-center hover:border-primary transition-colors cursor-pointer"
->
-  <Upload className="h-12 w-12 mx-auto text-muted-foreground mb-2" />
-  <p className="text-sm text-muted-foreground">
-    📸 Klicken Sie hier oder ziehen Sie Fotos hierher
-  </p>
-  <p className="text-xs text-muted-foreground mt-1">
-    Fahrzeugschein und Fotos vom Fahrzeug (max. 10 MB pro Datei)
-  </p>
-</div>
+                  <div
+                    onClick={() => fileInputRef.current?.click()}
+                    onDragOver={handleDragOver}
+                    onDragLeave={handleDragLeave}
+                    onDrop={handleDrop}
+                    className={`mt-2 border-2 border-dashed rounded p-8 text-center transition-all cursor-pointer ${
+                      isDragging 
+                        ? 'border-primary bg-primary/5 scale-105' 
+                        : 'border-border hover:border-primary'
+                    }`}
+                  >
+                    <Upload className={`h-12 w-12 mx-auto mb-2 transition-colors ${
+                      isDragging ? 'text-primary' : 'text-muted-foreground'
+                    }`} />
+                    <p className="text-sm text-muted-foreground">
+                      📸 Klicken Sie hier oder ziehen Sie Fotos hierher
+                    </p>
+                    <p className="text-xs text-muted-foreground mt-1">
+                      Fahrzeugschein und Fotos vom Fahrzeug (max. 10 MB pro Datei)
+                    </p>
+                  </div>
 
-<input
-  ref={fileInputRef}
-  id="photos"
-  type="file"
-  accept="image/*"
-  multiple
-  capture="environment"
-  className="hidden"
-  onChange={(e) => setPhotos(Array.from(e.target.files || []))}
-/>
+                  <input
+                    ref={fileInputRef}
+                    id="photos"
+                    type="file"
+                    accept="image/*"
+                    multiple
+                    capture="environment"
+                    className="hidden"
+                    onChange={(e) => setPhotos(prev => [...prev, ...Array.from(e.target.files || [])])}
+                  />
 
-{photos.length > 0 && (
-  <ul className="mt-4 text-sm text-muted-foreground text-left">
-    {photos.map((file, index) => (
-      <li key={index}>{file.name}</li>
-    ))}
-  </ul>
-)}
-
+                  {photos.length > 0 && (
+                    <ul className="mt-4 text-sm text-muted-foreground text-left">
+                      {photos.map((file, index) => (
+                        <li key={index}>{file.name}</li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
 
                 <Button type="submit" size="lg" className="w-full">
                   Anfrage senden
-               </Button>
+                </Button>
             </form>
         </CardContent>
     </Card>
