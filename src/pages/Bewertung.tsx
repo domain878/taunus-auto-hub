@@ -30,114 +30,153 @@ const Bewertung = () => {
 
   const calculateEstimate = () => {
     const { brand, model, year, mileage, fuel, condition } = formData;
-    
+
     if (!brand || !model || !year || !mileage || !fuel || !condition) {
       return;
     }
 
     setIsCalculating(true);
-    
-    // Simulate calculation delay for realism
+
     setTimeout(() => {
-      // Realistische Basiswerte nach Marke (aktuelle Marktpreise 2025)
+      // Aktualisierte Basiswerte nach Marke (realistischere 2025-Niveau)
       const brandValues: { [key: string]: number } = {
-        "bmw": 32000,
-        "mercedes": 35000,
-        "mercedes-benz": 35000,
-        "audi": 30000,
-        "vw": 22000,
-        "volkswagen": 22000,
-        "opel": 16000,
-        "ford": 18000,
-        "renault": 15000,
-        "peugeot": 15000,
-        "toyota": 24000,
-        "honda": 21000,
-        "mazda": 20000,
-        "nissan": 18000,
-        "hyundai": 19000,
-        "kia": 20000,
-        "skoda": 21000,
-        "seat": 18000,
-        "mini": 26000,
-        "fiat": 14000,
-        "alfa romeo": 22000,
-        "porsche": 65000,
-        "volvo": 28000,
-        "tesla": 48000,
-        "citroen": 16000,
-        "dacia": 12000,
-        "suzuki": 15000,
-        "subaru": 23000,
-        "lexus": 38000,
-        "jaguar": 35000,
-        "land rover": 45000,
-        "jeep": 32000,
-        "chevrolet": 20000,
+        bmw: 35000,
+        "mercedes": 37000,
+        "mercedes-benz": 37000,
+        audi: 33000,
+        vw: 24000,
+        volkswagen: 24000,
+        opel: 17000,
+        ford: 20000,
+        renault: 17000,
+        peugeot: 17000,
+        toyota: 26000,
+        honda: 23000,
+        mazda: 22000,
+        nissan: 20000,
+        hyundai: 21000,
+        kia: 21000,
+        skoda: 23000,
+        seat: 21000,
+        mini: 28000,
+        fiat: 15000,
+        "alfa romeo": 23000,
+        porsche: 70000,
+        volvo: 30000,
+        tesla: 50000,
+        citroen: 17000,
+        dacia: 14000,
+        suzuki: 17000,
+        subaru: 24000,
+        lexus: 40000,
+        jaguar: 36000,
+        "land rover": 48000,
+        jeep: 32000,
+        chevrolet: 22000,
       };
 
       const currentYear = new Date().getFullYear();
-      const vehicleAge = currentYear - parseInt(year);
-      const km = parseInt(mileage);
-      
-      // Get base value or use default
+      const rawYear = parseInt(year);
+      const safeYear = isNaN(rawYear) ? currentYear : Math.min(Math.max(rawYear, 1998), currentYear);
+      const vehicleAge = currentYear - safeYear;
+      const km = Math.max(0, parseInt(mileage));
+
       const brandLower = brand.toLowerCase().trim();
-      let baseValue = brandValues[brandLower] || 18000;
-      
-      // Realistischere Altersdepreziation (je nach Alter unterschiedlich)
-      if (vehicleAge <= 1) {
-        baseValue *= 0.85; // Neuwagen verlieren 15% im ersten Jahr
-      } else if (vehicleAge <= 3) {
-        baseValue *= Math.pow(0.88, vehicleAge); // 12% pro Jahr
-      } else if (vehicleAge <= 7) {
-        baseValue *= Math.pow(0.90, vehicleAge - 3) * 0.68; // 10% pro Jahr ab Jahr 4
-      } else {
-        baseValue *= Math.pow(0.93, vehicleAge - 7) * 0.42; // 7% pro Jahr ab Jahr 8
+      const modelLower = model.toLowerCase().trim();
+
+      // Basiswert (Default höher, um zu niedrige Schätzungen zu vermeiden)
+      let baseValue = brandValues[brandLower] || 22000;
+
+      // Performance-/Ausstattungsfaktoren
+      let performanceFactor = 1;
+      if (/(amg|\bm[0-9]{1,3}\b|\brs\b|gti\b|gts\b|gtr\b|quadrifoglio|type\s*r|cupra|abarth|srt)/.test(modelLower)) {
+        performanceFactor *= 1.2;
       }
-      
-      // Realistischere Kilometeranpassung
-      if (km < 10000) {
-        baseValue *= 1.25; // Sehr wenig Kilometer
-      } else if (km < 30000) {
-        baseValue *= 1.15;
-      } else if (km < 60000) {
-        baseValue *= 1.08;
-      } else if (km < 100000) {
-        baseValue *= 1.00;
-      } else if (km < 150000) {
-        baseValue *= 0.85;
-      } else if (km < 200000) {
-        baseValue *= 0.70;
-      } else {
-        baseValue *= 0.55;
+      if (/(quattro|xdrive|4matic|awd|allrad)/.test(modelLower)) {
+        performanceFactor *= 1.05;
       }
-      
-      // Kraftstoffanpassung (aktuelle Markttrends 2025)
-      const fuelMultipliers: { [key: string]: number } = {
-        "elektro": 1.15,  // E-Autos haben höheren Wert
-        "hybrid": 1.08,   // Hybride gefragt
-        "diesel": 0.88,   // Diesel weniger gefragt
-        "benzin": 1.00,   // Standard
-        "gas": 0.85,      // LPG/CNG weniger gefragt
-      };
-      baseValue *= fuelMultipliers[fuel] || 1.0;
-      
-      // Zustandsanpassung (größerer Einfluss)
+      if (/(touran|sharan|kodiaq|karoq|tiguan|x[1-7]\b|q[2-8]\b|gl[abces]|suv)/.test(modelLower)) {
+        performanceFactor *= 1.05;
+      }
+
+      // Altersfaktor (tabellarisch für realistischere Verläufe)
+      const ageTable = [
+        0.98, 0.94, 0.90, 0.86, 0.82, 0.78, 0.74, 0.70, 0.66, 0.62, 0.58, 0.55, 0.52,
+      ];
+      const ageFactor = vehicleAge < ageTable.length ? ageTable[vehicleAge] : 0.48;
+
+      // Kilometerfaktor
+      let kmFactor = 1;
+      if (km < 15000) kmFactor = 1.25;
+      else if (km < 30000) kmFactor = 1.18;
+      else if (km < 60000) kmFactor = 1.1;
+      else if (km < 90000) kmFactor = 1.05;
+      else if (km < 120000) kmFactor = 1.0;
+      else if (km < 160000) kmFactor = 0.92;
+      else if (km < 200000) kmFactor = 0.85;
+      else kmFactor = 0.78;
+
+      // Kraftstofffaktor (altersabhängig)
+      let fuelFactor = 1.0;
+      switch (fuel) {
+        case "elektro":
+          fuelFactor = vehicleAge <= 4 ? 1.18 : 1.05;
+          break;
+        case "hybrid":
+          fuelFactor = vehicleAge <= 8 ? 1.08 : 1.0;
+          break;
+        case "diesel":
+          fuelFactor = 0.92;
+          break;
+        case "benzin":
+          fuelFactor = 1.0;
+          break;
+        case "gas":
+          fuelFactor = 0.85;
+          break;
+      }
+
+      // Zustandsfaktor
       const conditionMultipliers: { [key: string]: number } = {
         "sehr-gut": 1.15,
-        "gut": 1.00,
-        "befriedigend": 0.82,
-        "ausreichend": 0.65,
+        gut: 1.0,
+        befriedigend: 0.82,
+        ausreichend: 0.65,
       };
-      baseValue *= conditionMultipliers[condition] || 1.0;
-      
-      // Calculate range (±12% für realistischere Spanne)
-      const minValue = Math.round(baseValue * 0.88 / 100) * 100;
-      const maxValue = Math.round(baseValue * 1.12 / 100) * 100;
-      
+      const conditionFactor = conditionMultipliers[condition] || 1.0;
+
+      // Marktanpassung (Preisniveau Gebrauchtwagen 2024/25 erhöht)
+      const marketFactor = 1.08;
+
+      // Wert berechnen
+      let value = baseValue * ageFactor * kmFactor * fuelFactor * performanceFactor * marketFactor * conditionFactor;
+
+      // Mindestwerte zur Vermeidung unrealistisch niedriger Ergebnisse
+      const premium = new Set([
+        "audi",
+        "bmw",
+        "mercedes",
+        "mercedes-benz",
+        "porsche",
+        "volvo",
+        "lexus",
+        "jaguar",
+        "land rover",
+        "mini",
+      ]);
+      let floor = 2500;
+      if (premium.has(brandLower)) floor = 4000;
+      if (brandLower === "porsche") floor = 15000;
+      value = Math.max(value, floor);
+
+      // Spannweite berechnen (leicht dynamisch nach Zustand/Alter)
+      const minValue = Math.round((value * 0.92) / 100) * 100;
+      const maxMultiplier = vehicleAge <= 2 && km < 40000 ? 1.16 : 1.10;
+      const maxValue = Math.round((value * maxMultiplier) / 100) * 100;
+
       setEstimatedValue({ min: minValue, max: maxValue });
       setIsCalculating(false);
-    }, 1500);
+    }, 1200);
   };
 
   const handleSubmit = (e: React.FormEvent) => {
