@@ -18,6 +18,10 @@ const Bewertung = () => {
     mileage: "",
     fuel: "",
     condition: "",
+    power: "",
+    damage: "",
+    serviceBook: "",
+    previousOwners: "",
     name: "",
     email: "",
     phone: "",
@@ -29,7 +33,7 @@ const Bewertung = () => {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const calculateEstimate = () => {
-    const { brand, model, year, mileage, fuel, condition } = formData;
+    const { brand, model, year, mileage, fuel, condition, power, damage, serviceBook, previousOwners } = formData;
 
     if (!brand || !model || !year || !mileage || !fuel || !condition) {
       return;
@@ -38,41 +42,41 @@ const Bewertung = () => {
     setIsCalculating(true);
 
     setTimeout(() => {
-      // Verkaufspreise (realistisch für Händler-Ankauf/Privatverkauf)
+      // Verkaufspreise (angepasst für realistischen Ankaufspreis)
       const brandValues: { [key: string]: number } = {
-        bmw: 30000,
-        "mercedes": 32000,
-        "mercedes-benz": 32000,
-        audi: 28000,
-        vw: 21000,
-        volkswagen: 21000,
-        opel: 15000,
-        ford: 18000,
-        renault: 15000,
-        peugeot: 15000,
-        toyota: 23000,
-        honda: 20000,
-        mazda: 19000,
-        nissan: 18000,
-        hyundai: 18000,
-        kia: 18000,
-        skoda: 20000,
-        seat: 18000,
-        mini: 24000,
-        fiat: 13000,
-        "alfa romeo": 20000,
-        porsche: 60000,
-        volvo: 26000,
-        tesla: 42000,
-        citroen: 15000,
-        dacia: 12000,
-        suzuki: 15000,
-        subaru: 21000,
-        lexus: 35000,
-        jaguar: 31000,
-        "land rover": 42000,
-        jeep: 28000,
-        chevrolet: 19000,
+        bmw: 28000,
+        "mercedes": 30000,
+        "mercedes-benz": 30000,
+        audi: 26000,
+        vw: 19000,
+        volkswagen: 19000,
+        opel: 14000,
+        ford: 16000,
+        renault: 14000,
+        peugeot: 14000,
+        toyota: 21000,
+        honda: 18000,
+        mazda: 17000,
+        nissan: 16000,
+        hyundai: 16000,
+        kia: 16000,
+        skoda: 18000,
+        seat: 16000,
+        mini: 22000,
+        fiat: 12000,
+        "alfa romeo": 18000,
+        porsche: 55000,
+        volvo: 24000,
+        tesla: 38000,
+        citroen: 14000,
+        dacia: 11000,
+        suzuki: 14000,
+        subaru: 19000,
+        lexus: 32000,
+        jaguar: 28000,
+        "land rover": 38000,
+        jeep: 26000,
+        chevrolet: 17000,
       };
 
       const currentYear = new Date().getFullYear();
@@ -85,7 +89,7 @@ const Bewertung = () => {
       const modelLower = model.toLowerCase().trim();
 
       // Basiswert (Default höher, um zu niedrige Schätzungen zu vermeiden)
-      let baseValue = brandValues[brandLower] || 19000;
+      let baseValue = brandValues[brandLower] || 17000;
 
       // Performance-/Ausstattungsfaktoren
       let performanceFactor = 1;
@@ -145,11 +149,49 @@ const Bewertung = () => {
       };
       const conditionFactor = conditionMultipliers[condition] || 1.0;
 
-      // Marktanpassung (Preisniveau Gebrauchtwagen 2024/25 erhöht)
-      const marketFactor = 0.98; // Angepasst für realistischen Verkaufspreis
+      // Leistungsfaktor (höhere PS = höherer Wert)
+      let powerFactor = 1.0;
+      if (power) {
+        const ps = parseInt(power);
+        if (!isNaN(ps)) {
+          if (ps < 80) powerFactor = 0.92;
+          else if (ps < 120) powerFactor = 0.98;
+          else if (ps < 180) powerFactor = 1.05;
+          else if (ps < 250) powerFactor = 1.12;
+          else powerFactor = 1.20;
+        }
+      }
+
+      // Beschädigungsfaktor
+      let damageFactor = 1.0;
+      if (damage === "keine") damageFactor = 1.0;
+      else if (damage === "leicht") damageFactor = 0.88;
+      else if (damage === "mittel") damageFactor = 0.72;
+      else if (damage === "schwer") damageFactor = 0.55;
+
+      // Scheckheftfaktor
+      let serviceBookFactor = 1.0;
+      if (serviceBook === "ja-vollstaendig") serviceBookFactor = 1.08;
+      else if (serviceBook === "ja-teilweise") serviceBookFactor = 1.02;
+      else if (serviceBook === "nein") serviceBookFactor = 0.94;
+
+      // Vorbesitzerfaktor
+      let ownersFactor = 1.0;
+      if (previousOwners) {
+        const owners = parseInt(previousOwners);
+        if (!isNaN(owners)) {
+          if (owners === 1) ownersFactor = 1.05;
+          else if (owners === 2) ownersFactor = 1.0;
+          else if (owners === 3) ownersFactor = 0.96;
+          else if (owners >= 4) ownersFactor = 0.90;
+        }
+      }
+
+      // Marktanpassung (Angepasst für realistischen Verkaufspreis)
+      const marketFactor = 0.95;
 
       // Wert berechnen
-      let value = baseValue * ageFactor * kmFactor * fuelFactor * performanceFactor * marketFactor * conditionFactor;
+      let value = baseValue * ageFactor * kmFactor * fuelFactor * performanceFactor * marketFactor * conditionFactor * powerFactor * damageFactor * serviceBookFactor * ownersFactor;
 
       // Mindestwerte zur Vermeidung unrealistisch niedriger Ergebnisse
       const premium = new Set([
@@ -189,6 +231,10 @@ const Bewertung = () => {
       mileage: "",
       fuel: "",
       condition: "",
+      power: "",
+      damage: "",
+      serviceBook: "",
+      previousOwners: "",
       name: "",
       email: "",
       phone: "",
@@ -331,7 +377,60 @@ const Bewertung = () => {
                           <SelectItem value="gas">Gas</SelectItem>
                         </SelectContent>
                       </Select>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <Label htmlFor="power">Leistung (PS)</Label>
+                      <Input
+                        id="power"
+                        type="number"
+                        placeholder="z.B. 150"
+                        value={formData.power}
+                        onChange={(e) => setFormData({ ...formData, power: e.target.value })}
+                      />
                     </div>
+                    <div>
+                      <Label htmlFor="previousOwners">Vorbesitzer</Label>
+                      <Input
+                        id="previousOwners"
+                        type="number"
+                        placeholder="z.B. 2"
+                        value={formData.previousOwners}
+                        onChange={(e) => setFormData({ ...formData, previousOwners: e.target.value })}
+                      />
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <Label htmlFor="damage">Beschädigung</Label>
+                      <Select value={formData.damage} onValueChange={(value) => setFormData({ ...formData, damage: value })}>
+                        <SelectTrigger id="damage">
+                          <SelectValue placeholder="Wählen Sie..." />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="keine">Keine</SelectItem>
+                          <SelectItem value="leicht">Leicht (kleine Kratzer)</SelectItem>
+                          <SelectItem value="mittel">Mittel (Dellen, größere Kratzer)</SelectItem>
+                          <SelectItem value="schwer">Schwer (Unfallschaden)</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+                    <div>
+                      <Label htmlFor="serviceBook">Scheckheft</Label>
+                      <Select value={formData.serviceBook} onValueChange={(value) => setFormData({ ...formData, serviceBook: value })}>
+                        <SelectTrigger id="serviceBook">
+                          <SelectValue placeholder="Wählen Sie..." />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="ja-vollstaendig">Ja, vollständig</SelectItem>
+                          <SelectItem value="ja-teilweise">Ja, teilweise</SelectItem>
+                          <SelectItem value="nein">Nein</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+                  </div>
                     <div>
                       <Label htmlFor="condition">Zustand *</Label>
                       <Select value={formData.condition} onValueChange={(value) => setFormData({ ...formData, condition: value })}>
