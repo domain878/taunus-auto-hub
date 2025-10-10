@@ -1,7 +1,7 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
-import Interactive3DCar from "@/components/Interactive3DCar";
+import RealisticCarDamageSelector from "@/components/RealisticCarDamageSelector";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -427,9 +427,9 @@ const Bewertung = () => {
                   <div>
                     <Label>Schäden markieren (optional)</Label>
                     <p className="text-sm text-muted-foreground mb-3">
-                      Drehen Sie das 3D-Modell und wählen Sie beschädigte Bereiche aus
+                      Wählen Sie die Ansicht und markieren Sie Schäden direkt auf dem Fahrzeug
                     </p>
-                    <Interactive3DCar onDamageChange={setDamagePoints} />
+                    <RealisticCarDamageSelector onDamageChange={setDamagePoints} />
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
