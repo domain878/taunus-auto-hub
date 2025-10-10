@@ -18,6 +18,9 @@ const Bewertung = () => {
     year: "",
     mileage: "",
     fuel: "",
+    transmission: "",
+    color: "",
+    tuv: "",
     condition: "",
     power: "",
     damage: "",
@@ -270,11 +273,11 @@ const Bewertung = () => {
           erstzulassung: formData.year,
           kilometerstand: formData.mileage,
           kraftstoff: formData.fuel,
-          getriebe: "Nicht angegeben", // Add if you have a transmission field
+          getriebe: formData.transmission || "Nicht angegeben",
           leistung: formData.power || "Nicht angegeben",
-          farbe: "Nicht angegeben", // Add if you have a color field
+          farbe: formData.color || "Nicht angegeben",
           vorbesitzer: formData.previousOwners || "Nicht angegeben",
-          tuv: "Nicht angegeben", // Add if you have a TÜV field
+          tuv: formData.tuv || "Nicht angegeben",
           zustand: formData.condition,
         },
         contactData: {
@@ -310,6 +313,9 @@ const Bewertung = () => {
         year: "",
         mileage: "",
         fuel: "",
+        transmission: "",
+        color: "",
+        tuv: "",
         condition: "",
         power: "",
         damage: "",
@@ -463,6 +469,39 @@ const Bewertung = () => {
                           <SelectItem value="gas">Gas</SelectItem>
                         </SelectContent>
                       </Select>
+                    </div>
+                    <div>
+                      <Label htmlFor="transmission">Getriebe *</Label>
+                      <Select value={formData.transmission} onValueChange={(value) => setFormData({ ...formData, transmission: value })}>
+                        <SelectTrigger id="transmission">
+                          <SelectValue placeholder="Wählen Sie..." />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="manuell">Manuell</SelectItem>
+                          <SelectItem value="automatik">Automatik</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <Label htmlFor="color">Farbe</Label>
+                      <Input
+                        id="color"
+                        placeholder="z.B. Schwarz"
+                        value={formData.color}
+                        onChange={(e) => setFormData({ ...formData, color: e.target.value })}
+                      />
+                    </div>
+                    <div>
+                      <Label htmlFor="tuv">TÜV gültig bis</Label>
+                      <Input
+                        id="tuv"
+                        type="month"
+                        value={formData.tuv}
+                        onChange={(e) => setFormData({ ...formData, tuv: e.target.value })}
+                      />
                     </div>
                   </div>
 
