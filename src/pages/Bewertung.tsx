@@ -38,41 +38,41 @@ const Bewertung = () => {
     setIsCalculating(true);
 
     setTimeout(() => {
-      // Aktualisierte Basiswerte nach Marke (realistischere 2025-Niveau)
+      // Verkaufspreise (realistisch für Händler-Ankauf/Privatverkauf)
       const brandValues: { [key: string]: number } = {
-        bmw: 35000,
-        "mercedes": 37000,
-        "mercedes-benz": 37000,
-        audi: 33000,
-        vw: 24000,
-        volkswagen: 24000,
-        opel: 17000,
-        ford: 20000,
-        renault: 17000,
-        peugeot: 17000,
-        toyota: 26000,
-        honda: 23000,
-        mazda: 22000,
-        nissan: 20000,
-        hyundai: 21000,
-        kia: 21000,
-        skoda: 23000,
-        seat: 21000,
-        mini: 28000,
-        fiat: 15000,
-        "alfa romeo": 23000,
-        porsche: 70000,
-        volvo: 30000,
-        tesla: 50000,
-        citroen: 17000,
-        dacia: 14000,
-        suzuki: 17000,
-        subaru: 24000,
-        lexus: 40000,
-        jaguar: 36000,
-        "land rover": 48000,
-        jeep: 32000,
-        chevrolet: 22000,
+        bmw: 30000,
+        "mercedes": 32000,
+        "mercedes-benz": 32000,
+        audi: 28000,
+        vw: 21000,
+        volkswagen: 21000,
+        opel: 15000,
+        ford: 18000,
+        renault: 15000,
+        peugeot: 15000,
+        toyota: 23000,
+        honda: 20000,
+        mazda: 19000,
+        nissan: 18000,
+        hyundai: 18000,
+        kia: 18000,
+        skoda: 20000,
+        seat: 18000,
+        mini: 24000,
+        fiat: 13000,
+        "alfa romeo": 20000,
+        porsche: 60000,
+        volvo: 26000,
+        tesla: 42000,
+        citroen: 15000,
+        dacia: 12000,
+        suzuki: 15000,
+        subaru: 21000,
+        lexus: 35000,
+        jaguar: 31000,
+        "land rover": 42000,
+        jeep: 28000,
+        chevrolet: 19000,
       };
 
       const currentYear = new Date().getFullYear();
@@ -85,7 +85,7 @@ const Bewertung = () => {
       const modelLower = model.toLowerCase().trim();
 
       // Basiswert (Default höher, um zu niedrige Schätzungen zu vermeiden)
-      let baseValue = brandValues[brandLower] || 22000;
+      let baseValue = brandValues[brandLower] || 19000;
 
       // Performance-/Ausstattungsfaktoren
       let performanceFactor = 1;
@@ -146,7 +146,7 @@ const Bewertung = () => {
       const conditionFactor = conditionMultipliers[condition] || 1.0;
 
       // Marktanpassung (Preisniveau Gebrauchtwagen 2024/25 erhöht)
-      const marketFactor = 1.08;
+      const marketFactor = 0.98; // Angepasst für realistischen Verkaufspreis
 
       // Wert berechnen
       let value = baseValue * ageFactor * kmFactor * fuelFactor * performanceFactor * marketFactor * conditionFactor;
