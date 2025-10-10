@@ -1,6 +1,7 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
+import CarDamageSelector from "@/components/CarDamageSelector";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -27,6 +28,7 @@ const Bewertung = () => {
     phone: "",
   });
   const [photos, setPhotos] = useState<File[]>([]);
+  const [damagePoints, setDamagePoints] = useState<any[]>([]);
   const [isDragging, setIsDragging] = useState(false);
   const [estimatedValue, setEstimatedValue] = useState<{ min: number; max: number } | null>(null);
   const [isCalculating, setIsCalculating] = useState(false);
@@ -162,12 +164,31 @@ const Bewertung = () => {
         }
       }
 
-      // Beschädigungsfaktor
+      // Beschädigungsfaktor (basierend auf Anzahl und Art der Schäden)
       let damageFactor = 1.0;
-      if (damage === "keine") damageFactor = 1.0;
-      else if (damage === "leicht") damageFactor = 0.88;
-      else if (damage === "mittel") damageFactor = 0.72;
-      else if (damage === "schwer") damageFactor = 0.55;
+      if (damagePoints.length === 0) {
+        damageFactor = 1.0; // Keine Schäden
+      } else {
+        const damageCount = damagePoints.length;
+        const hasSevere = damagePoints.some((p: any) => p.type === "rost" || p.type === "delle");
+        
+        if (damageCount === 1 && !hasSevere) {
+          damageFactor = 0.95; // Ein kleiner Schaden
+        } else if (damageCount <= 2 && !hasSevere) {
+          damageFactor = 0.90; // Wenige leichte Schäden
+        } else if (damageCount <= 4 || (damageCount <= 2 && hasSevere)) {
+          damageFactor = 0.82; // Mehrere Schäden oder schwere Schäden
+        } else {
+          damageFactor = 0.70; // Viele Schäden
+        }
+      }
+      
+      // Falls das alte Dropdown-Feld noch genutzt wird
+      if (damage && damage !== "keine" && damagePoints.length === 0) {
+        if (damage === "leicht") damageFactor = 0.88;
+        else if (damage === "mittel") damageFactor = 0.72;
+        else if (damage === "schwer") damageFactor = 0.55;
+      }
 
       // Scheckheftfaktor
       let serviceBookFactor = 1.0;
@@ -377,6 +398,7 @@ const Bewertung = () => {
                           <SelectItem value="gas">Gas</SelectItem>
                         </SelectContent>
                       </Select>
+                    </div>
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -402,21 +424,15 @@ const Bewertung = () => {
                     </div>
                   </div>
 
+                  <div>
+                    <Label>Schäden markieren (optional)</Label>
+                    <p className="text-sm text-muted-foreground mb-3">
+                      Markieren Sie Kratzer, Dellen und andere Schäden direkt auf dem Fahrzeugdiagramm
+                    </p>
+                    <CarDamageSelector onDamageChange={setDamagePoints} />
+                  </div>
+
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                      <Label htmlFor="damage">Beschädigung</Label>
-                      <Select value={formData.damage} onValueChange={(value) => setFormData({ ...formData, damage: value })}>
-                        <SelectTrigger id="damage">
-                          <SelectValue placeholder="Wählen Sie..." />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="keine">Keine</SelectItem>
-                          <SelectItem value="leicht">Leicht (kleine Kratzer)</SelectItem>
-                          <SelectItem value="mittel">Mittel (Dellen, größere Kratzer)</SelectItem>
-                          <SelectItem value="schwer">Schwer (Unfallschaden)</SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </div>
                     <div>
                       <Label htmlFor="serviceBook">Scheckheft</Label>
                       <Select value={formData.serviceBook} onValueChange={(value) => setFormData({ ...formData, serviceBook: value })}>
@@ -430,7 +446,6 @@ const Bewertung = () => {
                         </SelectContent>
                       </Select>
                     </div>
-                  </div>
                     <div>
                       <Label htmlFor="condition">Zustand *</Label>
                       <Select value={formData.condition} onValueChange={(value) => setFormData({ ...formData, condition: value })}>
