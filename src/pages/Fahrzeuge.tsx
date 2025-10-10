@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState } from "react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
@@ -6,11 +6,6 @@ import VehicleCard from "@/components/VehicleCard";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Textarea } from "@/components/ui/textarea";
-import { Upload, Plus, X } from "lucide-react";
-import { toast } from "sonner";
 import audiA4Image from "@/assets/audi-a4.jpg";
 import miniCooperImage from "@/assets/mini-cooper.jpg";
 import audiA8Image from "@/assets/audi-a8.jpg";
@@ -26,28 +21,6 @@ const Fahrzeuge = () => {
   const [priceRange, setPriceRange] = useState("all");
   const [fuelType, setFuelType] = useState("all");
   const [brand, setBrand] = useState("all");
-  const [showAddForm, setShowAddForm] = useState(false);
-  const [vehicleImages, setVehicleImages] = useState<File[]>([]);
-  const [isDragging, setIsDragging] = useState(false);
-  const fileInputRef = useRef<HTMLInputElement>(null);
-  
-  const [newVehicle, setNewVehicle] = useState({
-    brand: "",
-    model: "",
-    year: "",
-    price: "",
-    mileage: "",
-    fuel: "",
-    transmission: "",
-    color: "",
-    doors: "",
-    seats: "",
-    power: "",
-    co2Emissions: "",
-    features: "",
-    condition: "",
-    firstRegistration: "",
-  });
 
   // Vehicle data with your images
   const [vehicles, setVehicles] = useState([
@@ -243,85 +216,6 @@ const Fahrzeuge = () => {
     },
   ]);
 
-  const handleDragOver = (e: React.DragEvent) => {
-    e.preventDefault();
-    setIsDragging(true);
-  };
-
-  const handleDragLeave = (e: React.DragEvent) => {
-    e.preventDefault();
-    setIsDragging(false);
-  };
-
-  const handleDrop = (e: React.DragEvent) => {
-    e.preventDefault();
-    setIsDragging(false);
-    const files = Array.from(e.dataTransfer.files).filter(file => file.type.startsWith('image/'));
-    if (vehicleImages.length + files.length <= 15) {
-      setVehicleImages(prev => [...prev, ...files]);
-    } else {
-      toast.error("Maximal 15 Bilder erlaubt");
-    }
-  };
-
-  const removeImage = (index: number) => {
-    setVehicleImages(prev => prev.filter((_, i) => i !== index));
-  };
-
-  const handleAddVehicle = (e: React.FormEvent) => {
-    e.preventDefault();
-    
-    if (vehicleImages.length === 0) {
-      toast.error("Bitte laden Sie mindestens ein Bild hoch");
-      return;
-    }
-
-    const imageUrls = vehicleImages.map(file => URL.createObjectURL(file));
-    
-    const vehicle = {
-      id: Date.now().toString(),
-      images: imageUrls,
-      brand: newVehicle.brand,
-      model: newVehicle.model,
-      year: parseInt(newVehicle.year),
-      price: parseInt(newVehicle.price),
-      mileage: parseInt(newVehicle.mileage),
-      fuel: newVehicle.fuel,
-      transmission: newVehicle.transmission,
-      color: newVehicle.color,
-      doors: parseInt(newVehicle.doors),
-      seats: parseInt(newVehicle.seats),
-      power: newVehicle.power,
-      co2Emissions: newVehicle.co2Emissions,
-      features: newVehicle.features.split(',').map(f => f.trim()),
-      condition: newVehicle.condition,
-      firstRegistration: newVehicle.firstRegistration,
-    };
-
-    setVehicles(prev => [vehicle, ...prev]);
-    
-    setNewVehicle({
-      brand: "",
-      model: "",
-      year: "",
-      price: "",
-      mileage: "",
-      fuel: "",
-      transmission: "",
-      color: "",
-      doors: "",
-      seats: "",
-      power: "",
-      co2Emissions: "",
-      features: "",
-      condition: "",
-      firstRegistration: "",
-    });
-    setVehicleImages([]);
-    setShowAddForm(false);
-    toast.success("Fahrzeug erfolgreich hinzugefügt!");
-  };
-
 return (
   <div className="min-h-screen flex flex-col">
     <Navigation />
@@ -415,268 +309,14 @@ return (
       {/* Vehicle Grid */}
       <section className="py-12 bg-gradient-to-b from-background to-muted/30">
         <div className="container mx-auto px-4">
-          <div className="mb-8 flex items-center justify-between">
-            <div>
-              <p className="text-lg font-semibold text-foreground">
-                {vehicles.length} Fahrzeuge gefunden
-              </p>
-              <p className="text-sm text-muted-foreground">
-                Alle Fahrzeuge wurden technisch geprüft
-              </p>
-            </div>
-            <Button 
-              onClick={() => setShowAddForm(!showAddForm)}
-              className="gap-2"
-            >
-              <Plus className="h-4 w-4" />
-              {showAddForm ? "Formular schließen" : "Fahrzeug hinzufügen"}
-            </Button>
+          <div className="mb-8">
+            <p className="text-lg font-semibold text-foreground">
+              {vehicles.length} Fahrzeuge gefunden
+            </p>
+            <p className="text-sm text-muted-foreground">
+              Alle Fahrzeuge wurden technisch geprüft
+            </p>
           </div>
-
-          {/* Add Vehicle Form */}
-          {showAddForm && (
-            <Card className="mb-8">
-              <CardHeader>
-                <CardTitle>Neues Fahrzeug hinzufügen</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <form onSubmit={handleAddVehicle} className="space-y-4">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                      <Label htmlFor="newBrand">Marke *</Label>
-                      <Input
-                        id="newBrand"
-                        value={newVehicle.brand}
-                        onChange={(e) => setNewVehicle({...newVehicle, brand: e.target.value})}
-                        required
-                      />
-                    </div>
-                    <div>
-                      <Label htmlFor="newModel">Modell *</Label>
-                      <Input
-                        id="newModel"
-                        value={newVehicle.model}
-                        onChange={(e) => setNewVehicle({...newVehicle, model: e.target.value})}
-                        required
-                      />
-                    </div>
-                    <div>
-                      <Label htmlFor="newYear">Baujahr *</Label>
-                      <Input
-                        id="newYear"
-                        type="number"
-                        value={newVehicle.year}
-                        onChange={(e) => setNewVehicle({...newVehicle, year: e.target.value})}
-                        required
-                      />
-                    </div>
-                    <div>
-                      <Label htmlFor="newPrice">Preis (€) *</Label>
-                      <Input
-                        id="newPrice"
-                        type="number"
-                        value={newVehicle.price}
-                        onChange={(e) => setNewVehicle({...newVehicle, price: e.target.value})}
-                        required
-                      />
-                    </div>
-                    <div>
-                      <Label htmlFor="newMileage">Kilometerstand *</Label>
-                      <Input
-                        id="newMileage"
-                        type="number"
-                        value={newVehicle.mileage}
-                        onChange={(e) => setNewVehicle({...newVehicle, mileage: e.target.value})}
-                        required
-                      />
-                    </div>
-                    <div>
-                      <Label htmlFor="newFuel">Kraftstoff *</Label>
-                      <Select value={newVehicle.fuel} onValueChange={(value) => setNewVehicle({...newVehicle, fuel: value})}>
-                        <SelectTrigger id="newFuel">
-                          <SelectValue placeholder="Kraftstoff wählen" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="Benzin">Benzin</SelectItem>
-                          <SelectItem value="Diesel">Diesel</SelectItem>
-                          <SelectItem value="Elektro">Elektro</SelectItem>
-                          <SelectItem value="Hybrid">Hybrid</SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </div>
-                    <div>
-                      <Label htmlFor="newTransmission">Getriebe *</Label>
-                      <Select value={newVehicle.transmission} onValueChange={(value) => setNewVehicle({...newVehicle, transmission: value})}>
-                        <SelectTrigger id="newTransmission">
-                          <SelectValue placeholder="Getriebe wählen" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="Schaltgetriebe">Schaltgetriebe</SelectItem>
-                          <SelectItem value="Automatik">Automatik</SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </div>
-                    <div>
-                      <Label htmlFor="newColor">Farbe *</Label>
-                      <Input
-                        id="newColor"
-                        value={newVehicle.color}
-                        onChange={(e) => setNewVehicle({...newVehicle, color: e.target.value})}
-                        required
-                      />
-                    </div>
-                    <div>
-                      <Label htmlFor="newDoors">Türen *</Label>
-                      <Input
-                        id="newDoors"
-                        type="number"
-                        value={newVehicle.doors}
-                        onChange={(e) => setNewVehicle({...newVehicle, doors: e.target.value})}
-                        required
-                      />
-                    </div>
-                    <div>
-                      <Label htmlFor="newSeats">Sitze *</Label>
-                      <Input
-                        id="newSeats"
-                        type="number"
-                        value={newVehicle.seats}
-                        onChange={(e) => setNewVehicle({...newVehicle, seats: e.target.value})}
-                        required
-                      />
-                    </div>
-                    <div>
-                      <Label htmlFor="newPower">Leistung *</Label>
-                      <Input
-                        id="newPower"
-                        placeholder="z.B. 140 kW (190 PS)"
-                        value={newVehicle.power}
-                        onChange={(e) => setNewVehicle({...newVehicle, power: e.target.value})}
-                        required
-                      />
-                    </div>
-                    <div>
-                      <Label htmlFor="newCo2">CO2 Emissionen *</Label>
-                      <Input
-                        id="newCo2"
-                        placeholder="z.B. 119 g/km"
-                        value={newVehicle.co2Emissions}
-                        onChange={(e) => setNewVehicle({...newVehicle, co2Emissions: e.target.value})}
-                        required
-                      />
-                    </div>
-                    <div>
-                      <Label htmlFor="newCondition">Zustand *</Label>
-                      <Select value={newVehicle.condition} onValueChange={(value) => setNewVehicle({...newVehicle, condition: value})}>
-                        <SelectTrigger id="newCondition">
-                          <SelectValue placeholder="Zustand wählen" />
-                        </SelectTrigger>
-                        <SelectContent>
-                          <SelectItem value="Neuwertig">Neuwertig</SelectItem>
-                          <SelectItem value="Sehr gut">Sehr gut</SelectItem>
-                          <SelectItem value="Gebraucht">Gebraucht</SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </div>
-                    <div>
-                      <Label htmlFor="newFirstReg">Erstzulassung *</Label>
-                      <Input
-                        id="newFirstReg"
-                        placeholder="z.B. 03/2017"
-                        value={newVehicle.firstRegistration}
-                        onChange={(e) => setNewVehicle({...newVehicle, firstRegistration: e.target.value})}
-                        required
-                      />
-                    </div>
-                  </div>
-
-                  <div className="md:col-span-2">
-                    <Label htmlFor="newFeatures">Ausstattung *</Label>
-                    <Input
-                      id="newFeatures"
-                      placeholder="z.B. Navigationssystem, Ledersitze, Klimaautomatik, Xenon"
-                      value={newVehicle.features}
-                      onChange={(e) => setNewVehicle({...newVehicle, features: e.target.value})}
-                    />
-                    <p className="text-sm text-muted-foreground mt-1">
-                      Mehrere Features durch Komma trennen
-                    </p>
-                  </div>
-
-                  {/* Image Upload Area */}
-                  <div>
-                    <Label>Bilder hochladen (max. 15) *</Label>
-                    <div
-                      onDragOver={handleDragOver}
-                      onDragLeave={handleDragLeave}
-                      onDrop={handleDrop}
-                      className={`border-2 border-dashed rounded-lg p-8 text-center transition-colors ${
-                        isDragging ? 'border-primary bg-primary/10' : 'border-muted-foreground/25'
-                      }`}
-                    >
-                      <Upload className="h-12 w-12 mx-auto mb-4 text-muted-foreground" />
-                      <p className="text-sm text-muted-foreground mb-2">
-                        Bilder hierher ziehen oder klicken zum Auswählen
-                      </p>
-                      <Input
-                        ref={fileInputRef}
-                        type="file"
-                        accept="image/*"
-                        multiple
-                        className="hidden"
-                        onChange={(e) => {
-                          const files = Array.from(e.target.files || []);
-                          if (vehicleImages.length + files.length <= 15) {
-                            setVehicleImages(prev => [...prev, ...files]);
-                          } else {
-                            toast.error("Maximal 15 Bilder erlaubt");
-                          }
-                        }}
-                      />
-                      <Button
-                        type="button"
-                        variant="outline"
-                        onClick={() => fileInputRef.current?.click()}
-                      >
-                        Bilder auswählen
-                      </Button>
-                    </div>
-
-                    {/* Image Preview */}
-                    {vehicleImages.length > 0 && (
-                      <div className="grid grid-cols-3 md:grid-cols-5 gap-4 mt-4">
-                        {vehicleImages.map((file, index) => (
-                          <div key={index} className="relative group">
-                            <img
-                              src={URL.createObjectURL(file)}
-                              alt={`Upload ${index + 1}`}
-                              className="w-full h-24 object-cover rounded-lg"
-                            />
-                            <Button
-                              type="button"
-                              variant="destructive"
-                              size="icon"
-                              className="absolute -top-2 -right-2 h-6 w-6 opacity-0 group-hover:opacity-100 transition-opacity"
-                              onClick={() => removeImage(index)}
-                            >
-                              <X className="h-4 w-4" />
-                            </Button>
-                          </div>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-
-                  <div className="flex gap-4">
-                    <Button type="submit">Fahrzeug hinzufügen</Button>
-                    <Button type="button" variant="outline" onClick={() => setShowAddForm(false)}>
-                      Abbrechen
-                    </Button>
-                  </div>
-                </form>
-              </CardContent>
-            </Card>
-          )}
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {vehicles.map((vehicle, index) => (
