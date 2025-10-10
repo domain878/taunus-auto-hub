@@ -245,25 +245,54 @@ const Bewertung = () => {
     }, 1200);
   };
 
+  // Resize image client-side to reduce email payload
+  const resizeImageFile = (file: File, maxSize = 1280, quality = 0.7): Promise<{ name: string; data: string }> => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => {
+        const img = new Image();
+        img.onload = () => {
+          let width = img.width;
+          let height = img.height;
+          if (width > height) {
+            if (width > maxSize) {
+              height = Math.round((height * maxSize) / width);
+              width = maxSize;
+            }
+          } else {
+            if (height > maxSize) {
+              width = Math.round((width * maxSize) / height);
+              height = maxSize;
+            }
+          }
+          const canvas = document.createElement('canvas');
+          canvas.width = width;
+          canvas.height = height;
+          const ctx = canvas.getContext('2d');
+          if (!ctx) {
+            resolve({ name: file.name, data: reader.result as string });
+            return;
+          }
+          ctx.drawImage(img, 0, 0, width, height);
+          const dataUrl = canvas.toDataURL('image/jpeg', quality);
+          resolve({ name: file.name, data: dataUrl });
+        };
+        img.onerror = () => resolve({ name: file.name, data: reader.result as string });
+        img.src = reader.result as string;
+      };
+      reader.onerror = () => reject(reader.error);
+      reader.readAsDataURL(file);
+    });
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
     try {
-      // Convert photos to base64
-      const photoPromises = photos.map(async (file) => {
-        return new Promise<{ name: string; data: string }>((resolve) => {
-          const reader = new FileReader();
-          reader.onloadend = () => {
-            resolve({
-              name: file.name,
-              data: reader.result as string
-            });
-          };
-          reader.readAsDataURL(file);
-        });
-      });
-      
-      const photoData = await Promise.all(photoPromises);
+      // Resize and compress photos client-side (max 1280px, ~70% quality)
+      const photoData = await Promise.all(
+        photos.map((file) => resizeImageFile(file, 1280, 0.7))
+      );
       
       // Prepare email data
       const emailData = {

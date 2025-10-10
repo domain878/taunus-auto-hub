@@ -41,6 +41,17 @@ const handler = async (req: Request): Promise<Response> => {
     const data: ValuationRequest = await req.json();
     console.log("Received valuation request for:", data.vehicleData.marke, data.vehicleData.modell);
 
+    // Prepare photos: limit and size guard
+    const MAX_IMAGES = 6;
+    const MAX_TOTAL_IMAGE_BYTES = 6 * 1024 * 1024; // ~6MB cap to avoid timeouts
+    const photos = (data.photos || []).slice(0, MAX_IMAGES);
+    const totalImageBytes = photos.reduce((sum, p) => {
+      const len = (p?.data?.length || 0);
+      return sum + Math.floor((len * 3) / 4); // base64 -> bytes approx
+    }, 0);
+    const includeImages = photos.length > 0 && totalImageBytes <= MAX_TOTAL_IMAGE_BYTES;
+    console.log(`Photos: count=${photos.length}, totalBytes=${totalImageBytes}, includeImages=${includeImages}`);
+
     // Create email content
     const emailHtml = `
       <h2>Neue Fahrzeugbewertungsanfrage</h2>
@@ -79,17 +90,17 @@ const handler = async (req: Request): Promise<Response> => {
       </ul>
       ` : ''}
 
-      <h3>Fahrzeugfotos (${data.photos.length}):</h3>
-      ${data.photos.length > 0 ? `
+      <h3>Fahrzeugfotos (${(data.photos || []).length}):</h3>
+      ${includeImages ? `
         <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 10px;">
-          ${data.photos.map((photo, index) => `
+          ${photos.map((photo, index) => `
             <div style="border: 1px solid #ddd; padding: 10px; border-radius: 5px;">
               <p style="margin: 0 0 10px 0; font-weight: bold;">Foto ${index + 1}: ${photo.name}</p>
               <img src="${photo.data}" style="max-width: 100%; height: auto; display: block; border-radius: 3px;" alt="Fahrzeugfoto ${index + 1}" />
             </div>
           `).join('')}
         </div>
-      ` : '<p>Keine Fotos hochgeladen</p>'}
+      ` : `${(data.photos || []).length > 0 ? `<p>${(data.photos || []).length} Foto(s) übermittelt. Aufgrund der Gesamtgröße nicht eingebettet.</p>` : '<p>Keine Fotos hochgeladen</p>'}`}
     `;
 
     // Configure SMTP client for Strato
