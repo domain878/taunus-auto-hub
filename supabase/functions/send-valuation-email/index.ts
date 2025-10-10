@@ -52,8 +52,11 @@ const handler = async (req: Request): Promise<Response> => {
         <li><strong>Erstzulassung:</strong> ${data.vehicleData.erstzulassung}</li>
         <li><strong>Kilometerstand:</strong> ${data.vehicleData.kilometerstand} km</li>
         <li><strong>Kraftstoff:</strong> ${data.vehicleData.kraftstoff}</li>
+        <li><strong>Getriebe:</strong> ${data.vehicleData.getriebe}</li>
         <li><strong>Leistung:</strong> ${data.vehicleData.leistung} PS</li>
+        <li><strong>Farbe:</strong> ${data.vehicleData.farbe}</li>
         <li><strong>Vorbesitzer:</strong> ${data.vehicleData.vorbesitzer}</li>
+        <li><strong>TÜV:</strong> ${data.vehicleData.tuv}</li>
         <li><strong>Zustand:</strong> ${data.vehicleData.zustand}</li>
       </ul>
 
@@ -76,8 +79,17 @@ const handler = async (req: Request): Promise<Response> => {
       </ul>
       ` : ''}
 
-      <h3>Fotos:</h3>
-      <p>${data.photos.length} Foto(s) hochgeladen</p>
+      <h3>Fahrzeugfotos (${data.photos.length}):</h3>
+      ${data.photos.length > 0 ? `
+        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 10px;">
+          ${data.photos.map((photo, index) => `
+            <div style="border: 1px solid #ddd; padding: 10px; border-radius: 5px;">
+              <p style="margin: 0 0 10px 0; font-weight: bold;">Foto ${index + 1}: ${photo.name}</p>
+              <img src="${photo.data}" style="max-width: 100%; height: auto; display: block; border-radius: 3px;" alt="Fahrzeugfoto ${index + 1}" />
+            </div>
+          `).join('')}
+        </div>
+      ` : '<p>Keine Fotos hochgeladen</p>'}
     `;
 
     // Configure SMTP client for Strato
