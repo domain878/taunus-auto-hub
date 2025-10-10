@@ -20,6 +20,7 @@ import hondaHrvImage from "@/assets/honda-hrv.jpg";
 import fiat500cImage from "@/assets/fiat-500c.jpg";
 import vwTouranImage from "@/assets/vw-touran.jpg";
 import mazda3Image from "@/assets/mazda-3.jpg";
+import bmw225xeImage from "@/assets/bmw-225xe.jpg";
 
 const Fahrzeuge = () => {
   const [priceRange, setPriceRange] = useState("all");
@@ -220,6 +221,25 @@ const Fahrzeuge = () => {
       features: ["Klimaanlage", "Multifunktionslenkrad", "Navi", "Alufelgen"],
       condition: "Gebraucht",
       firstRegistration: "07/2013",
+    },
+    {
+      id: "10",
+      images: [bmw225xeImage],
+      brand: "BMW",
+      model: "225 xe Active Tourer",
+      year: 2017,
+      price: 16990,
+      mileage: 96000,
+      fuel: "Hybrid",
+      transmission: "Automatik",
+      color: "Schwarz",
+      doors: 5,
+      seats: 5,
+      power: "100 kW (136 PS)",
+      co2Emissions: "46 g/km",
+      features: ["2-Zonen-Klimaautomatik", "Einparkhilfe vorne & hinten", "Euro6", "Unfallfrei"],
+      condition: "Gebraucht",
+      firstRegistration: "06/2017",
     },
   ]);
 
