@@ -145,16 +145,11 @@ const VehicleCard = ({
 
         {features.length > 0 && (
           <div className="flex flex-wrap gap-1 mb-2">
-            {features.slice(0, 3).map((feature, index) => (
+            {features.slice(0, 4).map((feature, index) => (
               <Badge key={index} variant="secondary" className="text-xs">
                 {feature}
               </Badge>
             ))}
-            {features.length > 3 && (
-              <Badge variant="secondary" className="text-xs">
-                +{features.length - 3}
-              </Badge>
-            )}
           </div>
         )}
       </CardContent>
