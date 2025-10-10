@@ -24,7 +24,99 @@ const Bewertung = () => {
   });
   const [photos, setPhotos] = useState<File[]>([]);
   const [isDragging, setIsDragging] = useState(false);
+  const [estimatedValue, setEstimatedValue] = useState<{ min: number; max: number } | null>(null);
+  const [isCalculating, setIsCalculating] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const calculateEstimate = () => {
+    const { brand, model, year, mileage, fuel, condition } = formData;
+    
+    if (!brand || !model || !year || !mileage || !fuel || !condition) {
+      return;
+    }
+
+    setIsCalculating(true);
+    
+    // Simulate calculation delay for realism
+    setTimeout(() => {
+      // Base values by brand (average market prices)
+      const brandValues: { [key: string]: number } = {
+        "bmw": 25000,
+        "mercedes": 28000,
+        "audi": 24000,
+        "vw": 18000,
+        "volkswagen": 18000,
+        "opel": 14000,
+        "ford": 15000,
+        "renault": 13000,
+        "peugeot": 13000,
+        "toyota": 17000,
+        "honda": 16000,
+        "mazda": 15000,
+        "nissan": 14000,
+        "hyundai": 14000,
+        "kia": 14000,
+        "skoda": 16000,
+        "seat": 15000,
+        "mini": 20000,
+        "fiat": 12000,
+        "alfa romeo": 18000,
+        "porsche": 45000,
+        "volvo": 22000,
+      };
+
+      const currentYear = new Date().getFullYear();
+      const vehicleAge = currentYear - parseInt(year);
+      const km = parseInt(mileage);
+      
+      // Get base value or use default
+      const brandLower = brand.toLowerCase();
+      let baseValue = brandValues[brandLower] || 15000;
+      
+      // Age depreciation (8-12% per year)
+      const ageDepreciation = Math.pow(0.90, vehicleAge);
+      baseValue *= ageDepreciation;
+      
+      // Mileage adjustment
+      if (km < 30000) {
+        baseValue *= 1.15;
+      } else if (km < 60000) {
+        baseValue *= 1.05;
+      } else if (km < 100000) {
+        baseValue *= 0.95;
+      } else if (km < 150000) {
+        baseValue *= 0.80;
+      } else {
+        baseValue *= 0.65;
+      }
+      
+      // Fuel type adjustment
+      const fuelMultipliers: { [key: string]: number } = {
+        "elektro": 1.10,
+        "hybrid": 1.05,
+        "diesel": 0.95,
+        "benzin": 1.00,
+        "gas": 0.90,
+      };
+      baseValue *= fuelMultipliers[fuel] || 1.0;
+      
+      // Condition adjustment
+      const conditionMultipliers: { [key: string]: number } = {
+        "sehr-gut": 1.10,
+        "gut": 1.00,
+        "befriedigend": 0.85,
+        "ausreichend": 0.70,
+      };
+      baseValue *= conditionMultipliers[condition] || 1.0;
+      
+      // Calculate range (±10%)
+      const minValue = Math.round(baseValue * 0.90 / 100) * 100;
+      const maxValue = Math.round(baseValue * 1.10 / 100) * 100;
+      
+      setEstimatedValue({ min: minValue, max: maxValue });
+      setIsCalculating(false);
+    }, 1500);
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -194,6 +286,35 @@ const Bewertung = () => {
                       </Select>
                     </div>
                   </div>
+
+                  {/* Wertermittlung Button */}
+                  <div className="pt-4">
+                    <Button 
+                      type="button" 
+                      onClick={calculateEstimate}
+                      disabled={!formData.brand || !formData.model || !formData.year || !formData.mileage || !formData.fuel || !formData.condition || isCalculating}
+                      variant="outline"
+                      className="w-full"
+                    >
+                      {isCalculating ? "Berechne..." : "Ungefähren Wert ermitteln"}
+                    </Button>
+                  </div>
+
+                  {/* Estimated Value Display */}
+                  {estimatedValue && (
+                    <div className="mt-4 p-6 bg-primary/5 border-2 border-primary rounded-lg animate-fade-in">
+                      <div className="text-center">
+                        <p className="text-sm text-muted-foreground mb-2">Geschätzter Marktwert</p>
+                        <p className="text-3xl font-bold text-primary mb-1">
+                          {estimatedValue.min.toLocaleString('de-DE')} € - {estimatedValue.max.toLocaleString('de-DE')} €
+                        </p>
+                        <p className="text-xs text-muted-foreground mt-2">
+                          * Dies ist eine automatische Schätzung basierend auf aktuellen Marktdaten. 
+                          Für eine genaue Bewertung füllen Sie bitte das gesamte Formular aus.
+                        </p>
+                      </div>
+                    </div>
+                  )}
                 </div>
 
                 <div className="space-y-4 pt-4 border-t">
