@@ -3,7 +3,7 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { X } from "lucide-react";
-import carDiagram from "@/assets/car-damage-diagram.png";
+import carDiagram from "@/assets/car-damage-diagram-corrected.png";
 
 interface DamagePoint {
   id: string;
