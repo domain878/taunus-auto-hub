@@ -39,30 +39,41 @@ const Bewertung = () => {
     
     // Simulate calculation delay for realism
     setTimeout(() => {
-      // Base values by brand (average market prices)
+      // Realistische Basiswerte nach Marke (aktuelle Marktpreise 2025)
       const brandValues: { [key: string]: number } = {
-        "bmw": 25000,
-        "mercedes": 28000,
-        "audi": 24000,
-        "vw": 18000,
-        "volkswagen": 18000,
-        "opel": 14000,
-        "ford": 15000,
-        "renault": 13000,
-        "peugeot": 13000,
-        "toyota": 17000,
-        "honda": 16000,
-        "mazda": 15000,
-        "nissan": 14000,
-        "hyundai": 14000,
-        "kia": 14000,
-        "skoda": 16000,
-        "seat": 15000,
-        "mini": 20000,
-        "fiat": 12000,
-        "alfa romeo": 18000,
-        "porsche": 45000,
-        "volvo": 22000,
+        "bmw": 32000,
+        "mercedes": 35000,
+        "mercedes-benz": 35000,
+        "audi": 30000,
+        "vw": 22000,
+        "volkswagen": 22000,
+        "opel": 16000,
+        "ford": 18000,
+        "renault": 15000,
+        "peugeot": 15000,
+        "toyota": 24000,
+        "honda": 21000,
+        "mazda": 20000,
+        "nissan": 18000,
+        "hyundai": 19000,
+        "kia": 20000,
+        "skoda": 21000,
+        "seat": 18000,
+        "mini": 26000,
+        "fiat": 14000,
+        "alfa romeo": 22000,
+        "porsche": 65000,
+        "volvo": 28000,
+        "tesla": 48000,
+        "citroen": 16000,
+        "dacia": 12000,
+        "suzuki": 15000,
+        "subaru": 23000,
+        "lexus": 38000,
+        "jaguar": 35000,
+        "land rover": 45000,
+        "jeep": 32000,
+        "chevrolet": 20000,
       };
 
       const currentYear = new Date().getFullYear();
@@ -70,48 +81,59 @@ const Bewertung = () => {
       const km = parseInt(mileage);
       
       // Get base value or use default
-      const brandLower = brand.toLowerCase();
-      let baseValue = brandValues[brandLower] || 15000;
+      const brandLower = brand.toLowerCase().trim();
+      let baseValue = brandValues[brandLower] || 18000;
       
-      // Age depreciation (8-12% per year)
-      const ageDepreciation = Math.pow(0.90, vehicleAge);
-      baseValue *= ageDepreciation;
-      
-      // Mileage adjustment
-      if (km < 30000) {
-        baseValue *= 1.15;
-      } else if (km < 60000) {
-        baseValue *= 1.05;
-      } else if (km < 100000) {
-        baseValue *= 0.95;
-      } else if (km < 150000) {
-        baseValue *= 0.80;
+      // Realistischere Altersdepreziation (je nach Alter unterschiedlich)
+      if (vehicleAge <= 1) {
+        baseValue *= 0.85; // Neuwagen verlieren 15% im ersten Jahr
+      } else if (vehicleAge <= 3) {
+        baseValue *= Math.pow(0.88, vehicleAge); // 12% pro Jahr
+      } else if (vehicleAge <= 7) {
+        baseValue *= Math.pow(0.90, vehicleAge - 3) * 0.68; // 10% pro Jahr ab Jahr 4
       } else {
-        baseValue *= 0.65;
+        baseValue *= Math.pow(0.93, vehicleAge - 7) * 0.42; // 7% pro Jahr ab Jahr 8
       }
       
-      // Fuel type adjustment
+      // Realistischere Kilometeranpassung
+      if (km < 10000) {
+        baseValue *= 1.25; // Sehr wenig Kilometer
+      } else if (km < 30000) {
+        baseValue *= 1.15;
+      } else if (km < 60000) {
+        baseValue *= 1.08;
+      } else if (km < 100000) {
+        baseValue *= 1.00;
+      } else if (km < 150000) {
+        baseValue *= 0.85;
+      } else if (km < 200000) {
+        baseValue *= 0.70;
+      } else {
+        baseValue *= 0.55;
+      }
+      
+      // Kraftstoffanpassung (aktuelle Markttrends 2025)
       const fuelMultipliers: { [key: string]: number } = {
-        "elektro": 1.10,
-        "hybrid": 1.05,
-        "diesel": 0.95,
-        "benzin": 1.00,
-        "gas": 0.90,
+        "elektro": 1.15,  // E-Autos haben höheren Wert
+        "hybrid": 1.08,   // Hybride gefragt
+        "diesel": 0.88,   // Diesel weniger gefragt
+        "benzin": 1.00,   // Standard
+        "gas": 0.85,      // LPG/CNG weniger gefragt
       };
       baseValue *= fuelMultipliers[fuel] || 1.0;
       
-      // Condition adjustment
+      // Zustandsanpassung (größerer Einfluss)
       const conditionMultipliers: { [key: string]: number } = {
-        "sehr-gut": 1.10,
+        "sehr-gut": 1.15,
         "gut": 1.00,
-        "befriedigend": 0.85,
-        "ausreichend": 0.70,
+        "befriedigend": 0.82,
+        "ausreichend": 0.65,
       };
       baseValue *= conditionMultipliers[condition] || 1.0;
       
-      // Calculate range (±10%)
-      const minValue = Math.round(baseValue * 0.90 / 100) * 100;
-      const maxValue = Math.round(baseValue * 1.10 / 100) * 100;
+      // Calculate range (±12% für realistischere Spanne)
+      const minValue = Math.round(baseValue * 0.88 / 100) * 100;
+      const maxValue = Math.round(baseValue * 1.12 / 100) * 100;
       
       setEstimatedValue({ min: minValue, max: maxValue });
       setIsCalculating(false);
