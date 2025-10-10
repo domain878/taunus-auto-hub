@@ -570,15 +570,17 @@ return (
                     </div>
                   </div>
 
-                  <div>
-                    <Label htmlFor="newFeatures">Ausstattung (durch Komma getrennt)</Label>
-                    <Textarea
+                  <div className="md:col-span-2">
+                    <Label htmlFor="newFeatures">Ausstattung *</Label>
+                    <Input
                       id="newFeatures"
-                      placeholder="z.B. Navigationssystem, Ledersitze, Klimaautomatik"
+                      placeholder="z.B. Navigationssystem, Ledersitze, Klimaautomatik, Xenon"
                       value={newVehicle.features}
                       onChange={(e) => setNewVehicle({...newVehicle, features: e.target.value})}
-                      rows={3}
                     />
+                    <p className="text-sm text-muted-foreground mt-1">
+                      Mehrere Features durch Komma trennen
+                    </p>
                   </div>
 
                   {/* Image Upload Area */}
