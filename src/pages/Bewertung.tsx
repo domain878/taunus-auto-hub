@@ -242,25 +242,90 @@ const Bewertung = () => {
     }, 1200);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    toast.success("Vielen Dank! Wir erstellen Ihre Bewertung und melden uns in Kürze.");
-    setFormData({
-      brand: "",
-      model: "",
-      year: "",
-      mileage: "",
-      fuel: "",
-      condition: "",
-      power: "",
-      damage: "",
-      serviceBook: "",
-      previousOwners: "",
-      name: "",
-      email: "",
-      phone: "",
-    });
-    setPhotos([]);
+    
+    try {
+      // Convert photos to base64
+      const photoPromises = photos.map(async (file) => {
+        return new Promise<{ name: string; data: string }>((resolve) => {
+          const reader = new FileReader();
+          reader.onloadend = () => {
+            resolve({
+              name: file.name,
+              data: reader.result as string
+            });
+          };
+          reader.readAsDataURL(file);
+        });
+      });
+      
+      const photoData = await Promise.all(photoPromises);
+      
+      // Prepare email data
+      const emailData = {
+        vehicleData: {
+          marke: formData.brand,
+          modell: formData.model,
+          erstzulassung: formData.year,
+          kilometerstand: formData.mileage,
+          kraftstoff: formData.fuel,
+          getriebe: "Nicht angegeben", // Add if you have a transmission field
+          leistung: formData.power || "Nicht angegeben",
+          farbe: "Nicht angegeben", // Add if you have a color field
+          vorbesitzer: formData.previousOwners || "Nicht angegeben",
+          tuv: "Nicht angegeben", // Add if you have a TÜV field
+          zustand: formData.condition,
+        },
+        contactData: {
+          vorname: formData.name.split(' ')[0] || formData.name,
+          nachname: formData.name.split(' ').slice(1).join(' ') || "",
+          email: formData.email,
+          telefon: formData.phone,
+          nachricht: "",
+        },
+        photos: photoData,
+        damagePoints: damagePoints,
+        estimatedValue: estimatedValue,
+      };
+      
+      // Send to edge function
+      const { supabase } = await import("@/integrations/supabase/client");
+      const { data, error } = await supabase.functions.invoke('send-valuation-email', {
+        body: emailData
+      });
+      
+      if (error) {
+        console.error("Error sending email:", error);
+        toast.error("Fehler beim Senden der Anfrage. Bitte versuchen Sie es später erneut.");
+        return;
+      }
+      
+      toast.success("Vielen Dank! Ihre Bewertungsanfrage wurde versendet.");
+      
+      // Reset form
+      setFormData({
+        brand: "",
+        model: "",
+        year: "",
+        mileage: "",
+        fuel: "",
+        condition: "",
+        power: "",
+        damage: "",
+        serviceBook: "",
+        previousOwners: "",
+        name: "",
+        email: "",
+        phone: "",
+      });
+      setPhotos([]);
+      setDamagePoints([]);
+      setEstimatedValue(null);
+    } catch (error) {
+      console.error("Error:", error);
+      toast.error("Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.");
+    }
   };
 
   const handleDragOver = (e: React.DragEvent) => {
