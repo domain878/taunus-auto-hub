@@ -1,5 +1,5 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
-import { SmtpClient } from "https://deno.land/x/smtp@v0.7.0/mod.ts";
+import { SMTPClient } from "https://deno.land/x/denomailer@1.6.0/mod.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -52,11 +52,8 @@ const handler = async (req: Request): Promise<Response> => {
         <li><strong>Erstzulassung:</strong> ${data.vehicleData.erstzulassung}</li>
         <li><strong>Kilometerstand:</strong> ${data.vehicleData.kilometerstand} km</li>
         <li><strong>Kraftstoff:</strong> ${data.vehicleData.kraftstoff}</li>
-        <li><strong>Getriebe:</strong> ${data.vehicleData.getriebe}</li>
         <li><strong>Leistung:</strong> ${data.vehicleData.leistung} PS</li>
-        <li><strong>Farbe:</strong> ${data.vehicleData.farbe}</li>
         <li><strong>Vorbesitzer:</strong> ${data.vehicleData.vorbesitzer}</li>
-        <li><strong>TÜV:</strong> ${data.vehicleData.tuv}</li>
         <li><strong>Zustand:</strong> ${data.vehicleData.zustand}</li>
       </ul>
 
@@ -65,12 +62,11 @@ const handler = async (req: Request): Promise<Response> => {
         <li><strong>Name:</strong> ${data.contactData.vorname} ${data.contactData.nachname}</li>
         <li><strong>E-Mail:</strong> ${data.contactData.email}</li>
         <li><strong>Telefon:</strong> ${data.contactData.telefon}</li>
-        <li><strong>Nachricht:</strong> ${data.contactData.nachricht || 'Keine Nachricht'}</li>
       </ul>
 
       ${data.estimatedValue ? `
       <h3>Geschätzter Wert:</h3>
-      <p>${data.estimatedValue.min.toLocaleString('de-DE')} € - ${data.estimatedValue.max.toLocaleString('de-DE')} €</p>
+      <p><strong>${data.estimatedValue.min.toLocaleString('de-DE')} € - ${data.estimatedValue.max.toLocaleString('de-DE')} €</strong></p>
       ` : ''}
 
       ${data.damagePoints && data.damagePoints.length > 0 ? `
@@ -84,16 +80,21 @@ const handler = async (req: Request): Promise<Response> => {
       <p>${data.photos.length} Foto(s) hochgeladen</p>
     `;
 
-    // Configure SMTP client
-    const client = new SmtpClient();
-    
-    await client.connectTLS({
-      hostname: "smtp.strato.de",
-      port: 465,
-      username: "ankauf@hochtaunus-automobile.de",
-      password: Deno.env.get("STRATO_EMAIL_PASSWORD")!,
+    // Configure SMTP client for Strato
+    const client = new SMTPClient({
+      connection: {
+        hostname: "smtp.strato.de",
+        port: 465,
+        tls: true,
+        auth: {
+          username: "ankauf@hochtaunus-automobile.de",
+          password: Deno.env.get("STRATO_EMAIL_PASSWORD") || "",
+        },
+      },
     });
 
+    console.log("Attempting to send email via Strato SMTP...");
+    
     await client.send({
       from: "ankauf@hochtaunus-automobile.de",
       to: "ankauf@hochtaunus-automobile.de",
@@ -103,7 +104,7 @@ const handler = async (req: Request): Promise<Response> => {
     });
 
     await client.close();
-
+    
     console.log("Email sent successfully");
 
     return new Response(
@@ -118,8 +119,9 @@ const handler = async (req: Request): Promise<Response> => {
     );
   } catch (error: any) {
     console.error("Error sending email:", error);
+    console.error("Error stack:", error.stack);
     return new Response(
-      JSON.stringify({ error: error.message }),
+      JSON.stringify({ error: error.message, details: error.stack }),
       {
         status: 500,
         headers: { "Content-Type": "application/json", ...corsHeaders },
