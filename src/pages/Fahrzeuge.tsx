@@ -228,7 +228,7 @@ const Fahrzeuge = () => {
       brand: "BMW",
       model: "225 xe Active Tourer",
       year: 2017,
-      price: 16990,
+      price: 14990,
       mileage: 96000,
       fuel: "Hybrid",
       transmission: "Automatik",
