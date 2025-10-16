@@ -17,6 +17,7 @@ import vwTouranImage from "@/assets/vw-touran.jpg";
 import mazda3Image from "@/assets/mazda-3.jpg";
 import bmw225xeImage from "@/assets/bmw-225xe.jpg";
 import toyotaCorollaImage from "@/assets/toyota-corolla.jpg";
+import nissanQashqaiImage from "@/assets/nissan-qashqai.jpg";
 
 const Fahrzeuge = () => {
   const [priceRange, setPriceRange] = useState("all");
@@ -233,6 +234,25 @@ const Fahrzeuge = () => {
       features: ["Voll ausgestattet", "Garantie", "1.8 Hybrid", "Team dD"],
       condition: "Neuwertig",
       firstRegistration: "01/2024",
+    },
+    {
+      id: "12",
+      images: [nissanQashqaiImage],
+      brand: "Nissan",
+      model: "Qashqai e-Power Tekna",
+      year: 2024,
+      price: 23990,
+      mileage: 105000,
+      fuel: "Hybrid",
+      transmission: "Automatik",
+      color: "Schwarz",
+      doors: 5,
+      seats: 5,
+      power: "140 kW (190 PS)",
+      co2Emissions: "119 g/km",
+      features: ["Tekna Ausstattung", "e-Power Hybrid", "Navigationssystem", "Sicherheitspaket"],
+      condition: "Neuwertig",
+      firstRegistration: "04/2024",
     },
   ]);
 
