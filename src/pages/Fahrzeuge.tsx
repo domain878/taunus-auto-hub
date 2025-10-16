@@ -16,6 +16,7 @@ import fiat500cImage from "@/assets/fiat-500c.jpg";
 import vwTouranImage from "@/assets/vw-touran.jpg";
 import mazda3Image from "@/assets/mazda-3.jpg";
 import bmw225xeImage from "@/assets/bmw-225xe.jpg";
+import toyotaCorollaImage from "@/assets/toyota-corolla.jpg";
 
 const Fahrzeuge = () => {
   const [priceRange, setPriceRange] = useState("all");
@@ -213,6 +214,25 @@ const Fahrzeuge = () => {
       features: ["2-Zonen-Klimaautomatik", "Einparkhilfe vorne & hinten", "Euro6", "Unfallfrei"],
       condition: "Gebraucht",
       firstRegistration: "06/2017",
+    },
+    {
+      id: "11",
+      images: [toyotaCorollaImage],
+      brand: "Toyota",
+      model: "Corolla Team dD",
+      year: 2024,
+      price: 24990,
+      mileage: 17890,
+      fuel: "Hybrid",
+      transmission: "Automatik",
+      color: "Weiß",
+      doors: 5,
+      seats: 5,
+      power: "103 kW (140 PS)",
+      co2Emissions: "98 g/km",
+      features: ["Voll ausgestattet", "Garantie", "1.8 Hybrid", "Team dD"],
+      condition: "Neuwertig",
+      firstRegistration: "01/2024",
     },
   ]);
 
