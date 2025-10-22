@@ -18,6 +18,7 @@ import mazda3Image from "@/assets/mazda-3.jpg";
 import bmw225xeImage from "@/assets/bmw-225xe.jpg";
 import toyotaCorollaImage from "@/assets/toyota-corolla.jpg";
 import nissanQashqaiImage from "@/assets/nissan-qashqai.jpg";
+import mercedesE300Image from "@/assets/mercedes-e300.jpg";
 
 const Fahrzeuge = () => {
   const [priceRange, setPriceRange] = useState("all");
@@ -253,6 +254,25 @@ const Fahrzeuge = () => {
       features: ["Tekna Ausstattung", "e-Power Hybrid", "Navigationssystem", "Sicherheitspaket"],
       condition: "Neuwertig",
       firstRegistration: "04/2024",
+    },
+    {
+      id: "13",
+      images: [mercedesE300Image],
+      brand: "Mercedes",
+      model: "E 300 CDI",
+      year: 2015,
+      price: 13290,
+      mileage: 250000,
+      fuel: "Diesel",
+      transmission: "Automatik",
+      color: "Silber Metallic",
+      doors: 4,
+      seats: 5,
+      power: "170 kW (231 PS)",
+      co2Emissions: "139 g/km",
+      features: ["Euro 6", "Navigationssystem", "Klimaautomatik", "Einparkhilfe"],
+      condition: "Gebraucht",
+      firstRegistration: "2015",
     },
   ]);
 
