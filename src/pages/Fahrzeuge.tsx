@@ -14,6 +14,7 @@ import toyotaCorollaImage from "@/assets/toyota-corolla.jpg";
 import nissanQashqaiImage from "@/assets/nissan-qashqai.jpg";
 import mercedesE300Image from "@/assets/mercedes-e300.jpg";
 import audiS3Image from "@/assets/audi-s3.jpg";
+import fordSmaxImage from "@/assets/ford-smax.jpg";
 
 const Fahrzeuge = () => {
   const [priceRange, setPriceRange] = useState("all");
@@ -173,6 +174,25 @@ const Fahrzeuge = () => {
       features: ["Virtual Cockpit", "B&O Sound", "TWA", "Matrix LED"],
       condition: "Unfallfrei",
       firstRegistration: "04/2019",
+    },
+    {
+      id: "9",
+      images: [fordSmaxImage],
+      brand: "Ford",
+      model: "S-MAX Titanium",
+      year: 2018,
+      price: 12690,
+      mileage: 150000,
+      fuel: "Benzin",
+      transmission: "Schaltgetriebe",
+      color: "Schwarz",
+      doors: 5,
+      seats: 7,
+      power: "118 kW (160 PS)",
+      co2Emissions: "145 g/km",
+      features: ["LED-Scheinwerfer", "Lendenheizung", "Rückfahrkamera", "KEYLESS"],
+      condition: "Unfallfrei",
+      firstRegistration: "05/2018",
     },
   ]);
 
