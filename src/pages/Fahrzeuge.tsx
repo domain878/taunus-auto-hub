@@ -125,7 +125,7 @@ const Fahrzeuge = () => {
       brand: "Nissan",
       model: "Qashqai e-Power Tekna",
       year: 2024,
-      price: 23990,
+      price: 23490,
       mileage: 105000,
       fuel: "Hybrid",
       transmission: "Automatik",
