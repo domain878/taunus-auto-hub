@@ -15,6 +15,7 @@ import nissanQashqaiImage from "@/assets/nissan-qashqai.jpg";
 import mercedesE300Image from "@/assets/mercedes-e300.jpg";
 import audiS3Image from "@/assets/audi-s3.jpg";
 import fordSmaxImage from "@/assets/ford-smax.jpg";
+import bmw420Image from "@/assets/bmw-420.jpg";
 
 const Fahrzeuge = () => {
   const [priceRange, setPriceRange] = useState("all");
@@ -193,6 +194,25 @@ const Fahrzeuge = () => {
       features: ["LED-Scheinwerfer", "Lendenheizung", "Rückfahrkamera", "KEYLESS"],
       condition: "Unfallfrei",
       firstRegistration: "05/2018",
+    },
+    {
+      id: "10",
+      images: [bmw420Image],
+      brand: "BMW",
+      model: "420 Gran Coupé M-Sport",
+      year: 2014,
+      price: 18290,
+      mileage: 163500,
+      fuel: "Diesel",
+      transmission: "Automatik",
+      color: "Schwarz",
+      doors: 5,
+      seats: 5,
+      power: "135 kW (184 PS)",
+      co2Emissions: "128 g/km",
+      features: ["M-Paket", "Head-Up Display", "xDrive", "LED", "Rückfahrkamera", "CarPlay"],
+      condition: "Unfallfrei",
+      firstRegistration: "12/2014",
     },
   ]);
 
