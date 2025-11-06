@@ -50,10 +50,10 @@ const Navigation = () => {
 
           {/* CTA Button */}
           <div className="hidden md:flex items-center gap-3">
-            <a href="tel:016093354106">
+            <a href="tel:+4961719781111">
               <Button variant="outline" size="sm">
                 <Phone className="h-4 w-4" />
-                0160 93354106
+                +49 6171 9781111
               </Button>
             </a>
           </div>
@@ -84,10 +84,10 @@ const Navigation = () => {
                 {item.name}
               </Link>
             ))}
-            <a href="tel:016093354106" className="block px-4 py-2">
+            <a href="tel:+4961719781111" className="block px-4 py-2">
               <Button variant="outline" size="sm" className="w-full">
                 <Phone className="h-4 w-4" />
-                0160 93354106
+                +49 6171 9781111
               </Button>
             </a>
           </div>

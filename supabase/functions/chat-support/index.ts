@@ -28,11 +28,11 @@ Du hilfst Kunden bei Fragen zu:
 
 Öffnungszeiten:
 - Mo-Fr: 09:00 - 18:00 Uhr
-- Sa: 10:00 - 14:00 Uhr
+- Sa: 10:00 - 14:30 Uhr
 
 Kontakt:
-- Telefon: 016093354106
-- Adresse: Musterstraße 123, 12345 Berlin
+- Telefon: +49 6171 9781111
+- Adresse: Zimmersmühlenweg 83, 61440 Oberursel (Taunus)
 
 Sei höflich, hilfsbereit und informativ. Wenn du etwas nicht weißt, empfehle dem Kunden, direkt anzurufen oder die Kontaktseite zu besuchen.`;
 

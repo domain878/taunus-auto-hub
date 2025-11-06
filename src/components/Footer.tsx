@@ -19,11 +19,11 @@ const Footer = () => {
             </p>
             <div className="space-y-2">
               <a
-                href="tel:016093354106"
+                href="tel:+4961719781111"
                 className="flex items-center gap-2 text-sm hover:text-primary transition-colors"
               >
                 <Phone className="h-4 w-4" />
-                0160 93354106
+                +49 6171 9781111
               </a>
               <a
                 href="mailto:info@hochtaunus-automobile.de"
