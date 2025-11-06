@@ -13,6 +13,7 @@ import bmw225xeImage from "@/assets/bmw-225xe.jpg";
 import toyotaCorollaImage from "@/assets/toyota-corolla.jpg";
 import nissanQashqaiImage from "@/assets/nissan-qashqai.jpg";
 import mercedesE300Image from "@/assets/mercedes-e300.jpg";
+import audiS3Image from "@/assets/audi-s3.jpg";
 
 const Fahrzeuge = () => {
   const [priceRange, setPriceRange] = useState("all");
@@ -153,6 +154,25 @@ const Fahrzeuge = () => {
       features: ["Euro 6", "Navigationssystem", "Klimaautomatik", "Einparkhilfe"],
       condition: "Gebraucht",
       firstRegistration: "2015",
+    },
+    {
+      id: "8",
+      images: [audiS3Image],
+      brand: "Audi",
+      model: "S3 Sportback quattro",
+      year: 2019,
+      price: 29990,
+      mileage: 56900,
+      fuel: "Benzin",
+      transmission: "Automatik",
+      color: "Schwarz",
+      doors: 5,
+      seats: 5,
+      power: "221 kW (300 PS)",
+      co2Emissions: "155 g/km",
+      features: ["Virtual Cockpit", "B&O Sound", "TWA", "Matrix LED"],
+      condition: "Unfallfrei",
+      firstRegistration: "04/2019",
     },
   ]);
 
