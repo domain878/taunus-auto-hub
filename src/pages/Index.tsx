@@ -13,6 +13,7 @@ import heroImage from "@/assets/hero-car.jpg";
 import opelInsigniaImage from "@/assets/opel-insignia.jpg";
 import audiS3Image from "@/assets/audi-s3.jpg";
 import bmw420Image from "@/assets/bmw-420.jpg";
+import mercedesE200CabrioImage from "@/assets/mercedes-e200-cabrio.jpg";
 
 const Index = () => {
   // Featured vehicle data
@@ -73,6 +74,25 @@ const Index = () => {
       features: ["M-Paket", "Head-Up Display", "xDrive", "LED", "Rückfahrkamera", "CarPlay"],
       condition: "Unfallfrei",
       firstRegistration: "12/2014",
+    },
+    {
+      id: "11",
+      images: [mercedesE200CabrioImage],
+      brand: "Mercedes",
+      model: "E 200 Cabrio AMG Line",
+      year: 2019,
+      price: 36490,
+      mileage: 23500,
+      fuel: "Benzin",
+      transmission: "Automatik",
+      color: "Weiß",
+      doors: 2,
+      seats: 4,
+      power: "135 kW (184 PS)",
+      co2Emissions: "145 g/km",
+      features: ["AMG Line", "Airscarf", "LED-Scheinwerfer", "Rückfahrkamera", "TWA", "CarPlay"],
+      condition: "Sehr gut",
+      firstRegistration: "04/2019",
     },
   ];
 
