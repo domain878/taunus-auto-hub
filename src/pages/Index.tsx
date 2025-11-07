@@ -12,7 +12,6 @@ import { useParallax } from "@/hooks/useScrollAnimation";
 import heroImage from "@/assets/hero-car.jpg";
 import opelInsigniaImage from "@/assets/opel-insignia.jpg";
 import audiS3Image from "@/assets/audi-s3.jpg";
-import bmw420Image from "@/assets/bmw-420.jpg";
 import mercedesE200CabrioImage from "@/assets/mercedes-e200-cabrio.jpg";
 
 const Index = () => {
@@ -55,25 +54,6 @@ const Index = () => {
       features: ["Virtual Cockpit", "B&O Sound", "TWA", "Matrix LED"],
       condition: "Unfallfrei",
       firstRegistration: "04/2019",
-    },
-    {
-      id: "10",
-      images: [bmw420Image],
-      brand: "BMW",
-      model: "420 Gran Coupé M-Sport",
-      year: 2014,
-      price: 18290,
-      mileage: 164500,
-      fuel: "Diesel",
-      transmission: "Automatik",
-      color: "Schwarz",
-      doors: 5,
-      seats: 5,
-      power: "135 kW (184 PS)",
-      co2Emissions: "128 g/km",
-      features: ["M-Paket", "Head-Up Display", "xDrive", "LED", "Rückfahrkamera", "CarPlay"],
-      condition: "Unfallfrei",
-      firstRegistration: "12/2014",
     },
     {
       id: "11",
