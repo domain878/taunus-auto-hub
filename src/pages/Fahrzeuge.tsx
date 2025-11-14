@@ -17,6 +17,7 @@ import audiS3Image from "@/assets/audi-s3.jpg";
 import fordSmaxImage from "@/assets/ford-smax.jpg";
 import bmw420Image from "@/assets/bmw-420.jpg";
 import mercedesE200CabrioImage from "@/assets/mercedes-e200-cabrio.jpg";
+import bmw530eTouringImage from "@/assets/bmw-530e-touring.jpg";
 
 const Fahrzeuge = () => {
   const [priceRange, setPriceRange] = useState("all");
@@ -233,6 +234,25 @@ const Fahrzeuge = () => {
       features: ["AMG Line", "Airscarf", "LED-Scheinwerfer", "Rückfahrkamera", "TWA", "CarPlay"],
       condition: "Sehr gut",
       firstRegistration: "04/2019",
+    },
+    {
+      id: "12",
+      images: [bmw530eTouringImage],
+      brand: "BMW",
+      model: "5 Touring 530e M Sport",
+      year: 2025,
+      price: 63990,
+      mileage: 4490,
+      fuel: "Hybrid",
+      transmission: "Automatik",
+      color: "Schwarz",
+      doors: 5,
+      seats: 5,
+      power: "215 kW (292 PS)",
+      co2Emissions: "39 g/km",
+      features: ["M Sport", "Head-Up Display", "Laser-Licht", "Sitzbelüftung", "Panoramadach"],
+      condition: "Neuwertig",
+      firstRegistration: "05/2025",
     },
   ]);
 
