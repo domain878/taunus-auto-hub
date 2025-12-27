@@ -6,6 +6,28 @@ const corsHeaders = {
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
 };
 
+// Simple in-memory rate limiting (resets on function cold start)
+const rateLimitMap = new Map<string, { count: number; resetTime: number }>();
+const RATE_LIMIT_WINDOW_MS = 60 * 60 * 1000; // 1 hour
+const MAX_REQUESTS_PER_WINDOW = 5; // 5 valuation requests per hour per IP
+
+function isRateLimited(ip: string): boolean {
+  const now = Date.now();
+  const record = rateLimitMap.get(ip);
+  
+  if (!record || now > record.resetTime) {
+    rateLimitMap.set(ip, { count: 1, resetTime: now + RATE_LIMIT_WINDOW_MS });
+    return false;
+  }
+  
+  if (record.count >= MAX_REQUESTS_PER_WINDOW) {
+    return true;
+  }
+  
+  record.count++;
+  return false;
+}
+
 interface ValuationRequest {
   vehicleData: {
     marke: string;
@@ -38,6 +60,19 @@ const handler = async (req: Request): Promise<Response> => {
   }
 
   try {
+    // Rate limiting check
+    const clientIP = req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || 
+                     req.headers.get('cf-connecting-ip') || 
+                     'unknown';
+    
+    if (isRateLimited(clientIP)) {
+      console.warn(`Rate limit exceeded for valuation request from IP: ${clientIP}`);
+      return new Response(
+        JSON.stringify({ error: "Zu viele Anfragen. Bitte versuchen Sie es später erneut." }),
+        { status: 429, headers: { "Content-Type": "application/json", ...corsHeaders } }
+      );
+    }
+
     const data: ValuationRequest = await req.json();
     console.log("Received valuation request for:", data.vehicleData.marke, data.vehicleData.modell);
 
@@ -141,10 +176,15 @@ const handler = async (req: Request): Promise<Response> => {
       }
     );
   } catch (error: any) {
-    console.error("Error sending email:", error);
-    console.error("Error stack:", error.stack);
+    // Log detailed error server-side only
+    console.error("Email send error:", error?.message || "Unknown error");
+    console.error("Error stack:", error?.stack || "No stack trace");
+    
+    // Return generic error to client - no internal details exposed
     return new Response(
-      JSON.stringify({ error: error.message, details: error.stack }),
+      JSON.stringify({ 
+        error: "Beim Versenden ist ein Fehler aufgetreten. Bitte versuchen Sie es später erneut oder kontaktieren Sie uns telefonisch." 
+      }),
       {
         status: 500,
         headers: { "Content-Type": "application/json", ...corsHeaders },
