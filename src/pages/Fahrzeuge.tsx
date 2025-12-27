@@ -14,6 +14,7 @@ import audiS3Image from "@/assets/audi-s3.jpg";
 import mercedesE200CabrioImage from "@/assets/mercedes-e200-cabrio.jpg";
 import bmw530eTouringImage from "@/assets/bmw-530e-touring.jpg";
 import mercedesE200AvantgardeImage from "@/assets/mercedes-e200-avantgarde.jpg";
+import mercedesC200Image from "@/assets/mercedes-c200.jpg";
 
 const Fahrzeuge = () => {
   const [priceRange, setPriceRange] = useState("all");
@@ -173,6 +174,25 @@ const Fahrzeuge = () => {
       features: ["Night-Paket", "LED-Scheinwerfer", "Rückfahrkamera", "AHK", "E10-geeignet"],
       condition: "Gebraucht",
       firstRegistration: "09/2019",
+    },
+    {
+      id: "14",
+      images: [mercedesC200Image],
+      brand: "Mercedes",
+      model: "C 200",
+      year: 2018,
+      price: 24990,
+      mileage: 45000,
+      fuel: "Benzin",
+      transmission: "Automatik",
+      color: "Weiß",
+      doors: 5,
+      seats: 5,
+      power: "135 kW (184 PS)",
+      co2Emissions: "149 g/km",
+      features: ["LED-Scheinwerfer", "Keyless Go", "CarPlay", "Vollleder", "Widescreen Cockpit"],
+      condition: "Unfallfrei",
+      firstRegistration: "09/2018",
     },
   ]);
 
