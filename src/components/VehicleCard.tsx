@@ -158,10 +158,15 @@ const VehicleCard = ({
       <CardFooter className="p-4 pt-0 flex items-center justify-between gap-2">
         <div>
           <p className="text-2xl font-bold text-primary">
-            {price.toLocaleString("de-DE")} €
+            {price.toLocaleString("de-DE")} € {vatIncluded && <span className="text-sm font-normal">(Brutto)</span>}
           </p>
           {vatIncluded && (
-            <p className="text-xs text-muted-foreground">inkl. MwSt.</p>
+            <>
+              <p className="text-sm text-muted-foreground">
+                {Math.round(price / 1.19).toLocaleString("de-DE")} € (Netto)
+              </p>
+              <p className="text-xs text-muted-foreground">19,00% MwSt.</p>
+            </>
           )}
         </div>
         <Button 
