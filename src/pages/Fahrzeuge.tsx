@@ -6,16 +6,11 @@ import VehicleCard from "@/components/VehicleCard";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import audiA8Image from "@/assets/audi-a8.jpg";
 import opelInsigniaImage from "@/assets/opel-insignia.jpg";
-import fiat500cImage from "@/assets/fiat-500c.jpg";
 import bmw225xeImage from "@/assets/bmw-225xe.jpg";
-import toyotaCorollaImage from "@/assets/toyota-corolla.jpg";
 import nissanQashqaiImage from "@/assets/nissan-qashqai.jpg";
 import mercedesE300Image from "@/assets/mercedes-e300.jpg";
 import audiS3Image from "@/assets/audi-s3.jpg";
-import fordSmaxImage from "@/assets/ford-smax.jpg";
-import bmw420Image from "@/assets/bmw-420.jpg";
 import mercedesE200CabrioImage from "@/assets/mercedes-e200-cabrio.jpg";
 import bmw530eTouringImage from "@/assets/bmw-530e-touring.jpg";
 
@@ -26,25 +21,6 @@ const Fahrzeuge = () => {
 
   // Vehicle data with your images
   const [vehicles, setVehicles] = useState([
-    {
-      id: "1",
-      images: [audiA8Image],
-      brand: "Audi",
-      model: "A8 4.2 TDI",
-      year: 2011,
-      price: 14990,
-      mileage: 247500,
-      fuel: "Diesel",
-      transmission: "Automatik",
-      color: "Grau Metallic",
-      doors: 4,
-      seats: 5,
-      power: "258 kW (351 PS)",
-      co2Emissions: "189 g/km",
-      features: ["Luftfederung", "Standheizung", "Massage", "B&O Sound"],
-      condition: "Gebraucht",
-      firstRegistration: "11/2011",
-    },
     {
       id: "2",
       images: [opelInsigniaImage],
@@ -65,25 +41,6 @@ const Fahrzeuge = () => {
       firstRegistration: "04/2018",
     },
     {
-      id: "3",
-      images: [fiat500cImage],
-      brand: "Fiat",
-      model: "500 C Hey Google",
-      year: 2021,
-      price: 12900,
-      mileage: 26500,
-      fuel: "Benzin",
-      transmission: "Schaltgetriebe",
-      color: "Weiß",
-      doors: 3,
-      seats: 4,
-      power: "51 kW (69 PS)",
-      co2Emissions: "115 g/km",
-      features: ["Panorama-Stoffdach", "Klimaanlage", "Radio", "Zentralverriegelung"],
-      condition: "Sehr gut",
-      firstRegistration: "03/2021",
-    },
-    {
       id: "4",
       images: [bmw225xeImage],
       brand: "BMW",
@@ -100,26 +57,7 @@ const Fahrzeuge = () => {
       co2Emissions: "46 g/km",
       features: ["2-Zonen-Klimaautomatik", "Einparkhilfe vorne & hinten", "Euro6", "Unfallfrei"],
       condition: "Gebraucht",
-      firstRegistration: "06/2017",
-    },
-    {
-      id: "5",
-      images: [toyotaCorollaImage],
-      brand: "Toyota",
-      model: "Corolla Team dD",
-      year: 2024,
-      price: 17290,
-      mileage: 178900,
-      fuel: "Hybrid",
-      transmission: "Automatik",
-      color: "Weiß",
-      doors: 5,
-      seats: 5,
-      power: "103 kW (140 PS)",
-      co2Emissions: "98 g/km",
-      features: ["Voll ausgestattet", "Garantie", "1.8 Hybrid", "Team dD"],
-      condition: "Neuwertig",
-      firstRegistration: "01/2024",
+      firstRegistration: "06/2020",
     },
     {
       id: "6",
@@ -177,44 +115,6 @@ const Fahrzeuge = () => {
       features: ["Virtual Cockpit", "B&O Sound", "TWA", "Matrix LED"],
       condition: "Unfallfrei",
       firstRegistration: "04/2019",
-    },
-    {
-      id: "9",
-      images: [fordSmaxImage],
-      brand: "Ford",
-      model: "S-MAX Titanium",
-      year: 2018,
-      price: 12690,
-      mileage: 150000,
-      fuel: "Benzin",
-      transmission: "Schaltgetriebe",
-      color: "Schwarz",
-      doors: 5,
-      seats: 7,
-      power: "118 kW (160 PS)",
-      co2Emissions: "145 g/km",
-      features: ["LED-Scheinwerfer", "Lendenheizung", "Rückfahrkamera", "KEYLESS"],
-      condition: "Unfallfrei",
-      firstRegistration: "05/2018",
-    },
-    {
-      id: "10",
-      images: [bmw420Image],
-      brand: "BMW",
-      model: "420 Gran Coupé M-Sport",
-      year: 2014,
-      price: 18290,
-      mileage: 164500,
-      fuel: "Diesel",
-      transmission: "Automatik",
-      color: "Schwarz",
-      doors: 5,
-      seats: 5,
-      power: "135 kW (184 PS)",
-      co2Emissions: "128 g/km",
-      features: ["M-Paket", "Head-Up Display", "xDrive", "LED", "Rückfahrkamera", "CarPlay"],
-      condition: "Unfallfrei",
-      firstRegistration: "12/2014",
     },
     {
       id: "11",
