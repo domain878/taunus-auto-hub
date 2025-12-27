@@ -24,6 +24,7 @@ interface VehicleCardProps {
   features: string[];
   condition: string;
   firstRegistration: string;
+  vatIncluded?: boolean;
 }
 const VehicleCard = ({
   images,
@@ -41,7 +42,8 @@ const VehicleCard = ({
   co2Emissions,
   features,
   condition,
-  firstRegistration
+  firstRegistration,
+  vatIncluded = false
 }: VehicleCardProps) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
@@ -158,6 +160,9 @@ const VehicleCard = ({
           <p className="text-2xl font-bold text-primary">
             {price.toLocaleString("de-DE")} €
           </p>
+          {vatIncluded && (
+            <p className="text-xs text-muted-foreground">inkl. MwSt.</p>
+          )}
         </div>
         <Button 
           variant="outline" 
