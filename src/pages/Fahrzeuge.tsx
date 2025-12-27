@@ -15,6 +15,7 @@ import mercedesE200CabrioImage from "@/assets/mercedes-e200-cabrio.jpg";
 import bmw530eTouringImage from "@/assets/bmw-530e-touring.jpg";
 import mercedesE200AvantgardeImage from "@/assets/mercedes-e200-avantgarde.jpg";
 import mercedesC200Image from "@/assets/mercedes-c200.jpg";
+import bmwM850iImage from "@/assets/bmw-m850i.jpg";
 
 const Fahrzeuge = () => {
   const [priceRange, setPriceRange] = useState("all");
@@ -193,6 +194,25 @@ const Fahrzeuge = () => {
       features: ["LED-Scheinwerfer", "Keyless Go", "CarPlay", "Vollleder", "Widescreen Cockpit"],
       condition: "Unfallfrei",
       firstRegistration: "09/2018",
+    },
+    {
+      id: "15",
+      images: [bmwM850iImage],
+      brand: "BMW",
+      model: "M850i xDrive Gran Coupé",
+      year: 2021,
+      price: 61990,
+      mileage: 89990,
+      fuel: "Benzin",
+      transmission: "Automatik",
+      color: "Schwarz",
+      doors: 4,
+      seats: 4,
+      power: "390 kW (530 PS)",
+      co2Emissions: "224 g/km",
+      features: ["M Carbon Paket", "Panoramadach", "B&W Sound", "360° Kamera", "E10-geeignet"],
+      condition: "Unfallfrei",
+      firstRegistration: "03/2021",
     },
   ]);
 
