@@ -6,9 +6,10 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { CheckCircle, Upload } from "lucide-react";
+import { CheckCircle, Upload, Loader2 } from "lucide-react";
 import { useState, useRef } from "react";
 import { toast } from "sonner";
+import { supabase } from "@/integrations/supabase/client";
 
 const Ankauf = () => {
   const [formData, setFormData] = useState({
@@ -24,23 +25,50 @@ const Ankauf = () => {
   });
   const [photos, setPhotos] = useState<File[]>([]);
   const [isDragging, setIsDragging] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    toast.success("Vielen Dank! Wir melden uns in Kürze bei Ihnen.");
-    setFormData({
-      name: "",
-      email: "",
-      phone: "",
-      brand: "",
-      model: "",
-      year: "",
-      mileage: "",
-      condition: "",
-      message: "",
-    });
-    setPhotos([]);
+    setIsLoading(true);
+
+    try {
+      const { data, error } = await supabase.functions.invoke('send-contact-email', {
+        body: {
+          type: 'purchase',
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          brand: formData.brand,
+          model: formData.model,
+          year: formData.year,
+          mileage: formData.mileage,
+          condition: formData.condition || undefined,
+          message: formData.message || undefined,
+        }
+      });
+
+      if (error) throw error;
+
+      toast.success("Vielen Dank! Wir melden uns in Kürze bei Ihnen.");
+      setFormData({
+        name: "",
+        email: "",
+        phone: "",
+        brand: "",
+        model: "",
+        year: "",
+        mileage: "",
+        condition: "",
+        message: "",
+      });
+      setPhotos([]);
+    } catch (error) {
+      console.error("Purchase form error:", error);
+      toast.error("Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut oder rufen Sie uns an.");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleDragOver = (e: React.DragEvent) => {
@@ -117,6 +145,7 @@ const Ankauf = () => {
                     <Input
                       id="name"
                       required
+                      maxLength={100}
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                     />
@@ -127,6 +156,7 @@ const Ankauf = () => {
                       id="email"
                       type="email"
                       required
+                      maxLength={255}
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                     />
@@ -139,6 +169,7 @@ const Ankauf = () => {
                     id="phone"
                     type="tel"
                     required
+                    maxLength={50}
                     value={formData.phone}
                     onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                   />
@@ -150,6 +181,7 @@ const Ankauf = () => {
                     <Input
                       id="brand"
                       required
+                      maxLength={100}
                       value={formData.brand}
                       onChange={(e) => setFormData({ ...formData, brand: e.target.value })}
                     />
@@ -159,6 +191,7 @@ const Ankauf = () => {
                     <Input
                       id="model"
                       required
+                      maxLength={100}
                       value={formData.model}
                       onChange={(e) => setFormData({ ...formData, model: e.target.value })}
                     />
@@ -173,6 +206,7 @@ const Ankauf = () => {
                       type="number"
                       required
                       placeholder="z.B. 2019"
+                      maxLength={10}
                       value={formData.year}
                       onChange={(e) => setFormData({ ...formData, year: e.target.value })}
                     />
@@ -184,6 +218,7 @@ const Ankauf = () => {
                       type="number"
                       required
                       placeholder="z.B. 50000"
+                      maxLength={20}
                       value={formData.mileage}
                       onChange={(e) => setFormData({ ...formData, mileage: e.target.value })}
                     />
@@ -195,6 +230,7 @@ const Ankauf = () => {
                   <Input
                     id="condition"
                     placeholder="z.B. Sehr gut, Unfallschäden, etc."
+                    maxLength={200}
                     value={formData.condition}
                     onChange={(e) => setFormData({ ...formData, condition: e.target.value })}
                   />
@@ -205,6 +241,7 @@ const Ankauf = () => {
                   <Textarea
                     id="message"
                     rows={4}
+                    maxLength={2000}
                     placeholder="Beschreiben Sie Ihr Fahrzeug..."
                     value={formData.message}
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
@@ -256,8 +293,15 @@ const Ankauf = () => {
                   )}
                 </div>
 
-                <Button type="submit" size="lg" className="w-full">
-                  Anfrage senden
+                <Button type="submit" size="lg" className="w-full" disabled={isLoading}>
+                  {isLoading ? (
+                    <>
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                      Wird gesendet...
+                    </>
+                  ) : (
+                    "Anfrage senden"
+                  )}
                 </Button>
             </form>
         </CardContent>
