@@ -213,6 +213,7 @@ const Fahrzeuge = () => {
       features: ["M Carbon Paket", "Panoramadach", "B&W Sound", "360° Kamera", "E10-geeignet"],
       condition: "Unfallfrei",
       firstRegistration: "03/2021",
+      vatIncluded: true,
     },
   ]);
 
