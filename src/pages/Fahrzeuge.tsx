@@ -13,6 +13,7 @@ import mercedesE300Image from "@/assets/mercedes-e300.jpg";
 import audiS3Image from "@/assets/audi-s3.jpg";
 import mercedesE200CabrioImage from "@/assets/mercedes-e200-cabrio.jpg";
 import bmw530eTouringImage from "@/assets/bmw-530e-touring.jpg";
+import mercedesE200AvantgardeImage from "@/assets/mercedes-e200-avantgarde.jpg";
 
 const Fahrzeuge = () => {
   const [priceRange, setPriceRange] = useState("all");
@@ -153,6 +154,25 @@ const Fahrzeuge = () => {
       features: ["M Sport", "Head-Up Display", "Laser-Licht", "Sitzbelüftung", "Panoramadach"],
       condition: "Neuwertig",
       firstRegistration: "05/2025",
+    },
+    {
+      id: "13",
+      images: [mercedesE200AvantgardeImage],
+      brand: "Mercedes",
+      model: "E 200 Avantgarde",
+      year: 2019,
+      price: 26990,
+      mileage: 76000,
+      fuel: "Benzin",
+      transmission: "Automatik",
+      color: "Schwarz",
+      doors: 4,
+      seats: 5,
+      power: "145 kW (197 PS)",
+      co2Emissions: "154 g/km",
+      features: ["Night-Paket", "LED-Scheinwerfer", "Rückfahrkamera", "AHK", "E10-geeignet"],
+      condition: "Gebraucht",
+      firstRegistration: "09/2019",
     },
   ]);
 
