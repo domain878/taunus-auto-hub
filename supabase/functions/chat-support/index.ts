@@ -27,6 +27,70 @@ function isRateLimited(ip: string): boolean {
   return false;
 }
 
+// Input validation constants
+const MAX_MESSAGE_LENGTH = 1000;
+const MAX_MESSAGES = 20;
+const ALLOWED_ROLES = ['user', 'assistant'] as const;
+
+interface Message {
+  role: 'user' | 'assistant';
+  content: string;
+}
+
+interface ChatRequest {
+  messages: Message[];
+}
+
+function validateMessage(msg: unknown): msg is Message {
+  if (typeof msg !== 'object' || msg === null) return false;
+  const m = msg as Record<string, unknown>;
+  
+  if (typeof m.role !== 'string' || !ALLOWED_ROLES.includes(m.role as any)) return false;
+  if (typeof m.content !== 'string') return false;
+  if (m.content.length === 0 || m.content.length > MAX_MESSAGE_LENGTH) return false;
+  
+  return true;
+}
+
+function validateRequest(body: unknown): { valid: true; data: ChatRequest } | { valid: false; error: string } {
+  if (typeof body !== 'object' || body === null) {
+    return { valid: false, error: 'Ungültiges Anfrage-Format.' };
+  }
+  
+  const req = body as Record<string, unknown>;
+  
+  if (!Array.isArray(req.messages)) {
+    return { valid: false, error: 'Nachrichten müssen als Array übermittelt werden.' };
+  }
+  
+  if (req.messages.length === 0) {
+    return { valid: false, error: 'Mindestens eine Nachricht erforderlich.' };
+  }
+  
+  if (req.messages.length > MAX_MESSAGES) {
+    return { valid: false, error: `Maximal ${MAX_MESSAGES} Nachrichten erlaubt.` };
+  }
+  
+  for (const msg of req.messages) {
+    if (!validateMessage(msg)) {
+      return { valid: false, error: 'Ungültiges Nachrichtenformat.' };
+    }
+  }
+  
+  return { valid: true, data: { messages: req.messages as Message[] } };
+}
+
+// Sanitize content to prevent prompt injection
+function sanitizeContent(content: string): string {
+  // Remove potential system prompt injection patterns
+  return content
+    .replace(/\[SYSTEM\]/gi, '')
+    .replace(/\[INST\]/gi, '')
+    .replace(/<\|im_start\|>/gi, '')
+    .replace(/<\|im_end\|>/gi, '')
+    .trim();
+}
+
 serve(async (req) => {
   if (req.method === 'OPTIONS') {
     return new Response(null, { headers: corsHeaders });
@@ -46,7 +110,34 @@ serve(async (req) => {
       );
     }
 
-    const { messages } = await req.json();
+    // Parse and validate request body
+    let body: unknown;
+    try {
+      body = await req.json();
+    } catch {
+      return new Response(
+        JSON.stringify({ error: "Ungültiges JSON-Format." }),
+        { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
+    const validation = validateRequest(body);
+    if (!validation.valid) {
+      console.warn(`Validation failed: ${validation.error}`);
+      return new Response(
+        JSON.stringify({ error: validation.error }),
+        { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
+    }
+
+    const { messages } = validation.data;
+    
+    // Sanitize all message contents
+    const sanitizedMessages = messages.map(msg => ({
+      role: msg.role,
+      content: sanitizeContent(msg.content)
+    }));
+
     const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
     
     if (!LOVABLE_API_KEY) {
@@ -85,7 +176,7 @@ Sei höflich, hilfsbereit und informativ. Wenn du etwas nicht weißt, empfehle d
         model: "google/gemini-2.5-flash",
         messages: [
           { role: "system", content: systemPrompt },
-          ...messages,
+          ...sanitizedMessages,
         ],
       }),
     });

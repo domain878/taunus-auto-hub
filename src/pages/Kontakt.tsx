@@ -6,9 +6,10 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Phone, Mail, MapPin, Clock, Calendar } from "lucide-react";
+import { Phone, Mail, MapPin, Clock, Calendar, Loader2 } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
+import { supabase } from "@/integrations/supabase/client";
 
 const Kontakt = () => {
   const [formData, setFormData] = useState({
@@ -18,6 +19,7 @@ const Kontakt = () => {
     subject: "",
     message: "",
   });
+  const [isContactLoading, setIsContactLoading] = useState(false);
 
   const [appointmentData, setAppointmentData] = useState({
     name: "",
@@ -27,30 +29,76 @@ const Kontakt = () => {
     time: "",
     type: "",
   });
+  const [isAppointmentLoading, setIsAppointmentLoading] = useState(false);
 
-  const handleContactSubmit = (e: React.FormEvent) => {
+  const handleContactSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    toast.success("Vielen Dank für Ihre Nachricht! Wir melden uns in Kürze.");
-    setFormData({
-      name: "",
-      email: "",
-      phone: "",
-      subject: "",
-      message: "",
-    });
+    setIsContactLoading(true);
+
+    try {
+      const { data, error } = await supabase.functions.invoke('send-contact-email', {
+        body: {
+          type: 'contact',
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone || undefined,
+          subject: formData.subject || undefined,
+          message: formData.message,
+        }
+      });
+
+      if (error) throw error;
+
+      toast.success("Vielen Dank für Ihre Nachricht! Wir melden uns in Kürze.");
+      setFormData({
+        name: "",
+        email: "",
+        phone: "",
+        subject: "",
+        message: "",
+      });
+    } catch (error) {
+      console.error("Contact form error:", error);
+      toast.error("Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut oder rufen Sie uns an.");
+    } finally {
+      setIsContactLoading(false);
+    }
   };
 
-  const handleAppointmentSubmit = (e: React.FormEvent) => {
+  const handleAppointmentSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    toast.success("Termin erfolgreich angefragt! Wir bestätigen Ihnen den Termin per E-Mail.");
-    setAppointmentData({
-      name: "",
-      email: "",
-      phone: "",
-      date: "",
-      time: "",
-      type: "",
-    });
+    setIsAppointmentLoading(true);
+
+    try {
+      const { data, error } = await supabase.functions.invoke('send-contact-email', {
+        body: {
+          type: 'appointment',
+          name: appointmentData.name,
+          email: appointmentData.email,
+          phone: appointmentData.phone,
+          appointmentType: appointmentData.type,
+          date: appointmentData.date,
+          time: appointmentData.time,
+        }
+      });
+
+      if (error) throw error;
+
+      toast.success("Termin erfolgreich angefragt! Wir bestätigen Ihnen den Termin per E-Mail.");
+      setAppointmentData({
+        name: "",
+        email: "",
+        phone: "",
+        date: "",
+        time: "",
+        type: "",
+      });
+    } catch (error) {
+      console.error("Appointment form error:", error);
+      toast.error("Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut oder rufen Sie uns an.");
+    } finally {
+      setIsAppointmentLoading(false);
+    }
   };
 
   return (
@@ -127,6 +175,7 @@ const Kontakt = () => {
                     <Input
                       id="apt-name"
                       required
+                      maxLength={100}
                       value={appointmentData.name}
                       onChange={(e) =>
                         setAppointmentData({ ...appointmentData, name: e.target.value })
@@ -140,6 +189,7 @@ const Kontakt = () => {
                       id="apt-email"
                       type="email"
                       required
+                      maxLength={255}
                       value={appointmentData.email}
                       onChange={(e) =>
                         setAppointmentData({ ...appointmentData, email: e.target.value })
@@ -153,6 +203,7 @@ const Kontakt = () => {
                       id="apt-phone"
                       type="tel"
                       required
+                      maxLength={50}
                       value={appointmentData.phone}
                       onChange={(e) =>
                         setAppointmentData({ ...appointmentData, phone: e.target.value })
@@ -206,8 +257,15 @@ const Kontakt = () => {
                     </div>
                   </div>
 
-                  <Button type="submit" className="w-full">
-                    Termin anfragen
+                  <Button type="submit" className="w-full" disabled={isAppointmentLoading}>
+                    {isAppointmentLoading ? (
+                      <>
+                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                        Wird gesendet...
+                      </>
+                    ) : (
+                      "Termin anfragen"
+                    )}
                   </Button>
                 </form>
               </CardContent>
@@ -256,6 +314,7 @@ const Kontakt = () => {
                       <Input
                         id="name"
                         required
+                        maxLength={100}
                         value={formData.name}
                         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                       />
@@ -267,6 +326,7 @@ const Kontakt = () => {
                         id="email"
                         type="email"
                         required
+                        maxLength={255}
                         value={formData.email}
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                       />
@@ -277,6 +337,7 @@ const Kontakt = () => {
                       <Input
                         id="phone"
                         type="tel"
+                        maxLength={50}
                         value={formData.phone}
                         onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                       />
@@ -286,6 +347,7 @@ const Kontakt = () => {
                       <Label htmlFor="subject">Betreff</Label>
                       <Input
                         id="subject"
+                        maxLength={200}
                         value={formData.subject}
                         onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
                       />
@@ -297,13 +359,21 @@ const Kontakt = () => {
                         id="message"
                         required
                         rows={4}
+                        maxLength={2000}
                         value={formData.message}
                         onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                       />
                     </div>
 
-                    <Button type="submit" className="w-full">
-                      Nachricht senden
+                    <Button type="submit" className="w-full" disabled={isContactLoading}>
+                      {isContactLoading ? (
+                        <>
+                          <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                          Wird gesendet...
+                        </>
+                      ) : (
+                        "Nachricht senden"
+                      )}
                     </Button>
                   </form>
                 </CardContent>
