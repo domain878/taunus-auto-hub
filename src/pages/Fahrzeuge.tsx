@@ -12,6 +12,7 @@ import mercedesE300Image from "@/assets/mercedes-e300.jpg";
 import mercedesE200CabrioImage from "@/assets/mercedes-e200-cabrio.jpg";
 import mercedesC200Image from "@/assets/mercedes-c200.jpg";
 import bmwM850iImage from "@/assets/bmw-m850i.jpg";
+import alfaRomeoStelvioImage from "@/assets/alfa-romeo-stelvio.jpg";
 
 const Fahrzeuge = () => {
   const [priceRange, setPriceRange] = useState("all");
@@ -134,6 +135,25 @@ const Fahrzeuge = () => {
       condition: "Unfallfrei",
       firstRegistration: "03/2021",
       vatIncluded: true,
+    },
+    {
+      id: "16",
+      images: [alfaRomeoStelvioImage],
+      brand: "Alfa Romeo",
+      model: "Stelvio Super",
+      year: 2019,
+      price: 0,
+      mileage: 92900,
+      fuel: "Diesel",
+      transmission: "Automatik",
+      color: "Grau",
+      doors: 5,
+      seats: 5,
+      power: "140 kW (190 PS)",
+      co2Emissions: "N/A",
+      features: ["CarPlay", "Sitzheizung", "Memory", "Navi", "LED", "Lenkradheizung"],
+      condition: "Gebraucht",
+      firstRegistration: "2019",
     },
   ]);
 
