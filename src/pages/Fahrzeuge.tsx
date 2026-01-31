@@ -16,6 +16,7 @@ import alfaRomeoStelvioImage from "@/assets/alfa-romeo-stelvio.jpg";
 import audiA1Image from "@/assets/audi-a1.jpg";
 import bmw740dImage from "@/assets/bmw-740d.jpg";
 import mercedesA250eImage from "@/assets/mercedes-a250e.jpg";
+import mercedesC180Image from "@/assets/mercedes-c180.jpg";
 
 const Fahrzeuge = () => {
   const [priceRange, setPriceRange] = useState("all");
@@ -214,6 +215,25 @@ const Fahrzeuge = () => {
       features: ["AMG Line", "Night Paket", "Rückfahrkamera", "Keyless", "Plug-in-Hybrid"],
       condition: "Gebraucht",
       firstRegistration: "07/2020",
+    },
+    {
+      id: "20",
+      images: [mercedesC180Image],
+      brand: "Mercedes",
+      model: "C 180 CGI BlueEfficiency Avantgarde",
+      year: 2013,
+      price: 12490,
+      mileage: 115000,
+      fuel: "Benzin",
+      transmission: "Schaltgetriebe",
+      color: "Silber",
+      doors: 4,
+      seats: 5,
+      power: "115 kW (156 PS)",
+      co2Emissions: "N/A",
+      features: ["Avantgarde", "Navi", "PDC", "Klimaautomatik"],
+      condition: "Gebraucht",
+      firstRegistration: "09/2013",
     },
   ]);
 
