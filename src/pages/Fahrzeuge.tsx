@@ -142,7 +142,7 @@ const Fahrzeuge = () => {
       brand: "Alfa Romeo",
       model: "Stelvio Super",
       year: 2019,
-      price: 0,
+      price: 21990,
       mileage: 92900,
       fuel: "Diesel",
       transmission: "Automatik",
