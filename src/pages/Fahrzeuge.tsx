@@ -14,6 +14,7 @@ import mercedesC200Image from "@/assets/mercedes-c200.jpg";
 import bmwM850iImage from "@/assets/bmw-m850i.jpg";
 import alfaRomeoStelvioImage from "@/assets/alfa-romeo-stelvio.jpg";
 import audiA1Image from "@/assets/audi-a1.jpg";
+import bmw740dImage from "@/assets/bmw-740d.jpg";
 
 const Fahrzeuge = () => {
   const [priceRange, setPriceRange] = useState("all");
@@ -174,6 +175,25 @@ const Fahrzeuge = () => {
       features: ["Navi", "Tempomat", "Sitzheizung", "PDC", "MMI", "Xenon", "Bluetooth"],
       condition: "Gebraucht",
       firstRegistration: "04/2015",
+    },
+    {
+      id: "18",
+      images: [bmw740dImage],
+      brand: "BMW",
+      model: "740d xDrive Individual M Paket",
+      year: 2017,
+      price: 36990,
+      mileage: 120000,
+      fuel: "Diesel",
+      transmission: "Automatik",
+      color: "Schwarz",
+      doors: 4,
+      seats: 5,
+      power: "235 kW (320 PS)",
+      co2Emissions: "N/A",
+      features: ["Individual", "M Paket", "TV", "Massagesitze", "Laser-Licht", "Euro 6"],
+      condition: "Gebraucht",
+      firstRegistration: "09/2017",
     },
   ]);
 
