@@ -13,6 +13,7 @@ import mercedesE200CabrioImage from "@/assets/mercedes-e200-cabrio.jpg";
 import mercedesC200Image from "@/assets/mercedes-c200.jpg";
 import bmwM850iImage from "@/assets/bmw-m850i.jpg";
 import alfaRomeoStelvioImage from "@/assets/alfa-romeo-stelvio.jpg";
+import audiA1Image from "@/assets/audi-a1.jpg";
 
 const Fahrzeuge = () => {
   const [priceRange, setPriceRange] = useState("all");
@@ -154,6 +155,25 @@ const Fahrzeuge = () => {
       features: ["CarPlay", "Sitzheizung", "Memory", "Navi", "LED", "Lenkradheizung"],
       condition: "Gebraucht",
       firstRegistration: "2019",
+    },
+    {
+      id: "17",
+      images: [audiA1Image],
+      brand: "Audi",
+      model: "A1",
+      year: 2015,
+      price: 11090,
+      mileage: 97500,
+      fuel: "Benzin",
+      transmission: "Schaltgetriebe",
+      color: "Schwarz",
+      doors: 3,
+      seats: 4,
+      power: "92 kW (125 PS)",
+      co2Emissions: "N/A",
+      features: ["Navi", "Tempomat", "Sitzheizung", "PDC", "MMI", "Xenon", "Bluetooth"],
+      condition: "Gebraucht",
+      firstRegistration: "04/2015",
     },
   ]);
 
