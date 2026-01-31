@@ -15,6 +15,7 @@ import bmwM850iImage from "@/assets/bmw-m850i.jpg";
 import alfaRomeoStelvioImage from "@/assets/alfa-romeo-stelvio.jpg";
 import audiA1Image from "@/assets/audi-a1.jpg";
 import bmw740dImage from "@/assets/bmw-740d.jpg";
+import mercedesA250eImage from "@/assets/mercedes-a250e.jpg";
 
 const Fahrzeuge = () => {
   const [priceRange, setPriceRange] = useState("all");
@@ -194,6 +195,25 @@ const Fahrzeuge = () => {
       features: ["Individual", "M Paket", "TV", "Massagesitze", "Laser-Licht", "Euro 6"],
       condition: "Gebraucht",
       firstRegistration: "09/2017",
+    },
+    {
+      id: "19",
+      images: [mercedesA250eImage],
+      brand: "Mercedes",
+      model: "A 250 e Limousine AMG Night Paket",
+      year: 2020,
+      price: 22990,
+      mileage: 74400,
+      fuel: "Hybrid",
+      transmission: "Automatik",
+      color: "Schwarz",
+      doors: 4,
+      seats: 5,
+      power: "118 kW (160 PS)",
+      co2Emissions: "N/A",
+      features: ["AMG Line", "Night Paket", "Rückfahrkamera", "Keyless", "Plug-in-Hybrid"],
+      condition: "Gebraucht",
+      firstRegistration: "07/2020",
     },
   ]);
 
