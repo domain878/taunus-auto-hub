@@ -8,12 +8,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import opelInsigniaImage from "@/assets/opel-insignia.jpg";
 import bmw225xeImage from "@/assets/bmw-225xe.jpg";
-import nissanQashqaiImage from "@/assets/nissan-qashqai.jpg";
 import mercedesE300Image from "@/assets/mercedes-e300.jpg";
-import audiS3Image from "@/assets/audi-s3.jpg";
 import mercedesE200CabrioImage from "@/assets/mercedes-e200-cabrio.jpg";
-import bmw530eTouringImage from "@/assets/bmw-530e-touring.jpg";
-import mercedesE200AvantgardeImage from "@/assets/mercedes-e200-avantgarde.jpg";
 import mercedesC200Image from "@/assets/mercedes-c200.jpg";
 import bmwM850iImage from "@/assets/bmw-m850i.jpg";
 
@@ -63,25 +59,6 @@ const Fahrzeuge = () => {
       firstRegistration: "06/2020",
     },
     {
-      id: "6",
-      images: [nissanQashqaiImage],
-      brand: "Nissan",
-      model: "Qashqai e-Power Tekna",
-      year: 2024,
-      price: 23490,
-      mileage: 105000,
-      fuel: "Hybrid",
-      transmission: "Automatik",
-      color: "Schwarz",
-      doors: 5,
-      seats: 5,
-      power: "140 kW (190 PS)",
-      co2Emissions: "119 g/km",
-      features: ["Tekna Ausstattung", "e-Power Hybrid", "Navigationssystem", "Sicherheitspaket"],
-      condition: "Neuwertig",
-      firstRegistration: "04/2024",
-    },
-    {
       id: "7",
       images: [mercedesE300Image],
       brand: "Mercedes",
@@ -101,25 +78,6 @@ const Fahrzeuge = () => {
       firstRegistration: "2015",
     },
     {
-      id: "8",
-      images: [audiS3Image],
-      brand: "Audi",
-      model: "S3 Sportback quattro",
-      year: 2019,
-      price: 29990,
-      mileage: 56900,
-      fuel: "Benzin",
-      transmission: "Automatik",
-      color: "Schwarz",
-      doors: 5,
-      seats: 5,
-      power: "221 kW (300 PS)",
-      co2Emissions: "155 g/km",
-      features: ["Virtual Cockpit", "B&O Sound", "TWA", "Matrix LED"],
-      condition: "Unfallfrei",
-      firstRegistration: "04/2019",
-    },
-    {
       id: "11",
       images: [mercedesE200CabrioImage],
       brand: "Mercedes",
@@ -137,44 +95,6 @@ const Fahrzeuge = () => {
       features: ["AMG Line", "Airscarf", "LED-Scheinwerfer", "Rückfahrkamera", "TWA", "CarPlay"],
       condition: "Sehr gut",
       firstRegistration: "04/2019",
-    },
-    {
-      id: "12",
-      images: [bmw530eTouringImage],
-      brand: "BMW",
-      model: "5 Touring 530e M Sport",
-      year: 2025,
-      price: 63990,
-      mileage: 4490,
-      fuel: "Hybrid",
-      transmission: "Automatik",
-      color: "Schwarz",
-      doors: 5,
-      seats: 5,
-      power: "215 kW (292 PS)",
-      co2Emissions: "39 g/km",
-      features: ["M Sport", "Head-Up Display", "Laser-Licht", "Sitzbelüftung", "Panoramadach"],
-      condition: "Neuwertig",
-      firstRegistration: "05/2025",
-    },
-    {
-      id: "13",
-      images: [mercedesE200AvantgardeImage],
-      brand: "Mercedes",
-      model: "E 200 Avantgarde",
-      year: 2019,
-      price: 26990,
-      mileage: 76000,
-      fuel: "Benzin",
-      transmission: "Automatik",
-      color: "Schwarz",
-      doors: 4,
-      seats: 5,
-      power: "145 kW (197 PS)",
-      co2Emissions: "154 g/km",
-      features: ["Night-Paket", "LED-Scheinwerfer", "Rückfahrkamera", "AHK", "E10-geeignet"],
-      condition: "Gebraucht",
-      firstRegistration: "09/2019",
     },
     {
       id: "14",
