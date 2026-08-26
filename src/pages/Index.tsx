@@ -43,8 +43,9 @@ const Index = () => {
     },
     {
       icon: Star,
-      title: "Zufriedene Kunden",
-      description: "Über 500 zufriedene Kunden vertrauen auf unsere Expertise",
+      title: "Persönliche Beratung",
+      description: "Persönliche Beratung aus Oberursel",
+
     },
   ];
 
