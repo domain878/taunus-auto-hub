@@ -15,13 +15,13 @@ interface VehicleCardProps {
   price: number;
   mileage: number;
   fuel: string;
-  transmission: string;
-  color: string;
-  doors: number;
-  seats: number;
+  transmission?: string;
+  color?: string;
+  doors?: number;
+  seats?: number;
   power: string;
-  co2Emissions: string;
-  features: string[];
+  co2Emissions?: string;
+  features?: string[];
   condition: string;
   firstRegistration: string;
   vatIncluded?: boolean;
@@ -40,11 +40,12 @@ const VehicleCard = ({
   seats,
   power,
   co2Emissions,
-  features,
+  features = [],
   condition,
   firstRegistration,
   vatIncluded = false
 }: VehicleCardProps) => {
+
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   const nextImage = (e: React.MouseEvent) => {
