@@ -184,6 +184,14 @@ return (
               </div>
             ))}
           </div>
+
+          {vehicles.length === 0 && (
+            <p className="text-muted-foreground">
+              Für Ihre Auswahl haben wir aktuell kein passendes Fahrzeug. Bitte passen Sie die Filter an oder
+              sprechen Sie uns direkt an.
+            </p>
+          )}
+
         </div>
       </section>
 
