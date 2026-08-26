@@ -100,12 +100,16 @@ return (
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="all">Alle Marken</SelectItem>
-                  <SelectItem value="bmw">BMW</SelectItem>
-                  <SelectItem value="mercedes">Mercedes-Benz</SelectItem>
                   <SelectItem value="audi">Audi</SelectItem>
-                  <SelectItem value="vw">VW</SelectItem>
-                  <SelectItem value="porsche">Porsche</SelectItem>
+                  <SelectItem value="bmw">BMW</SelectItem>
+                  <SelectItem value="ford">Ford</SelectItem>
+                  <SelectItem value="hyundai">Hyundai</SelectItem>
+                  <SelectItem value="kia">Kia</SelectItem>
+                  <SelectItem value="landrover">Land Rover</SelectItem>
+                  <SelectItem value="mercedes">Mercedes-Benz</SelectItem>
+                  <SelectItem value="vw">Volkswagen</SelectItem>
                 </SelectContent>
+
               </Select>
             </div>
 
