@@ -15,13 +15,13 @@ interface VehicleCardProps {
   price: number;
   mileage: number;
   fuel: string;
-  transmission: string;
-  color: string;
-  doors: number;
-  seats: number;
+  transmission?: string;
+  color?: string;
+  doors?: number;
+  seats?: number;
   power: string;
-  co2Emissions: string;
-  features: string[];
+  co2Emissions?: string;
+  features?: string[];
   condition: string;
   firstRegistration: string;
   vatIncluded?: boolean;
@@ -40,11 +40,12 @@ const VehicleCard = ({
   seats,
   power,
   co2Emissions,
-  features,
+  features = [],
   condition,
   firstRegistration,
   vatIncluded = false
 }: VehicleCardProps) => {
+
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   const nextImage = (e: React.MouseEvent) => {
@@ -119,30 +120,41 @@ const VehicleCard = ({
             <Calendar className="h-4 w-4" />
             <span>EZ {firstRegistration}</span>
           </div>
-          <div className="flex items-center gap-1">
-            <Settings className="h-4 w-4" />
-            <span>{transmission}</span>
-          </div>
-          <div className="flex items-center gap-1">
-            <Palette className="h-4 w-4" />
-            <span>{color}</span>
-          </div>
-          <div className="flex items-center gap-1">
-            <DoorOpen className="h-4 w-4" />
-            <span>{doors} Türen</span>
-          </div>
-          <div className="flex items-center gap-1">
-            <Users className="h-4 w-4" />
-            <span>{seats} Sitze</span>
-          </div>
+          {transmission && (
+            <div className="flex items-center gap-1">
+              <Settings className="h-4 w-4" />
+              <span>{transmission}</span>
+            </div>
+          )}
+          {color && (
+            <div className="flex items-center gap-1">
+              <Palette className="h-4 w-4" />
+              <span>{color}</span>
+            </div>
+          )}
+          {doors !== undefined && (
+            <div className="flex items-center gap-1">
+              <DoorOpen className="h-4 w-4" />
+              <span>{doors} Türen</span>
+            </div>
+          )}
+          {seats !== undefined && (
+            <div className="flex items-center gap-1">
+              <Users className="h-4 w-4" />
+              <span>{seats} Sitze</span>
+            </div>
+          )}
           <div className="flex items-center gap-1">
             <Zap className="h-4 w-4" />
             <span>{power}</span>
           </div>
-          <div className="flex items-center gap-1">
-            <Leaf className="h-4 w-4" />
-            <span>{co2Emissions}</span>
-          </div>
+          {co2Emissions && (
+            <div className="flex items-center gap-1">
+              <Leaf className="h-4 w-4" />
+              <span>{co2Emissions}</span>
+            </div>
+          )}
+
         </div>
 
         {features.length > 0 && (

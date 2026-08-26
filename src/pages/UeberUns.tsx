@@ -9,7 +9,7 @@ const UeberUns = () => {
     {
       icon: Award,
       title: "Erfahrung",
-      description: "Über 10 Jahre Erfahrung im Automobilhandel und hunderte zufriedene Kunden",
+      description: "Über 10 Jahre Erfahrung im Automobilhandel und persönliche Beratung aus Oberursel",
     },
     {
       icon: Shield,

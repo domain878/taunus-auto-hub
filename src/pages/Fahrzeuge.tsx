@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
@@ -6,236 +6,59 @@ import VehicleCard from "@/components/VehicleCard";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import opelInsigniaImage from "@/assets/opel-insignia.jpg";
-import bmw225xeImage from "@/assets/bmw-225xe.jpg";
-import mercedesE300Image from "@/assets/mercedes-e300.jpg";
-import mercedesE200CabrioImage from "@/assets/mercedes-e200-cabrio.jpg";
-import mercedesC200Image from "@/assets/mercedes-c200.jpg";
-import bmwM850iImage from "@/assets/bmw-m850i.jpg";
-import alfaRomeoStelvioImage from "@/assets/alfa-romeo-stelvio.jpg";
-import audiA1Image from "@/assets/audi-a1.jpg";
-import bmw740dImage from "@/assets/bmw-740d.jpg";
-import mercedesA250eImage from "@/assets/mercedes-a250e.jpg";
-import mercedesC180Image from "@/assets/mercedes-c180.jpg";
+import { vehicles as allVehicles } from "@/data/vehicles";
+
+const brandMatchers: Record<string, string[]> = {
+  bmw: ["bmw"],
+  mercedes: ["mercedes"],
+  audi: ["audi"],
+  vw: ["volkswagen", "vw"],
+  landrover: ["land rover"],
+  hyundai: ["hyundai"],
+  kia: ["kia"],
+  ford: ["ford"],
+};
 
 const Fahrzeuge = () => {
   const [priceRange, setPriceRange] = useState("all");
   const [fuelType, setFuelType] = useState("all");
   const [brand, setBrand] = useState("all");
+  const [search, setSearch] = useState("");
 
-  // Vehicle data with your images
-  const [vehicles, setVehicles] = useState([
-    {
-      id: "2",
-      images: [opelInsigniaImage],
-      brand: "Opel",
-      model: "Insignia OPC Line",
-      year: 2018,
-      price: 19900,
-      mileage: 64500,
-      fuel: "Benzin",
-      transmission: "Automatik",
-      color: "Weiß",
-      doors: 5,
-      seats: 5,
-      power: "191 kW (260 PS)",
-      co2Emissions: "159 g/km",
-      features: ["Matrix LED", "Rückfahrkamera", "Navi", "Sitzheizung"],
-      condition: "Sehr gut",
-      firstRegistration: "04/2018",
-    },
-    {
-      id: "4",
-      images: [bmw225xeImage],
-      brand: "BMW",
-      model: "225 xe Active Tourer",
-      year: 2020,
-      price: 15990,
-      mileage: 89990,
-      fuel: "Hybrid",
-      transmission: "Automatik",
-      color: "Schwarz",
-      doors: 5,
-      seats: 5,
-      power: "100 kW (136 PS)",
-      co2Emissions: "46 g/km",
-      features: ["2-Zonen-Klimaautomatik", "Einparkhilfe vorne & hinten", "Euro6", "Unfallfrei"],
-      condition: "Gebraucht",
-      firstRegistration: "06/2020",
-    },
-    {
-      id: "7",
-      images: [mercedesE300Image],
-      brand: "Mercedes",
-      model: "E 300 CDI",
-      year: 2015,
-      price: 13290,
-      mileage: 250000,
-      fuel: "Diesel",
-      transmission: "Automatik",
-      color: "Silber Metallic",
-      doors: 4,
-      seats: 5,
-      power: "170 kW (231 PS)",
-      co2Emissions: "139 g/km",
-      features: ["Euro 6", "Navigationssystem", "Klimaautomatik", "Einparkhilfe"],
-      condition: "Gebraucht",
-      firstRegistration: "2015",
-    },
-    {
-      id: "11",
-      images: [mercedesE200CabrioImage],
-      brand: "Mercedes",
-      model: "E 200 Cabrio AMG Line",
-      year: 2019,
-      price: 36490,
-      mileage: 23500,
-      fuel: "Benzin",
-      transmission: "Automatik",
-      color: "Weiß",
-      doors: 2,
-      seats: 4,
-      power: "135 kW (184 PS)",
-      co2Emissions: "145 g/km",
-      features: ["AMG Line", "Airscarf", "LED-Scheinwerfer", "Rückfahrkamera", "TWA", "CarPlay"],
-      condition: "Sehr gut",
-      firstRegistration: "04/2019",
-    },
-    {
-      id: "14",
-      images: [mercedesC200Image],
-      brand: "Mercedes",
-      model: "C 200",
-      year: 2018,
-      price: 24990,
-      mileage: 45000,
-      fuel: "Benzin",
-      transmission: "Automatik",
-      color: "Weiß",
-      doors: 5,
-      seats: 5,
-      power: "135 kW (184 PS)",
-      co2Emissions: "149 g/km",
-      features: ["LED-Scheinwerfer", "Keyless Go", "CarPlay", "Vollleder", "Widescreen Cockpit"],
-      condition: "Unfallfrei",
-      firstRegistration: "09/2018",
-    },
-    {
-      id: "15",
-      images: [bmwM850iImage],
-      brand: "BMW",
-      model: "M850i xDrive Gran Coupé",
-      year: 2021,
-      price: 61990,
-      mileage: 89990,
-      fuel: "Benzin",
-      transmission: "Automatik",
-      color: "Schwarz",
-      doors: 4,
-      seats: 4,
-      power: "390 kW (530 PS)",
-      co2Emissions: "224 g/km",
-      features: ["M Carbon Paket", "Panoramadach", "B&W Sound", "360° Kamera", "E10-geeignet"],
-      condition: "Unfallfrei",
-      firstRegistration: "03/2021",
-      vatIncluded: true,
-    },
-    {
-      id: "16",
-      images: [alfaRomeoStelvioImage],
-      brand: "Alfa Romeo",
-      model: "Stelvio Super",
-      year: 2019,
-      price: 21990,
-      mileage: 92900,
-      fuel: "Diesel",
-      transmission: "Automatik",
-      color: "Grau",
-      doors: 5,
-      seats: 5,
-      power: "140 kW (190 PS)",
-      co2Emissions: "N/A",
-      features: ["CarPlay", "Sitzheizung", "Memory", "Navi", "LED", "Lenkradheizung"],
-      condition: "Gebraucht",
-      firstRegistration: "2019",
-    },
-    {
-      id: "17",
-      images: [audiA1Image],
-      brand: "Audi",
-      model: "A1",
-      year: 2015,
-      price: 11090,
-      mileage: 97500,
-      fuel: "Benzin",
-      transmission: "Schaltgetriebe",
-      color: "Schwarz",
-      doors: 3,
-      seats: 4,
-      power: "92 kW (125 PS)",
-      co2Emissions: "N/A",
-      features: ["Navi", "Tempomat", "Sitzheizung", "PDC", "MMI", "Xenon", "Bluetooth"],
-      condition: "Gebraucht",
-      firstRegistration: "04/2015",
-    },
-    {
-      id: "18",
-      images: [bmw740dImage],
-      brand: "BMW",
-      model: "740d xDrive Individual M Paket",
-      year: 2017,
-      price: 36990,
-      mileage: 120000,
-      fuel: "Diesel",
-      transmission: "Automatik",
-      color: "Schwarz",
-      doors: 4,
-      seats: 5,
-      power: "235 kW (320 PS)",
-      co2Emissions: "N/A",
-      features: ["Individual", "M Paket", "TV", "Massagesitze", "Laser-Licht", "Euro 6"],
-      condition: "Gebraucht",
-      firstRegistration: "09/2017",
-    },
-    {
-      id: "19",
-      images: [mercedesA250eImage],
-      brand: "Mercedes",
-      model: "A 250 e Limousine AMG Night Paket",
-      year: 2020,
-      price: 22990,
-      mileage: 74400,
-      fuel: "Hybrid",
-      transmission: "Automatik",
-      color: "Schwarz",
-      doors: 4,
-      seats: 5,
-      power: "118 kW (160 PS)",
-      co2Emissions: "N/A",
-      features: ["AMG Line", "Night Paket", "Rückfahrkamera", "Keyless", "Plug-in-Hybrid"],
-      condition: "Gebraucht",
-      firstRegistration: "07/2020",
-    },
-    {
-      id: "20",
-      images: [mercedesC180Image],
-      brand: "Mercedes",
-      model: "C 180 CGI BlueEfficiency Avantgarde",
-      year: 2013,
-      price: 12490,
-      mileage: 115000,
-      fuel: "Benzin",
-      transmission: "Schaltgetriebe",
-      color: "Silber",
-      doors: 4,
-      seats: 5,
-      power: "115 kW (156 PS)",
-      co2Emissions: "N/A",
-      features: ["Avantgarde", "Navi", "PDC", "Klimaautomatik"],
-      condition: "Gebraucht",
-      firstRegistration: "09/2013",
-    },
-  ]);
+  const vehicles = useMemo(() => {
+    return allVehicles.filter((vehicle) => {
+      if (brand !== "all") {
+        const matchers = brandMatchers[brand] ?? [brand];
+        const brandText = `${vehicle.brand} ${vehicle.model}`.toLowerCase();
+        if (!matchers.some((m) => brandText.includes(m))) return false;
+      }
+
+      if (fuelType !== "all") {
+        const fuel = vehicle.fuel.toLowerCase();
+        if (fuelType === "hybrid" && !fuel.includes("hybrid")) return false;
+        if (fuelType === "benzin" && !(fuel.includes("benzin") && !fuel.includes("hybrid"))) return false;
+        if (fuelType === "diesel" && !fuel.includes("diesel")) return false;
+        if (fuelType === "elektro" && !(fuel.includes("elektro") && !fuel.includes("hybrid"))) return false;
+      }
+
+      if (priceRange !== "all") {
+        const p = vehicle.price;
+        if (priceRange === "0-20000" && p > 20000) return false;
+        if (priceRange === "20000-30000" && (p < 20000 || p > 30000)) return false;
+        if (priceRange === "30000-40000" && (p < 30000 || p > 40000)) return false;
+        if (priceRange === "40000+" && p < 40000) return false;
+      }
+
+      const query = search.trim().toLowerCase();
+      if (query) {
+        const haystack = `${vehicle.brand} ${vehicle.model} ${vehicle.fuel} ${vehicle.firstRegistration} ${vehicle.power}`.toLowerCase();
+        if (!query.split(/\s+/).every((term) => haystack.includes(term))) return false;
+      }
+
+      return true;
+    });
+  }, [brand, fuelType, priceRange, search]);
+
 
 return (
   <div className="min-h-screen flex flex-col">
@@ -277,12 +100,16 @@ return (
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="all">Alle Marken</SelectItem>
-                  <SelectItem value="bmw">BMW</SelectItem>
-                  <SelectItem value="mercedes">Mercedes-Benz</SelectItem>
                   <SelectItem value="audi">Audi</SelectItem>
-                  <SelectItem value="vw">VW</SelectItem>
-                  <SelectItem value="porsche">Porsche</SelectItem>
+                  <SelectItem value="bmw">BMW</SelectItem>
+                  <SelectItem value="ford">Ford</SelectItem>
+                  <SelectItem value="hyundai">Hyundai</SelectItem>
+                  <SelectItem value="kia">Kia</SelectItem>
+                  <SelectItem value="landrover">Land Rover</SelectItem>
+                  <SelectItem value="mercedes">Mercedes-Benz</SelectItem>
+                  <SelectItem value="vw">Volkswagen</SelectItem>
                 </SelectContent>
+
               </Select>
             </div>
 
@@ -320,7 +147,14 @@ return (
 
             <div>
               <Label htmlFor="search">Suche</Label>
-              <Input id="search" type="text" placeholder="Fahrzeug suchen..." />
+              <Input
+                id="search"
+                type="text"
+                placeholder="Fahrzeug suchen..."
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+              />
+
             </div>
           </div>
         </div>
@@ -350,6 +184,14 @@ return (
               </div>
             ))}
           </div>
+
+          {vehicles.length === 0 && (
+            <p className="text-muted-foreground">
+              Für Ihre Auswahl haben wir aktuell kein passendes Fahrzeug. Bitte passen Sie die Filter an oder
+              sprechen Sie uns direkt an.
+            </p>
+          )}
+
         </div>
       </section>
 

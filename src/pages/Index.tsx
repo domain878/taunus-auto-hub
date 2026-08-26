@@ -10,71 +10,10 @@ import VehicleCard from "@/components/VehicleCard";
 import { ScrollReveal } from "@/components/ScrollReveal";
 import { useParallax } from "@/hooks/useScrollAnimation";
 import heroImage from "@/assets/hero-car.jpg";
-import opelInsigniaImage from "@/assets/opel-insignia.jpg";
-import audiS3Image from "@/assets/audi-s3.jpg";
-import mercedesE200CabrioImage from "@/assets/mercedes-e200-cabrio.jpg";
+import { featuredVehicles } from "@/data/vehicles";
 
 const Index = () => {
-  // Featured vehicle data
-  const featuredVehicles = [
-    {
-      id: "2",
-      images: [opelInsigniaImage],
-      brand: "Opel",
-      model: "Insignia OPC Line",
-      year: 2018,
-      price: 19900,
-      mileage: 64500,
-      fuel: "Benzin",
-      transmission: "Automatik",
-      color: "Weiß",
-      doors: 5,
-      seats: 5,
-      power: "191 kW (260 PS)",
-      co2Emissions: "159 g/km",
-      features: ["Matrix LED", "Rückfahrkamera", "Navi", "Sitzheizung"],
-      condition: "Sehr gut",
-      firstRegistration: "04/2018",
-    },
-    {
-      id: "8",
-      images: [audiS3Image],
-      brand: "Audi",
-      model: "S3 Sportback quattro",
-      year: 2019,
-      price: 29990,
-      mileage: 56900,
-      fuel: "Benzin",
-      transmission: "Automatik",
-      color: "Schwarz",
-      doors: 5,
-      seats: 5,
-      power: "221 kW (300 PS)",
-      co2Emissions: "155 g/km",
-      features: ["Virtual Cockpit", "B&O Sound", "TWA", "Matrix LED"],
-      condition: "Unfallfrei",
-      firstRegistration: "04/2019",
-    },
-    {
-      id: "11",
-      images: [mercedesE200CabrioImage],
-      brand: "Mercedes",
-      model: "E 200 Cabrio AMG Line",
-      year: 2019,
-      price: 36490,
-      mileage: 23500,
-      fuel: "Benzin",
-      transmission: "Automatik",
-      color: "Weiß",
-      doors: 2,
-      seats: 4,
-      power: "135 kW (184 PS)",
-      co2Emissions: "145 g/km",
-      features: ["AMG Line", "Airscarf", "LED-Scheinwerfer", "Rückfahrkamera", "TWA", "CarPlay"],
-      condition: "Sehr gut",
-      firstRegistration: "04/2019",
-    },
-  ];
+
 
   const benefits = [
     {
@@ -104,8 +43,9 @@ const Index = () => {
     },
     {
       icon: Star,
-      title: "Zufriedene Kunden",
-      description: "Über 500 zufriedene Kunden vertrauen auf unsere Expertise",
+      title: "Persönliche Beratung",
+      description: "Persönliche Beratung aus Oberursel",
+
     },
   ];
 
