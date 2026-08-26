@@ -147,7 +147,14 @@ return (
 
             <div>
               <Label htmlFor="search">Suche</Label>
-              <Input id="search" type="text" placeholder="Fahrzeug suchen..." />
+              <Input
+                id="search"
+                type="text"
+                placeholder="Fahrzeug suchen..."
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+              />
+
             </div>
           </div>
         </div>
