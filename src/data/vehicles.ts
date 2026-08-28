@@ -1,6 +1,16 @@
-import mercedesC200Image from "@/assets/mercedes-c200.jpg";
-
-const placeholder = "/placeholder.svg";
+import vwGolfSportsvanImage from "@/assets/current-vehicles/01-vw-golf-sportsvan.jpg";
+import mercedesC200Image from "@/assets/current-vehicles/02-mercedes-c200.jpg";
+import mercedesA180dImage from "@/assets/current-vehicles/03-mercedes-a180d.jpg";
+import bmwM6GranCoupeImage from "@/assets/current-vehicles/04-bmw-m6-gran-coupe.jpg";
+import mercedesC43AmgImage from "@/assets/current-vehicles/05-mercedes-c43-amg.jpg";
+import mercedesCla250Image from "@/assets/current-vehicles/06-mercedes-cla250.jpg";
+import rangeRoverEvoqueImage from "@/assets/current-vehicles/07-range-rover-evoque.jpg";
+import hyundaiI20NLineImage from "@/assets/current-vehicles/08-hyundai-i20-n-line.jpg";
+import kiaStonicImage from "@/assets/current-vehicles/09-kia-stonic.jpg";
+import fordFocusTurnierImage from "@/assets/current-vehicles/10-ford-focus-turnier.jpg";
+import landRoverDiscoverySportImage from "@/assets/current-vehicles/11-land-rover-discovery-sport.jpg";
+import mercedesGle300dImage from "@/assets/current-vehicles/12-mercedes-gle300d.jpg";
+import audiQ3EHybridImage from "@/assets/current-vehicles/13-audi-q3-e-hybrid.jpg";
 
 export interface Vehicle {
   id: string;
@@ -28,7 +38,7 @@ export interface Vehicle {
 export const vehicles: Vehicle[] = [
   {
     id: "vw-golf-sportsvan-lounge",
-    images: [placeholder],
+    images: [vwGolfSportsvanImage],
     brand: "Volkswagen",
     model: "Golf Sportsvan VII Lounge-PDC-RFK-Tempomat",
     year: 2015,
@@ -54,7 +64,7 @@ export const vehicles: Vehicle[] = [
   },
   {
     id: "mercedes-a180d-limousine",
-    images: [placeholder],
+    images: [mercedesA180dImage],
     brand: "Mercedes-Benz",
     model: "A 180 d Limousine-Widescreen-SHZ-Leder-PDC",
     year: 2019,
@@ -67,7 +77,7 @@ export const vehicles: Vehicle[] = [
   },
   {
     id: "bmw-m6-gran-coupe",
-    images: [placeholder],
+    images: [bmwM6GranCoupeImage],
     brand: "BMW",
     model: "M6 Gran Coupé Competition-Carbon-360-B&O-TWA",
     year: 2014,
@@ -80,7 +90,7 @@ export const vehicles: Vehicle[] = [
   },
   {
     id: "mercedes-c43-amg-4matic",
-    images: [placeholder],
+    images: [mercedesC43AmgImage],
     brand: "Mercedes-Benz",
     model: "C 43 AMG 4Matic-Night-Pano-ILS-RFK",
     year: 2017,
@@ -93,7 +103,7 @@ export const vehicles: Vehicle[] = [
   },
   {
     id: "mercedes-cla-250",
-    images: [placeholder],
+    images: [mercedesCla250Image],
     brand: "Mercedes-Benz",
     model: "CLA 250-TWA-Navi-Tempomat-PDC",
     year: 2016,
@@ -106,7 +116,7 @@ export const vehicles: Vehicle[] = [
   },
   {
     id: "range-rover-evoque-se-dynamic",
-    images: [placeholder],
+    images: [rangeRoverEvoqueImage],
     brand: "Land Rover",
     model: "Range Rover Evoque SE Dynamic-Bi-Xenon-Navi-Pano",
     year: 2016,
@@ -119,7 +129,7 @@ export const vehicles: Vehicle[] = [
   },
   {
     id: "hyundai-i20-n-line",
-    images: [placeholder],
+    images: [hyundaiI20NLineImage],
     brand: "Hyundai",
     model: "i20 N Line Mild-Hybrid-LED-ACC-RFK-Navi-CarPlay",
     year: 2022,
@@ -132,7 +142,7 @@ export const vehicles: Vehicle[] = [
   },
   {
     id: "kia-stonic-vision",
-    images: [placeholder],
+    images: [kiaStonicImage],
     brand: "Kia",
     model: "Stonic Vision-RFK-LHZ-Navi-SHZ-CarPlay",
     year: 2020,
@@ -145,7 +155,7 @@ export const vehicles: Vehicle[] = [
   },
   {
     id: "ford-focus-turnier-titanium",
-    images: [placeholder],
+    images: [fordFocusTurnierImage],
     brand: "Ford",
     model: "Focus Turnier Titanium-CarPlay-Navi-PDC",
     year: 2024,
@@ -159,7 +169,7 @@ export const vehicles: Vehicle[] = [
   },
   {
     id: "land-rover-discovery-sport-r-dynamic-se",
-    images: [placeholder],
+    images: [landRoverDiscoverySportImage],
     brand: "Land Rover",
     model: "Discovery Sport R-Dynamic SE-Meridian-Memory-360",
     year: 2023,
@@ -172,7 +182,7 @@ export const vehicles: Vehicle[] = [
   },
   {
     id: "mercedes-gle-300d-4matic",
-    images: [placeholder],
+    images: [mercedesGle300dImage],
     brand: "Mercedes-Benz",
     model: "GLE 300 d 4Matic-AMG-Pano-7-Sitzer-SHZ-SBL-360",
     year: 2023,
@@ -185,7 +195,7 @@ export const vehicles: Vehicle[] = [
   },
   {
     id: "audi-q3-e-hybrid",
-    images: [placeholder],
+    images: [audiQ3EHybridImage],
     brand: "Audi",
     model: "Q3 e-hybrid 200 kW-Matrix-S Line-RFK-Tech Plus",
     year: 2026,
