@@ -35,7 +35,7 @@ export interface Vehicle {
   vatIncluded?: boolean;
 }
 
-// Bestand geprüft am 26.08.2026 – Quelle: https://home.mobile.de/HOCHTAUNUSAUTOMOBILE
+// Bestand geprüft am 01.09.2026 – Quelle: https://home.mobile.de/HOCHTAUNUSAUTOMOBILE
 // Nur verifizierte Angaben. Fehlende Werte bleiben leer (nicht erfunden).
 export const vehicles: Vehicle[] = [
   {
