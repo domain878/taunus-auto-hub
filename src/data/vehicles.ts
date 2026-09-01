@@ -11,6 +11,8 @@ import fordFocusTurnierImage from "@/assets/current-vehicles/10-ford-focus-turni
 import landRoverDiscoverySportImage from "@/assets/current-vehicles/11-land-rover-discovery-sport.jpg";
 import mercedesGle300dImage from "@/assets/current-vehicles/12-mercedes-gle300d.jpg";
 import audiQ3EHybridImage from "@/assets/current-vehicles/13-audi-q3-e-hybrid.jpg";
+import seatAronaImage from "@/assets/current-vehicles/14-seat-arona.jpg";
+import kiaSorentoImage from "@/assets/current-vehicles/15-kia-sorento.jpg";
 
 export interface Vehicle {
   id: string;
