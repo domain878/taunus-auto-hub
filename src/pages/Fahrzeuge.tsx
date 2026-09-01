@@ -108,6 +108,7 @@ return (
                   <SelectItem value="kia">Kia</SelectItem>
                   <SelectItem value="landrover">Land Rover</SelectItem>
                   <SelectItem value="mercedes">Mercedes-Benz</SelectItem>
+                  <SelectItem value="seat">Seat</SelectItem>
                   <SelectItem value="vw">Volkswagen</SelectItem>
                 </SelectContent>
 
