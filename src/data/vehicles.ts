@@ -209,6 +209,32 @@ export const vehicles: Vehicle[] = [
     condition: "Unfallfrei",
     vatIncluded: true,
   },
+  {
+    id: "seat-arona-xcellence",
+    images: [seatAronaImage],
+    brand: "Seat",
+    model: "Arona Xcellence-CarPlay-AHK-NAVI-SHZ-RFK",
+    year: 2019,
+    price: 12890,
+    mileage: 107300,
+    fuel: "Diesel",
+    power: "85 kW (116 PS)",
+    firstRegistration: "01/2019",
+    condition: "Gebraucht",
+  },
+  {
+    id: "kia-sorento-2-5-crdi-vgt-ex",
+    images: [kiaSorentoImage],
+    brand: "Kia",
+    model: "Sorento 2.5 CRDi VGT EX-LEDER-SHZ-DVD-SD-PDC",
+    year: 2009,
+    price: 3790,
+    mileage: 190000,
+    fuel: "Diesel",
+    power: "125 kW (170 PS)",
+    firstRegistration: "07/2009",
+    condition: "Unfallfrei",
+  },
 ];
 
 export const featuredVehicleIds = [
