@@ -57,7 +57,7 @@ export const vehicles: Vehicle[] = [
     brand: "Mercedes-Benz",
     model: "C 200 LED-Key-CarPlay-Vollleder-Widescreen",
     year: 2018,
-    price: 23900,
+    price: 23400,
     mileage: 45000,
     fuel: "Benzin",
     power: "135 kW (184 PS)",
