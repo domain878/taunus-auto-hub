@@ -11,6 +11,8 @@ import fordFocusTurnierImage from "@/assets/current-vehicles/10-ford-focus-turni
 import landRoverDiscoverySportImage from "@/assets/current-vehicles/11-land-rover-discovery-sport.jpg";
 import mercedesGle300dImage from "@/assets/current-vehicles/12-mercedes-gle300d.jpg";
 import audiQ3EHybridImage from "@/assets/current-vehicles/13-audi-q3-e-hybrid.jpg";
+import seatAronaImage from "@/assets/current-vehicles/14-seat-arona.jpg";
+import kiaSorentoImage from "@/assets/current-vehicles/15-kia-sorento.jpg";
 
 export interface Vehicle {
   id: string;
@@ -55,7 +57,7 @@ export const vehicles: Vehicle[] = [
     brand: "Mercedes-Benz",
     model: "C 200 LED-Key-CarPlay-Vollleder-Widescreen",
     year: 2018,
-    price: 23900,
+    price: 23400,
     mileage: 45000,
     fuel: "Benzin",
     power: "135 kW (184 PS)",
@@ -206,6 +208,32 @@ export const vehicles: Vehicle[] = [
     firstRegistration: "01/2026",
     condition: "Unfallfrei",
     vatIncluded: true,
+  },
+  {
+    id: "seat-arona-xcellence",
+    images: [seatAronaImage],
+    brand: "Seat",
+    model: "Arona Xcellence-CarPlay-AHK-NAVI-SHZ-RFK",
+    year: 2019,
+    price: 12890,
+    mileage: 107300,
+    fuel: "Diesel",
+    power: "85 kW (116 PS)",
+    firstRegistration: "01/2019",
+    condition: "Gebraucht",
+  },
+  {
+    id: "kia-sorento-2-5-crdi-vgt-ex",
+    images: [kiaSorentoImage],
+    brand: "Kia",
+    model: "Sorento 2.5 CRDi VGT EX-LEDER-SHZ-DVD-SD-PDC",
+    year: 2009,
+    price: 3790,
+    mileage: 190000,
+    fuel: "Diesel",
+    power: "125 kW (170 PS)",
+    firstRegistration: "07/2009",
+    condition: "Unfallfrei",
   },
 ];
 
