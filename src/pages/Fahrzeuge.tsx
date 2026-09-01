@@ -17,6 +17,7 @@ const brandMatchers: Record<string, string[]> = {
   hyundai: ["hyundai"],
   kia: ["kia"],
   ford: ["ford"],
+  seat: ["seat"],
 };
 
 const Fahrzeuge = () => {
