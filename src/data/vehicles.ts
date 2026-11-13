@@ -137,6 +137,21 @@ export const vehicles: Vehicle[] = [
     firstRegistration: "01/2020",
     condition: "Unfallfrei",
   },
+  {
+    id: "skoda-kodiaq-style-4x4",
+    images: [],
+    brand: "Skoda",
+    model: "Kodiaq Style 4x4-7 Sitzer-RFK-Canton-4xSHZ",
+    year: 2017,
+    price: 13990,
+    mileage: 230000,
+    fuel: "Benzin",
+    power: "132 kW (179 PS)",
+    firstRegistration: "10/2017",
+    condition: "Gebraucht",
+    transmission: "Automatik",
+    seats: 7,
+  },
 ];
 
 export const featuredVehicleIds = [
