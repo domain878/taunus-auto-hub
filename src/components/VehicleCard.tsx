@@ -60,11 +60,17 @@ const VehicleCard = ({
 
   return <Card className="overflow-hidden hover:shadow-lg transition-all duration-300 hover:-translate-y-2 hover:scale-[1.02] animate-fade-in">
       <div className="aspect-video overflow-hidden relative group">
-        <img 
-          src={images[currentImageIndex]} 
-          alt={`${brand} ${model}`}
-          className="w-full h-full object-cover"
-        />
+        {images.length > 0 ? (
+          <img 
+            src={images[currentImageIndex]} 
+            alt={`${brand} ${model}`}
+            className="w-full h-full object-cover"
+          />
+        ) : (
+          <div className="w-full h-full flex items-center justify-center bg-muted text-muted-foreground font-medium text-center px-4">
+            Bilder folgen bald
+          </div>
+        )}
         {images.length > 1 && (
           <>
             <button
